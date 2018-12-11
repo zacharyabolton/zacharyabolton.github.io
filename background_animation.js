@@ -65,7 +65,7 @@ function draw() {
         if (breath == 256)
         {
             inhale = false;
-            theme_color[0] -= 120;
+            theme_color[0] -= 30;
         }
     }
     else
@@ -74,7 +74,7 @@ function draw() {
         if (breath == 0)
         {
             inhale = true;
-            theme_color[0] += 120;
+            theme_color[0] += 60;
         }
     }
 
@@ -82,6 +82,6 @@ function draw() {
     textSize((radius*2)/5);
     textAlign(CENTER);
     textFont(monoFont);
-    text('Jiggy Shmo', 10, 30);
+    text('Jiggy Shmo', 10, 60);
     fill(10);
 }
