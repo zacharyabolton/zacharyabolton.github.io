@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+        <meta name='viewport' content='width=device-width, initial-scale=1' charset='utf-8'>
         <title>Do The Jiggy Shmo</title>
-        <!-- <script src="node_modules/jquery/dist/jquery.js"></script> -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="p5.js"></script>
-        <script src="p5.dom.js"></script>
-        <script src="background_animation.js"></script>
+
+        <!-- assets -->
+        <script src='assets/p5.min.js'></script>
+        <script src='assets/p5.dom.js'></script>
+
+        <!-- my scripts -->
+        <script src='scripts/background_animation.js'></script>
+
+        <!-- my styles -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/background_animation.css">
     </head>
     <body>
-        <!-- <button id="new-animation">New Animation</button> -->
+        <div style='text-align: center;'>
+            <button id='newAnimationButton' onclick='newAnimation()'>Random</button>
+            <!-- <input type="range" min="9" max="4000" value="50" class="slider" id="nodesSlider">
+            <input type="range" min="1" max="100" value="50" class="slider" id="factorSlider"> -->
+            <!-- <button style='background-color: transparent; color: white; border: none; text-shadow: 0px 0px 6px black;' id='new-animation'>New Animation</button> -->
+        </div>
     </body>
 </html>

@@ -1,0 +1,8 @@
+#newAnimationButton {
+    font-family: 'helvetica';
+    border: none;
+    background-color: transparent;
+    text-shadow: -1px 0 rgb(80, 80, 80), 0 1px rgb(80, 80, 80), 1px 0 rgb(80, 80, 80), 0 -1px rgb(80, 80, 80);
+    font-weight: lighter;
+    font-size: 1rem;
+}
