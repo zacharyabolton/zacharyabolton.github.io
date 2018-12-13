@@ -28,7 +28,7 @@ function windowResized()
 {
     resizeCanvas(windowWidth, windowHeight);
     radius = min(windowHeight, windowWidth)/2;
-    animationControlsContainer.position(0, (windowHeight/2) - 60);
+    animationControlsContainer.position(0, (windowHeight/2) - 90);
     animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
     animationControlsContainer.style('width', (windowWidth*0.9)+'px');
     background(10);
@@ -102,13 +102,13 @@ function draw() {
 function animationControls()
 {
     animationControlsContainer = createDiv();
-    animationControlsContainer.position(0, (windowHeight/2) - 60);
+    animationControlsContainer.position(0, (windowHeight/2) - 90);
     animationControlsContainer.style('padding', '0% 5% 0% 5%');
     animationControlsContainer.style('width', '90%');
     animationControlsContainer.style('text-align', 'center');
     animationControlsContainer.style('font-family', 'helvetica');
     animationControlsContainer.style('font-size', '1rem');
-    animationControlsContainer.style('text-shadow', '-1px 0 rgb(80, 80, 80), 0 1px rgb(80, 80, 80), 1px 0 rgb(80, 80, 80), 0 -1px rgb(80, 80, 80)');
+    animationControlsContainer.style('text-shadow', '-1px 0 rgb(160, 160, 160), 0 1px rgb(160, 160, 160), 1px 0 rgb(160, 160, 160), 0 -1px rgb(160, 160, 160)');
 
     nodes = ceil(random(minNodes, maxNodes));
     var maxFactor = nodes/maxFactorRelToNodes;
@@ -116,8 +116,8 @@ function animationControls()
 
     nodeSlider = createSlider(minNodes, maxNodes, nodes, 1);
     nodeSlider.parent(animationControlsContainer);
-    nodeSlider.style('display', 'block');
-    nodeSlider.style('width', '100%');
+    // nodeSlider.style('display', 'block');
+    // nodeSlider.style('width', '100%');
     // nodeSlider.style('height', '30px');
 
     nodeDisplay = createP('Base: ');
@@ -138,8 +138,8 @@ function animationControls()
 
     factorSlider = createSlider(minFactor, maxFactor, factor, 1);
     factorSlider.parent(animationControlsContainer);
-    factorSlider.style('display', 'block');
-    factorSlider.style('width', '100%');
+    // factorSlider.style('display', 'block');
+    // factorSlider.style('width', '100%');
 
     nodeSlider.input(function(){
         nodes = nodeSlider.value();
