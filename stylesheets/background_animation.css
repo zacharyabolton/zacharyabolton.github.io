@@ -12,6 +12,12 @@
     left: 0;
     right: 0;
     margin: auto;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
 }
 
 .node-controls-container, .factor-controls-container {
