@@ -190,44 +190,48 @@ function animationControls()
     nodeIncUserInput.parent(nodeControlsContainer);
 
     nodeDecUserInput.mousePressed(function(){
-        nodeDecUserInput.style('border-right', '2rem solid white');
-        nodeUserOutput.style('color', 'white');
-        nodeDecIsDown = true;
-        nodes --;
-        nodeUserOutput.html(nodes);
-        clear();
-        background(10);
-        setTimeout(function(){
-            if (nodeDecIsDown)
-            {
-                long = true;
-            }
-            else
-            {
-                long = false;
-            }
-            
-        }, 600);
+        if (nodes > minNodes){
+            nodeDecUserInput.style('border-right', '2rem solid white');
+            nodeUserOutput.style('color', 'white');
+            nodeDecIsDown = true;
+            nodes --;
+            nodeUserOutput.html(nodes);
+            clear();
+            background(10);
+            setTimeout(function(){
+                if (nodeDecIsDown)
+                {
+                    long = true;
+                }
+                else
+                {
+                    long = false;
+                }
+                
+            }, 600);
+        }
     });
     nodeIncUserInput.mousePressed(function(){
-        nodeIncUserInput.style('border-left', '2rem solid white');
-        nodeUserOutput.style('color', 'white');
-        nodeIncIsDown = true;
-        nodes ++;
-        nodeUserOutput.html(nodes);
-        clear();
-        background(10);
-        setTimeout(function(){
-            if (nodeIncIsDown)
-            {
-                long = true;
-            }
-            else
-            {
-                long = false;
-            }
-            
-        }, 600);
+        if (nodes < maxNodes){
+            nodeIncUserInput.style('border-left', '2rem solid white');
+            nodeUserOutput.style('color', 'white');
+            nodeIncIsDown = true;
+            nodes ++;
+            nodeUserOutput.html(nodes);
+            clear();
+            background(10);
+            setTimeout(function(){
+                if (nodeIncIsDown)
+                {
+                    long = true;
+                }
+                else
+                {
+                    long = false;
+                }
+                
+            }, 600);
+        }
     });
 
     // =================================
@@ -243,44 +247,48 @@ function animationControls()
     factorIncUserInput.parent(factorControlsContainer);
 
     factorDecUserInput.mousePressed(function(){
-        factorDecUserInput.style('border-right', '2rem solid white');
-        factorUserOutput.style('color', 'white');
-        factorDecIsDown = true;
-        factor --;
-        factorUserOutput.html(factor);
-        clear();
-        background(10);
-        setTimeout(function(){
-            if (factorDecIsDown)
-            {
-                long = true;
-            }
-            else
-            {
-                long = false;
-            }
-            
-        }, 600);
+        if (factor > minFactor){
+            factorDecUserInput.style('border-right', '2rem solid white');
+            factorUserOutput.style('color', 'white');
+            factorDecIsDown = true;
+            factor --;
+            factorUserOutput.html(factor);
+            clear();
+            background(10);
+            setTimeout(function(){
+                if (factorDecIsDown)
+                {
+                    long = true;
+                }
+                else
+                {
+                    long = false;
+                }
+                
+            }, 600);
+        }
     });
     factorIncUserInput.mousePressed(function(){
-        factorIncUserInput.style('border-left', '2rem solid white');
-        factorUserOutput.style('color', 'white');
-        factorIncIsDown = true;
-        factor ++;
-        factorUserOutput.html(factor);
-        clear();
-        background(10);
-        setTimeout(function(){
-            if (factorIncIsDown)
-            {
-                long = true;
-            }
-            else
-            {
-                long = false;
-            }
-            
-        }, 600);
+        if (factor < maxNodes){
+            factorIncUserInput.style('border-left', '2rem solid white');
+            factorUserOutput.style('color', 'white');
+            factorIncIsDown = true;
+            factor ++;
+            factorUserOutput.html(factor);
+            clear();
+            background(10);
+            setTimeout(function(){
+                if (factorIncIsDown)
+                {
+                    long = true;
+                }
+                else
+                {
+                    long = false;
+                }
+                
+            }, 600);
+        }
     });
 
 };
