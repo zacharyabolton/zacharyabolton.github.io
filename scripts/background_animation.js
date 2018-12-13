@@ -29,6 +29,8 @@ function windowResized()
     resizeCanvas(windowWidth, windowHeight);
     radius = min(windowHeight, windowWidth)/2;
     animationControlsContainer.position(0, (windowHeight/2) - 60);
+    animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
+    animationControlsContainer.style('width', (windowWidth*0.9)+'px');
     background(10);
 
 };
