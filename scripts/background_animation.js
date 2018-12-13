@@ -11,31 +11,58 @@ var current_product;
 var theme_color;
 var breath = 0;
 var inhale = true;
-var myFont;
 var maxNodes = 4000;
 var minNodes = 9;
 var minFactor = 2;
 var maxFactorRelToNodes = 3;
-var nodeSlider;
-var nodeDisplay;
-var nodeSpan;
-var factorSlider;
-var factorDisplay;
-var factorSpan;
 var animationControlsContainer;
+var nodeControlsContainer;
+var factorControlsContainer;
+var nodeIncUserInput;
+var nodeDecUserInput;
+var nodeUserOutput;
+var factorIncUserInput;
+var factorDeccUserInput;
+var factorUserOutput;
+var newAnimationButton;
+var nodeDecIsDown = false;
+var nodeIncIsDown = false;
+var factorDecIsDown = false;
+var factorIncIsDown = false;
+var long = false;
+
+window.addEventListener('mouseup', handleMouseUp);
+
+function handleMouseUp() {
+    nodeDecIsDown = false;
+    nodeIncIsDown = false;
+    factorDecIsDown = false;
+    factorIncIsDown = false;
+    long = false;
+
+    console.log('mouse is up');
+    setTimeout(function(){
+        nodeDecUserInput.style('border-right', '2rem solid #1A1A1A');
+        nodeIncUserInput.style('border-left', '2rem solid #1A1A1A')
+        nodeUserOutput.style('color', '#1A1A1A');
+
+        factorDecUserInput.style('border-right', '2rem solid #1A1A1A');
+        factorIncUserInput.style('border-left', '2rem solid #1A1A1A')
+        factorUserOutput.style('color', '#1A1A1A');
+    }, 100);
+}
 
 function windowResized()
 {
     resizeCanvas(windowWidth, windowHeight);
     radius = min(windowHeight, windowWidth)/2;
-    animationControlsContainer.position(0, (windowHeight/2) - 90);
-    animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
-    animationControlsContainer.style('width', (windowWidth*0.9)+'px');
+    // animationControlsContainer.position(0, (windowHeight/2) - 90);
+    // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
+    // animationControlsContainer.style('width', (windowWidth*0.9)+'px');
     background(10);
-
 };
 
-function setup(nodes, factor) {
+function setup() {
     pixelDensity(1);
     colorMode(HSB);
 
@@ -55,15 +82,49 @@ function setup(nodes, factor) {
     animationControls();
 };
 
-function newAnimation(n_inp, f_inp)
+function newAnimation()
 {
+    newAnimationButton.remove();
     animationControlsContainer.remove();
     canvas.remove();
 
-    setup(n_inp, f_inp);
+    setup();
 };
 
 function draw() {
+    if (nodeDecIsDown && (nodes > minNodes) && long){
+        nodeDecUserInput.style('border-right', '2rem solid white');
+        nodeUserOutput.style('color', 'white');
+        nodes --;
+        nodeUserOutput.html(nodes);
+        clear();
+        background(10);   
+    }
+    if (nodeIncIsDown && (nodes < maxNodes) && long){
+        nodeIncUserInput.style('border-left', '2rem solid white');
+        nodeUserOutput.style('color', 'white');
+        nodes ++;
+        nodeUserOutput.html(nodes);
+        clear();
+        background(10);   
+    }
+    if (factorDecIsDown && (factor > minFactor) && long){
+        factorDecUserInput.style('border-right', '2rem solid white');
+        factorUserOutput.style('color', 'white');
+        factor --;
+        factorUserOutput.html(factor);
+        clear();
+        background(10);
+    }
+    if (factorIncIsDown && (factor < maxNodes) && long){
+        factorIncUserInput.style('border-left', '2rem solid white');
+        factorUserOutput.style('color', 'white');
+        factor ++;
+        factorUserOutput.html(factor);
+        clear();
+        background(10);
+    }
+
     translate(windowWidth/2, windowHeight/2);
 
     x1 = sin(((2*PI)/nodes) * t) * radius;
@@ -85,7 +146,7 @@ function draw() {
         if (breath == 256)
         {
             inhale = false;
-            theme_color[0] -= 30;
+            theme_color[0] -= 120;
         }
     }
     else
@@ -94,64 +155,170 @@ function draw() {
         if (breath == 0)
         {
             inhale = true;
-            theme_color[0] += 60;
+            theme_color[0] += 120;
         }
     }
 };
 
 function animationControls()
 {
-    animationControlsContainer = createDiv();
-    animationControlsContainer.position(0, (windowHeight/2) - 90);
-    animationControlsContainer.style('padding', '0% 5% 0% 5%');
-    animationControlsContainer.style('width', '90%');
-    animationControlsContainer.style('text-align', 'center');
-    animationControlsContainer.style('font-family', 'helvetica');
-    animationControlsContainer.style('font-size', '1rem');
-    animationControlsContainer.style('text-shadow', '-1px 0 rgb(160, 160, 160), 0 1px rgb(160, 160, 160), 1px 0 rgb(160, 160, 160), 0 -1px rgb(160, 160, 160)');
+    newAnimationButton = createButton('New Animation').addClass('new-animation-button');
+    newAnimationButton.mousePressed(newAnimation);
 
     nodes = ceil(random(minNodes, maxNodes));
     var maxFactor = nodes/maxFactorRelToNodes;
     factor = ceil(random(minFactor, maxFactor));
 
-    nodeSlider = createSlider(minNodes, maxNodes, nodes, 1);
-    nodeSlider.parent(animationControlsContainer);
-    // nodeSlider.style('display', 'block');
-    // nodeSlider.style('width', '100%');
-    // nodeSlider.style('height', '30px');
+    animationControlsContainer = createDiv().addClass('animation-controls-container');
 
-    nodeDisplay = createP('Base: ');
-    nodeSpan = createSpan(nodes);
-    nodeSpan.style('font-size', '1.9rem');
-    nodeSpan.style('font-weight', 'bold');
-    nodeDisplay.parent(animationControlsContainer);
-    nodeDisplay.style('margin', '0px');
-    nodeSpan.parent(nodeDisplay);
+    nodeControlsContainer = createDiv().addClass('node-controls-container');
+    nodeControlsContainer.parent(animationControlsContainer);
 
-    factorDisplay = createP('Factor: ');
-    factorSpan = createSpan(factor);
-    factorSpan.style('font-size', '1.9rem');
-    factorSpan.style('font-weight', 'bold');
-    factorDisplay.parent(animationControlsContainer);
-    factorDisplay.style('margin', '0px');
-    factorSpan.parent(factorDisplay);
+    factorControlsContainer = createDiv().addClass('factor-contols-container');
+    factorControlsContainer.parent(animationControlsContainer);
 
-    factorSlider = createSlider(minFactor, maxFactor, factor, 1);
-    factorSlider.parent(animationControlsContainer);
-    // factorSlider.style('display', 'block');
-    // factorSlider.style('width', '100%');
+    // =================================
+    // ========= NODE CONTROLS =========
+    // =================================
+    nodeDecUserInput = createDiv().addClass('input decrement node-controls');
+    nodeDecUserInput.parent(nodeControlsContainer);
 
-    nodeSlider.input(function(){
-        nodes = nodeSlider.value();
-        nodeSpan.html(nodes);
+    nodeUserOutput = createDiv(nodes).addClass('output node-controls');
+    nodeUserOutput.parent(nodeControlsContainer);
+
+    nodeIncUserInput = createDiv().addClass('input increment node-controls');
+    nodeIncUserInput.parent(nodeControlsContainer);
+
+    nodeDecUserInput.mousePressed(function(){
+        nodeDecUserInput.style('border-right', '2rem solid white');
+        nodeUserOutput.style('color', 'white');
+        nodeDecIsDown = true;
+        nodes --;
+        nodeUserOutput.html(nodes);
         clear();
         background(10);
+        setTimeout(function(){
+            if (nodeDecIsDown)
+            {
+                long = true;
+            }
+            else
+            {
+                long = false;
+            }
+            
+        }, 600);
     });
-
-    factorSlider.input(function(){
-        factor = factorSlider.value();
-        factorSpan.html(factor);
+    nodeIncUserInput.mousePressed(function(){
+        nodeIncUserInput.style('border-left', '2rem solid white');
+        nodeUserOutput.style('color', 'white');
+        nodeIncIsDown = true;
+        nodes ++;
+        nodeUserOutput.html(nodes);
         clear();
         background(10);
+        setTimeout(function(){
+            if (nodeIncIsDown)
+            {
+                long = true;
+            }
+            else
+            {
+                long = false;
+            }
+            
+        }, 600);
     });
+
+    // =================================
+    // ======== FACTOR CONTROLS ========
+    // =================================
+    factorDecUserInput = createDiv().addClass('input decrement factor-controls');
+    factorDecUserInput.parent(factorControlsContainer);
+
+    factorUserOutput = createDiv(factor).addClass('output factor-controls');
+    factorUserOutput.parent(factorControlsContainer);
+
+    factorIncUserInput = createDiv().addClass('input increment factor-controls');
+    factorIncUserInput.parent(factorControlsContainer);
+
+    factorDecUserInput.mousePressed(function(){
+        factorDecUserInput.style('border-right', '2rem solid white');
+        factorUserOutput.style('color', 'white');
+        factorDecIsDown = true;
+        factor --;
+        factorUserOutput.html(factor);
+        clear();
+        background(10);
+        setTimeout(function(){
+            if (factorDecIsDown)
+            {
+                long = true;
+            }
+            else
+            {
+                long = false;
+            }
+            
+        }, 600);
+    });
+    factorIncUserInput.mousePressed(function(){
+        factorIncUserInput.style('border-left', '2rem solid white');
+        factorUserOutput.style('color', 'white');
+        factorIncIsDown = true;
+        factor ++;
+        factorUserOutput.html(factor);
+        clear();
+        background(10);
+        setTimeout(function(){
+            if (factorIncIsDown)
+            {
+                long = true;
+            }
+            else
+            {
+                long = false;
+            }
+            
+        }, 600);
+    });
+
 };
+
+
+
+
+
+
+// function handleMouseDown() {
+//     console.log('Mouse down...');
+//   // this.innerHTML = "Mouse down...";
+//   isDown = true;                                    // button status (any button here)
+//   isLong = false;                                   // longpress status reset
+//   target = this;                                    // store this as target element
+//   clearTimeout(longTID);                            // clear any running timers
+//   longTID = setTimeout(longPress.bind(this), 1500); // create a new timer for this click
+// };
+
+// function handleMouseUp(e) {
+//   if (isDown && isLong) {                           // if a long press, cancel
+//     isDown = false;                                 // clear in any case
+//     e.preventDefault();                             // and ignore this event
+//     return
+//   }
+  
+//   if (isDown) {                                     // if we came from down status:
+//       clearTimeout(longTID);                        // clear timer to avoid false longpress
+//       isDown = false;
+//       // target.innerHTML = "Normal up";               // for clicked element
+//       console.log('Normal up');
+//       target = null;
+//   }
+// };
+
+// function longPress() {
+//   isLong = true;
+//   // this.innerHTML = "Long press";
+//   console.log('Long press');
+//   // throw custom event or call code for long press
+// }
