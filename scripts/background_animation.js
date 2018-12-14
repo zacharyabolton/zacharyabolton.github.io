@@ -32,11 +32,26 @@ var factorIncIsDown = false;
 var long = false;
 var holdTime = 200;
 var highlightTimeout = 200;
+var currentEvent;
+var isTouch = ('ontouchstart' in window);
 
-window.addEventListener('mouseup', handleMouseUp);
+function kill(type){
+ window.addEventListener(type, function(e){
+   e.preventDefault();
+   e.stopPropagation();
+   return false;
+ }, true);
+}
+
+if( isTouch ){
+ kill('mousedown');
+}
+
 window.addEventListener('touchend', handleMouseUp);
+window.addEventListener('mouseup', handleMouseUp);
 
 function handleMouseUp() {
+    console.log(currentEvent);
     nodeDecIsDown = false;
     nodeIncIsDown = false;
     factorDecIsDown = false;
@@ -59,7 +74,7 @@ function windowResized()
     console.log('loaded');
     resizeCanvas(windowWidth, windowHeight);
     radius = min(windowHeight, windowWidth)/2;
-    // animationControlsContainer.position(0, 0);
+    animationControlsContainer.position(0, 0);
     // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
     
     animationControlsContainer.style('width', windowWidth+'px');
@@ -73,7 +88,6 @@ function windowResized()
     // animationControlsContainer.style('right', 0);
     animationControlsContainer.style('margin', 'auto');
 
-    // animationControlsContainer.style('height', windowWidth+'px');
     background(10);
 };
 
@@ -208,7 +222,8 @@ function animationControls(udnodes, udfactor)
     nodeIncUserInput.parent(nodeControlsContainer);
 
     nodeDecUserInput.mousePressed(function(e){
-        if (nodes > minNodes){
+        if ((nodes > minNodes) && !long){
+            currentEvent = e;
             nodeDecUserInput.style('border-right', '2rem solid white');
             nodeUserOutput.style('color', 'white');
             nodeDecIsDown = true;
@@ -227,10 +242,10 @@ function animationControls(udnodes, udfactor)
                 
             }, holdTime);
         }
-        e.preventDefault();
     });
     nodeIncUserInput.mousePressed(function(e){
-        if (nodes < maxNodes){
+        if ((nodes < maxNodes) && !long){
+            currentEvent = e;
             nodeIncUserInput.style('border-left', '2rem solid white');
             nodeUserOutput.style('color', 'white');
             nodeIncIsDown = true;
@@ -249,7 +264,6 @@ function animationControls(udnodes, udfactor)
                 
             }, holdTime);
         }
-        e.preventDefault();
     });
 
     // =================================
@@ -265,7 +279,8 @@ function animationControls(udnodes, udfactor)
     factorIncUserInput.parent(factorControlsContainer);
 
     factorDecUserInput.mousePressed(function(e){
-        if (factor > minFactor){
+        if ((factor > minFactor) && !long){
+            currentEvent = e;
             factorDecUserInput.style('border-right', '2rem solid white');
             factorUserOutput.style('color', 'white');
             factorDecIsDown = true;
@@ -284,10 +299,11 @@ function animationControls(udnodes, udfactor)
                 
             }, holdTime);
         }
-        e.preventDefault();
+        
     });
     factorIncUserInput.mousePressed(function(e){
-        if (factor < maxNodes){
+        if ((factor < maxNodes) && !long){
+            currentEvent = e;
             factorIncUserInput.style('border-left', '2rem solid white');
             factorUserOutput.style('color', 'white');
             factorIncIsDown = true;
@@ -303,10 +319,7 @@ function animationControls(udnodes, udfactor)
                 {
                     long = false;
                 }
-                
             }, holdTime);
         }
-        e.preventDefault();
     });
-
 };
