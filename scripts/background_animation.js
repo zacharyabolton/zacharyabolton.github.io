@@ -94,6 +94,13 @@ function windowResized()
     background(10);
 };
 
+function deviceMoved()
+{
+    alert('deviceMoved');
+    console.log('bla');
+    windowResized
+}
+
 function newAnimation(nodes, factor, ui = false)
 {
     setTimeout(function(){
