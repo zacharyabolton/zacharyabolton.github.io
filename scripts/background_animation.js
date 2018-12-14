@@ -56,13 +56,14 @@ function handleMouseUp() {
 
 function windowResized()
 {
+    console.log('loaded');
     resizeCanvas(windowWidth, windowHeight);
     radius = min(windowHeight, windowWidth)/2;
     // animationControlsContainer.position(0, 0);
     // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
     
-    // animationControlsContainer.style('width', windowWidth+'px');
-    
+    animationControlsContainer.style('width', windowWidth+'px');
+
     animationControlsContainer.style('height', '6.4rem');
     animationControlsContainer.style('text-align', 'center');
     animationControlsContainer.style('position', 'absolute');
