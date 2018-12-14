@@ -32,6 +32,7 @@ var factorIncIsDown = false;
 var long = false;
 
 window.addEventListener('mouseup', handleMouseUp);
+window.addEventListener('touchend', handleMouseUp);
 
 function handleMouseUp() {
     nodeDecIsDown = false;
@@ -145,7 +146,7 @@ function draw() {
         if (breath == 256)
         {
             inhale = false;
-            theme_color[0] -= 120;
+            // theme_color[0] -= 120;
         }
     }
     else
@@ -154,7 +155,7 @@ function draw() {
         if (breath == 0)
         {
             inhale = true;
-            theme_color[0] += 120;
+            theme_color[0] = (theme_color[0] + 120) % 256;
         }
     }
 };
@@ -188,7 +189,7 @@ function animationControls()
     nodeIncUserInput = createDiv().addClass('input increment node-controls');
     nodeIncUserInput.parent(nodeControlsContainer);
 
-    nodeDecUserInput.mousePressed(function(){
+    nodeDecUserInput.mousePressed(function(e){
         if (nodes > minNodes){
             nodeDecUserInput.style('border-right', '2rem solid white');
             nodeUserOutput.style('color', 'white');
@@ -209,12 +210,9 @@ function animationControls()
                 
             }, 600);
         }
+        e.preventDefault();
     });
     nodeIncUserInput.mousePressed(function(e){
-        // e.preventDefault();
-        // e.stopImmediatePropagation();
-        console.log(e);
-        console.log(e == 'TouchEvent');
         if (nodes < maxNodes){
             nodeIncUserInput.style('border-left', '2rem solid white');
             nodeUserOutput.style('color', 'white');
@@ -235,6 +233,7 @@ function animationControls()
                 
             }, 600);
         }
+        e.preventDefault();
     });
 
     // =================================
@@ -249,7 +248,7 @@ function animationControls()
     factorIncUserInput = createDiv().addClass('input increment factor-controls');
     factorIncUserInput.parent(factorControlsContainer);
 
-    factorDecUserInput.mousePressed(function(){
+    factorDecUserInput.mousePressed(function(e){
         if (factor > minFactor){
             factorDecUserInput.style('border-right', '2rem solid white');
             factorUserOutput.style('color', 'white');
@@ -270,8 +269,9 @@ function animationControls()
                 
             }, 600);
         }
+        e.preventDefault();
     });
-    factorIncUserInput.mousePressed(function(){
+    factorIncUserInput.mousePressed(function(e){
         if (factor < maxNodes){
             factorIncUserInput.style('border-left', '2rem solid white');
             factorUserOutput.style('color', 'white');
@@ -292,6 +292,7 @@ function animationControls()
                 
             }, 600);
         }
+        e.preventDefault();
     });
 
 };
