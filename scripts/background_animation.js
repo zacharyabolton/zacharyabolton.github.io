@@ -73,6 +73,7 @@ function handleMouseUp() {
 
 function windowResized()
 {
+    alert('windowResized');
     resizeCanvas(windowWidth, windowHeight);
     canvas.position(0,0);
     canvas.style('z-index', -1);
@@ -93,13 +94,6 @@ function windowResized()
 
     background(10);
 };
-
-function deviceMoved()
-{
-    alert('deviceMoved');
-    console.log('bla');
-    windowResized
-}
 
 function newAnimation(nodes, factor, ui = false)
 {
