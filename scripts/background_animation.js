@@ -40,7 +40,6 @@ function handleMouseUp() {
     factorIncIsDown = false;
     long = false;
 
-    console.log('mouse is up');
     setTimeout(function(){
         nodeDecUserInput.style('border-right', '2rem solid #1A1A1A');
         nodeIncUserInput.style('border-left', '2rem solid #1A1A1A')
@@ -211,7 +210,11 @@ function animationControls()
             }, 600);
         }
     });
-    nodeIncUserInput.mousePressed(function(){
+    nodeIncUserInput.mousePressed(function(e){
+        // e.preventDefault();
+        // e.stopImmediatePropagation();
+        console.log(e);
+        console.log(e == 'TouchEvent');
         if (nodes < maxNodes){
             nodeIncUserInput.style('border-left', '2rem solid white');
             nodeUserOutput.style('color', 'white');
