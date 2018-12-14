@@ -34,8 +34,8 @@
     margin: 0 1rem 0 1rem;
     font-family: impactFont;
     vertical-align: top;
-    /*color: white;*/
-    color: #1A1A1A;
+    color: white;
+    /*color: #1A1A1A;*/
     min-width: 6rem;
     min-height: 3rem;
     font-size: 2.5rem; /*maybe change*/
@@ -50,8 +50,8 @@
     height: 0; 
     border-top: 1.5rem solid transparent;
     border-bottom: 1.5rem solid transparent;
-    border-right: 2rem solid #1A1A1A;
-    /*border-right: 1.5rem solid white;*/
+    /*border-right: 2rem solid #1A1A1A;*/
+    border-right: 1.5rem solid white;
 }
 
 .increment {
@@ -59,8 +59,8 @@
     height: 0; 
     border-top: 1.5rem solid transparent;
     border-bottom: 1.5rem solid transparent;
-    border-left: 2rem solid #1A1A1A;
-    /*border-left: 1.5rem solid white;*/
+    /*border-left: 2rem solid #1A1A1A;*/
+    border-left: 1.5rem solid white;
 }
 
 #newAnimationButton {
