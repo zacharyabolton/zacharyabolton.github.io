@@ -35,6 +35,8 @@ var highlightTimeout = 200;
 var currentEvent;
 var isTouch = ('ontouchstart' in window);
 
+// console.log(window)
+
 function kill(type){
  window.addEventListener(type, function(e){
    e.preventDefault();
@@ -45,13 +47,13 @@ function kill(type){
 
 if( isTouch ){
  kill('mousedown');
+ kill('mousemove');
 }
 
 window.addEventListener('touchend', handleMouseUp);
 window.addEventListener('mouseup', handleMouseUp);
 
 function handleMouseUp() {
-    console.log(currentEvent);
     nodeDecIsDown = false;
     nodeIncIsDown = false;
     factorDecIsDown = false;
@@ -71,44 +73,23 @@ function handleMouseUp() {
 
 function windowResized()
 {
-    console.log('loaded');
     resizeCanvas(windowWidth, windowHeight);
     radius = min(windowHeight, windowWidth)/2;
-    animationControlsContainer.position(0, 0);
+    // animationControlsContainer.position(0, 0);
     // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
     
-    animationControlsContainer.style('width', windowWidth+'px');
+    // animationControlsContainer.style('width', windowWidth+'px');
 
-    animationControlsContainer.style('height', '6.4rem');
-    animationControlsContainer.style('text-align', 'center');
-    animationControlsContainer.style('position', 'absolute');
-    // // animationControlsContainer.style('top', 0);
+    // animationControlsContainer.style('height', '6.4rem');
+    // animationControlsContainer.style('text-align', 'center');
+    // animationControlsContainer.style('position', 'absolute');
+    // animationControlsContainer.style('top', 0);
     // animationControlsContainer.style('bottom', 0);
-    // // animationControlsContainer.style('left', 0);
+    // animationControlsContainer.style('left', 0);
     // animationControlsContainer.style('right', 0);
-    animationControlsContainer.style('margin', 'auto');
+    // animationControlsContainer.style('margin', 'auto');
 
     background(10);
-};
-
-function setup(nodes, factor) {
-    pixelDensity(1);
-    colorMode(HSB);
-
-    theme_color = [random(0,361),70,50];
-
-    canvas = createCanvas(windowWidth, windowHeight);
-    canvas.position(0,0);
-    canvas.style('z-index', -1);
-
-    radius = min(windowHeight, windowWidth)/2;
-
-    t = 0;
-    current_product = 0;
-
-    background(10);
-
-    animationControls(nodes, factor);
 };
 
 function newAnimation(nodes, factor, ui = false)
@@ -121,6 +102,20 @@ function newAnimation(nodes, factor, ui = false)
         setup(nodes, factor);
     }, highlightTimeout);
     
+};
+
+function setup(nodes, factor) {
+    pixelDensity(1);
+    colorMode(HSB);
+    theme_color = [ceil(random(0,360)),70,50];
+    canvas = createCanvas(windowWidth, windowHeight);
+    canvas.position(0,0);
+    canvas.style('z-index', -1);
+    radius = min(windowHeight, windowWidth)/2;
+    t = 0;
+    current_product = 0;
+    background(10);
+    animationControls(nodes, factor);
 };
 
 function draw() {
@@ -243,7 +238,8 @@ function animationControls(udnodes, udfactor)
             }, holdTime);
         }
     });
-    nodeIncUserInput.mousePressed(function(e){
+    nodeIncUserInput.mousePressed(function(e, d){
+        console.log(e.target);
         if ((nodes < maxNodes) && !long){
             currentEvent = e;
             nodeIncUserInput.style('border-left', '2rem solid white');
