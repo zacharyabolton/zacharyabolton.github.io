@@ -61,7 +61,7 @@ function windowResized()
     // animationControlsContainer.position(0, 0);
     // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
     animationControlsContainer.style('width', windowWidth+'px');
-    animationControlsContainer.style('height', windowHeight+'px');
+    animationControlsContainer.style('height', '6.4rem');
     // animationControlsContainer.style('height', windowWidth+'px');
     background(10);
 };
