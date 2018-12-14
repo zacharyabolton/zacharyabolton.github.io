@@ -30,6 +30,8 @@ var nodeIncIsDown = false;
 var factorDecIsDown = false;
 var factorIncIsDown = false;
 var long = false;
+var holdTime = 200;
+var highlightTimeout = 200;
 
 window.addEventListener('mouseup', handleMouseUp);
 window.addEventListener('touchend', handleMouseUp);
@@ -49,20 +51,22 @@ function handleMouseUp() {
         factorDecUserInput.style('border-right', '2rem solid #1A1A1A');
         factorIncUserInput.style('border-left', '2rem solid #1A1A1A')
         factorUserOutput.style('color', '#1A1A1A');
-    }, 100);
+    }, highlightTimeout);
 }
 
 function windowResized()
 {
+    console.log(windowWidth);
     resizeCanvas(windowWidth, windowHeight);
     radius = min(windowHeight, windowWidth)/2;
-    // animationControlsContainer.position(0, (windowHeight/2) - 90);
+    // animationControlsContainer.position(0, 0);
     // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
-    // animationControlsContainer.style('width', (windowWidth*0.9)+'px');
+    animationControlsContainer.style('width', windowWidth+'px');
+    // animationControlsContainer.style('height', windowWidth+'px');
     background(10);
 };
 
-function setup() {
+function setup(nodes, factor) {
     pixelDensity(1);
     colorMode(HSB);
 
@@ -79,16 +83,20 @@ function setup() {
 
     background(10);
 
-    animationControls();
+    animationControls(nodes, factor);
 };
 
-function newAnimation()
+function newAnimation(nodes, factor, ui = false)
 {
-    newAnimationButton.remove();
-    animationControlsContainer.remove();
-    canvas.remove();
+    console.log(ui);
+    setTimeout(function(){
+        newAnimationButton.remove();
+        animationControlsContainer.remove();
+        canvas.remove();
 
-    setup();
+        setup(nodes, factor);
+    }, highlightTimeout);
+    
 };
 
 function draw() {
@@ -97,32 +105,28 @@ function draw() {
         nodeUserOutput.style('color', 'white');
         nodes --;
         nodeUserOutput.html(nodes);
-        clear();
-        background(10);   
+        newAnimation(nodes, factor, true);
     }
     if (nodeIncIsDown && (nodes < maxNodes) && long){
         nodeIncUserInput.style('border-left', '2rem solid white');
         nodeUserOutput.style('color', 'white');
         nodes ++;
         nodeUserOutput.html(nodes);
-        clear();
-        background(10);   
+        newAnimation(nodes, factor, true);
     }
     if (factorDecIsDown && (factor > minFactor) && long){
         factorDecUserInput.style('border-right', '2rem solid white');
         factorUserOutput.style('color', 'white');
         factor --;
         factorUserOutput.html(factor);
-        clear();
-        background(10);
+        newAnimation(nodes, factor, true);
     }
     if (factorIncIsDown && (factor < maxNodes) && long){
         factorIncUserInput.style('border-left', '2rem solid white');
         factorUserOutput.style('color', 'white');
         factor ++;
         factorUserOutput.html(factor);
-        clear();
-        background(10);
+        newAnimation(nodes, factor, true);
     }
 
     translate(windowWidth/2, windowHeight/2);
@@ -146,7 +150,6 @@ function draw() {
         if (breath == 256)
         {
             inhale = false;
-            // theme_color[0] -= 120;
         }
     }
     else
@@ -155,19 +158,24 @@ function draw() {
         if (breath == 0)
         {
             inhale = true;
-            theme_color[0] = (theme_color[0] + 120) % 256;
+            theme_color[0] = (theme_color[0] + 120) % 360;
         }
     }
 };
 
-function animationControls()
+function animationControls(udnodes, udfactor)
 {
     newAnimationButton = createButton('New Animation').addClass('new-animation-button');
     newAnimationButton.mousePressed(newAnimation);
-
-    nodes = ceil(random(minNodes, maxNodes));
+    if (!udnodes)
+    {
+        nodes = ceil(random(minNodes, maxNodes));
+    }
     var maxFactor = nodes/maxFactorRelToNodes;
-    factor = ceil(random(minFactor, maxFactor));
+    if (!udfactor)
+    {
+        factor = ceil(random(minFactor, maxFactor));
+    }
 
     animationControlsContainer = createDiv().addClass('animation-controls-container');
 
@@ -196,8 +204,7 @@ function animationControls()
             nodeDecIsDown = true;
             nodes --;
             nodeUserOutput.html(nodes);
-            clear();
-            background(10);
+            newAnimation(nodes, factor, true);
             setTimeout(function(){
                 if (nodeDecIsDown)
                 {
@@ -208,7 +215,7 @@ function animationControls()
                     long = false;
                 }
                 
-            }, 600);
+            }, holdTime);
         }
         e.preventDefault();
     });
@@ -219,8 +226,7 @@ function animationControls()
             nodeIncIsDown = true;
             nodes ++;
             nodeUserOutput.html(nodes);
-            clear();
-            background(10);
+            newAnimation(nodes, factor, true);
             setTimeout(function(){
                 if (nodeIncIsDown)
                 {
@@ -231,7 +237,7 @@ function animationControls()
                     long = false;
                 }
                 
-            }, 600);
+            }, holdTime);
         }
         e.preventDefault();
     });
@@ -255,8 +261,7 @@ function animationControls()
             factorDecIsDown = true;
             factor --;
             factorUserOutput.html(factor);
-            clear();
-            background(10);
+            newAnimation(nodes, factor, true);
             setTimeout(function(){
                 if (factorDecIsDown)
                 {
@@ -267,7 +272,7 @@ function animationControls()
                     long = false;
                 }
                 
-            }, 600);
+            }, holdTime);
         }
         e.preventDefault();
     });
@@ -278,8 +283,7 @@ function animationControls()
             factorIncIsDown = true;
             factor ++;
             factorUserOutput.html(factor);
-            clear();
-            background(10);
+            newAnimation(nodes, factor, true);
             setTimeout(function(){
                 if (factorIncIsDown)
                 {
@@ -290,47 +294,9 @@ function animationControls()
                     long = false;
                 }
                 
-            }, 600);
+            }, holdTime);
         }
         e.preventDefault();
     });
 
 };
-
-
-
-
-
-
-// function handleMouseDown() {
-//     console.log('Mouse down...');
-//   // this.innerHTML = "Mouse down...";
-//   isDown = true;                                    // button status (any button here)
-//   isLong = false;                                   // longpress status reset
-//   target = this;                                    // store this as target element
-//   clearTimeout(longTID);                            // clear any running timers
-//   longTID = setTimeout(longPress.bind(this), 1500); // create a new timer for this click
-// };
-
-// function handleMouseUp(e) {
-//   if (isDown && isLong) {                           // if a long press, cancel
-//     isDown = false;                                 // clear in any case
-//     e.preventDefault();                             // and ignore this event
-//     return
-//   }
-  
-//   if (isDown) {                                     // if we came from down status:
-//       clearTimeout(longTID);                        // clear timer to avoid false longpress
-//       isDown = false;
-//       // target.innerHTML = "Normal up";               // for clicked element
-//       console.log('Normal up');
-//       target = null;
-//   }
-// };
-
-// function longPress() {
-//   isLong = true;
-//   // this.innerHTML = "Long press";
-//   console.log('Long press');
-//   // throw custom event or call code for long press
-// }
