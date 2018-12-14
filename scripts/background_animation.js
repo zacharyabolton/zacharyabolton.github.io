@@ -73,9 +73,8 @@ function handleMouseUp() {
 
 function windowResized()
 {
-    alert('windowResized');
     resizeCanvas(windowWidth, windowHeight);
-    canvas.position(0,0);
+    // canvas.position(0,0);
     canvas.style('z-index', -1);
     radius = min(windowHeight, windowWidth)/2;
     // animationControlsContainer.position(0, 0);
