@@ -9,14 +9,12 @@
         <link rel="stylesheet" type="text/css" href="stylesheets/background_animation.css">
 
         <!-- assets -->
+        <script src="assets/jquery-3.3.1.min.js"></script>
         <script src='assets/p5.min.js'></script>
         <script src='assets/p5.dom.js'></script>
 
         <!-- my scripts -->
         <script src='scripts/background_animation.js'></script>
-
-
-        
     </head>
     <body>
         <div class="animation-controls-container">
@@ -24,7 +22,7 @@
                 <div class="input decrement node-controls">
                     
                 </div>
-                <div class="output node-controls">
+                <div class="output node-controls" id="nodesOutput">
                     
                 </div>
                 <div class="input increment node-controls">
@@ -35,7 +33,7 @@
                 <div class="input decrement factor-controls">
                     
                 </div>
-                <div class="output factor-controls">
+                <div class="output factor-controls" id="factorOutput">
                     
                 </div>
                 <div class="input increment factor-controls">

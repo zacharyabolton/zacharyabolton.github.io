@@ -182,6 +182,9 @@ function draw() {
             theme_color[0] = (theme_color[0] + 120) % 360;
         }
     }
+
+    $('#nodesOutput').html(nodes);
+    $('#factorOutput').html(factor);
 };
 
 function animationControls(udnodes, udfactor)
