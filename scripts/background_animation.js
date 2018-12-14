@@ -56,12 +56,12 @@ function handleMouseUp() {
 
 function windowResized()
 {
-    console.log(windowWidth);
     resizeCanvas(windowWidth, windowHeight);
     radius = min(windowHeight, windowWidth)/2;
     // animationControlsContainer.position(0, 0);
     // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
     animationControlsContainer.style('width', windowWidth+'px');
+    animationControlsContainer.style('height', windowHeight+'px');
     // animationControlsContainer.style('height', windowWidth+'px');
     background(10);
 };
@@ -88,7 +88,6 @@ function setup(nodes, factor) {
 
 function newAnimation(nodes, factor, ui = false)
 {
-    console.log(ui);
     setTimeout(function(){
         newAnimationButton.remove();
         animationControlsContainer.remove();
