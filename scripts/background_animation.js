@@ -77,15 +77,17 @@ function windowResized()
     // canvas.position(0,0);
     canvas.style('z-index', -1);
     radius = min(windowHeight, windowWidth)/2;
-    $('.container').width(windowWidth);
-    $('.container').height(windowHeight);
-    $('.container').css('text-align', 'center');
-    $('.container').css('position', 'absolute');
-    $('.container').css('top', 0);
-    $('.container').css('bottom', 0);
-    $('.container').css('left', 0);
-    $('.container').css('right', 0);
-    $('.container').css('margin', 'auto');
+    // $('.container').width(windowWidth);
+    // $('.container').height(windowHeight);
+    // $('.container').css('text-align', 'center');
+    // $('.container').css('position', 'absolute');
+    // $('.container').css('top', 0);
+    // $('.container').css('bottom', 0);
+    // $('.container').css('left', 0);
+    // $('.container').css('right', 0);
+    // $('.container').css('margin', 'auto');
+
+    
     // animationControlsContainer.position(0, 0);
     // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
     
