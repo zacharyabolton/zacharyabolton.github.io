@@ -107,7 +107,7 @@ function newAnimation(nodes, factor, ui = false)
 };
 
 function setup(nodes, factor) {
-    pixelDensity(1);
+    // pixelDensity(1);
     colorMode(HSB);
     theme_color = [ceil(random(0,360)),70,50];
     canvas = createCanvas(windowWidth, windowHeight);
