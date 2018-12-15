@@ -77,6 +77,8 @@ function windowResized()
     // canvas.position(0,0);
     canvas.style('z-index', -1);
     radius = min(windowHeight, windowWidth)/2;
+    $('.container').width(windowWidth);
+    $('.container').height(windowHeight);
     // animationControlsContainer.position(0, 0);
     // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
     
