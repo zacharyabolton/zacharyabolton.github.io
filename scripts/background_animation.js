@@ -35,6 +35,8 @@ var highlightTimeout = 200;
 var currentEvent;
 var isTouch = ('ontouchstart' in window);
 
+var colorScheme = random([180, 120, 90]);
+
 // console.log(window)
 
 // function kill(type){
@@ -107,13 +109,16 @@ function windowResized()
 
 function newAnimation(nodes, factor, ui = false)
 {
-    setTimeout(function(){
-        // newAnimationButton.remove();
-        // animationControlsContainer.remove();
-        canvas.remove();
+    colorScheme = random([180, 120, 90]);
+    setup(nodes, factor);
 
-        setup(nodes, factor);
-    }, highlightTimeout);
+    // setTimeout(function(){
+    //     // newAnimationButton.remove();
+    //     // animationControlsContainer.remove();
+    //     canvas.remove();
+
+    //     setup(nodes, factor);
+    // }, highlightTimeout);
     
 };
 
@@ -190,7 +195,7 @@ function draw() {
         if (breath == 0)
         {
             inhale = true;
-            theme_color[0] = (theme_color[0] + 120) % 360;
+            theme_color[0] = (theme_color[0] + colorScheme) % 360;
         }
     }
 
