@@ -35,7 +35,10 @@ var highlightTimeout = 200;
 var currentEvent;
 var isTouch = ('ontouchstart' in window);
 
-var colorScheme = random([180, 120, 90]);
+var colorScheme = 120;
+
+
+console.log(colorScheme);
 
 // console.log(window)
 
@@ -109,7 +112,6 @@ function windowResized()
 
 function newAnimation(nodes, factor, ui = false)
 {
-    colorScheme = random([180, 120, 90]);
     setup(nodes, factor);
 
     // setTimeout(function(){
@@ -126,6 +128,7 @@ function setup(nodes, factor) {
     pixelDensity(1);
     colorMode(HSB);
     theme_color = [ceil(random(0,360)),70,50];
+    colorScheme = random([180, 120, 90]);
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0,0);
     canvas.style('z-index', -1);
