@@ -37,9 +37,26 @@ var isTouch = ('ontouchstart' in window);
 
 var colorScheme = 120;
 
+window.onload = function () {
 
-console.log(colorScheme);
+    var modal = document.getElementById('animation-explanation-modal');
+    var btn = document.getElementById('info-button');
+    var span = document.getElementsByClassName('close')[0];
 
+    btn.onclick = function() {
+        modal.style.display = 'block';
+    }
+
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+};
 // console.log(window)
 
 // function kill(type){
@@ -129,6 +146,7 @@ function setup(nodes, factor) {
     colorMode(HSB);
     theme_color = [ceil(random(0,360)),70,50];
     colorScheme = random([180, 120, 90]);
+    console.log(colorScheme);
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0,0);
     canvas.style('z-index', -1);

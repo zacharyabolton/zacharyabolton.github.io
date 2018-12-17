@@ -17,12 +17,28 @@
         <script src='scripts/background_animation.js'></script>
     </head>
     <body>
+        <!-- Modal -->
+        <div id="animation-explanation-modal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>What is this animation?</h2>
+            </div>
+            <div class="modal-body">
+                <p>
+                    The animation on this page is a representation of a multiplication table of a given factor (center-bottom) in terms of a given base (center-top). We can call these  <span>F</span>  and  <span>B</span>  respectively. The animation iterates over the natural numbers in order starting from one. These numbers up to and including the base value  <span>B</span>  are drawn at equidistant points around the cicumference of the circle. The first line drawn is  <span>1 x F</span>  so it connects the 1st point on the circle to the  <span>Fth</span>  point. The second line drawn is  <span>2 x F</span>  so it connects the 2nd point to the  <span>2Fth</span>  point, and so on. If the product is greater than the value of the base, then the circular 'number-line' represented by the circle will continue by wrapping around and the  <span>(B + 1)th</span>  point will be represented by the 1st point.
+                </p>
+                <p><a href="https://youtu.be/qhbuKbxJsk8">Check out this great Mathologer video to see where I got the idea!</a></p>
+            </div>
+          </div>
+        </div>
         <div class="container">
             <span id="info-button">
-                <img src="assets/question-mark.svg" alt="question mark">
+                <img src="assets/info_icon.svg" alt="question mark">
             </span>
             <span id="shuffle-button" onclick="newAnimation()">
-                <img src="assets/random.svg" alt="random">
+                <img src="assets/random_icon.svg" alt="random">
             </span>
             <div class="controls-container">
                 <div class="node-controls-container">
