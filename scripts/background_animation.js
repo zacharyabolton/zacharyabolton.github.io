@@ -96,49 +96,14 @@ window.onload = function () {
 function windowResized()
 {
     resizeCanvas(windowWidth, windowHeight);
-    // canvas.position(0,0);
     canvas.style('z-index', -1);
     radius = min(windowHeight, windowWidth)/2;
-    // $('.container').width(windowWidth);
-    // $('.container').height(windowHeight);
-    // $('.container').css('text-align', 'center');
-    // $('.container').css('position', 'absolute');
-    // $('.container').css('top', 0);
-    // $('.container').css('bottom', 0);
-    // $('.container').css('left', 0);
-    // $('.container').css('right', 0);
-    // $('.container').css('margin', 'auto');
-
-    
-    // animationControlsContainer.position(0, 0);
-    // animationControlsContainer.style('padding', '0px '+(windowWidth*0.05)+'px 0px '+(windowWidth*0.05)+'px');
-    
-    // animationControlsContainer.style('width', windowWidth+'px');
-
-    // animationControlsContainer.style('height', '6.4rem');
-    // animationControlsContainer.style('text-align', 'center');
-    // animationControlsContainer.style('position', 'absolute');
-    // animationControlsContainer.style('top', 0);
-    // animationControlsContainer.style('bottom', 0);
-    // animationControlsContainer.style('left', 0);
-    // animationControlsContainer.style('right', 0);
-    // animationControlsContainer.style('margin', 'auto');
-
     background(10);
 };
 
 function newAnimation(nodes, factor, ui = false)
 {
     setup(nodes, factor);
-
-    // setTimeout(function(){
-    //     // newAnimationButton.remove();
-    //     // animationControlsContainer.remove();
-    //     canvas.remove();
-
-    //     setup(nodes, factor);
-    // }, highlightTimeout);
-    
 };
 
 function setup(nodes, factor) {
@@ -146,7 +111,6 @@ function setup(nodes, factor) {
     colorMode(HSB);
     theme_color = [ceil(random(0,360)),70,50];
     colorScheme = random([180, 120, 90]);
-    console.log(colorScheme);
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0,0);
     canvas.style('z-index', -1);
@@ -361,3 +325,21 @@ function animationControls(udnodes, udfactor)
     //     }
     // });
 };
+
+function userInput(event, isNodes, isIncrement) {
+    nodes = nodes + ((isNodes * isIncrement) || (isNodes * -1));
+    factor = factor + ((((isNodes - 1) * -1) * isIncrement) || (((isNodes - 1) * -1) * -1));
+    var inEl = event.target;
+    var outEl = (isNodes) ? document.getElementById('nodesOutput') : document.getElementById('factorOutput');
+    waitForHold(inEl, outEl, input_class = (isIncrement) ? 'incFadeout' : 'decFadeout');
+    setup(nodes, factor)
+}
+
+function waitForHold(inEl, outEl, input_class) {
+    $(inEl).addClass(input_class);
+    $(outEl).addClass('outputFadout');
+    var newone = inEl.cloneNode(true);
+    var newOutEl = outEl.cloneNode(true);
+    inEl.parentNode.replaceChild(newone, inEl);
+    outEl.parentNode.replaceChild(newOutEl, outEl);
+}
