@@ -35,37 +35,24 @@
           </div>
         </div>
         <div class="container">
-            <span id="info-button">
+            <div id="info-button">
                 <img src="assets/info_icon.svg" alt="question mark">
-            </span>
-            <span id="shuffle-button" onclick="newAnimation()">
-                <img src="assets/random_icon.svg" alt="random">
-            </span>
-            <div class="controls-container">
-                <div class="node-controls-container">
-                    <div class="input decrement node-controls" id="decNodes" onmousedown="userInput(1, 0)" onmouseup="endUserInput(1, 0)">
-                        
-                    </div>
-                    <div class="output node-controls" id="nodesOutput">
-                        
-                    </div>
-                    <div class="input increment node-controls" id="incNodes" onmousedown="userInput(1, 1)" onmouseup="endUserInput(1, 1)">
-                        
-                    </div>
+            </div>
+            
+            <div id="output-and-shuffle-container">
+                <div id="output-container">
+                    <div id="nodesOutput"></div>
+                    <div id="factorOutput"></div>
                 </div>
-                <div class="factor-contols-container">
-                    <div class="input decrement factor-controls" id="decFactor" onmousedown="userInput(0, 0)" onmouseup="endUserInput(0, 0)">
-                        
-                    </div>
-                    <div class="output factor-controls" id="factorOutput">
-                        
-                    </div>
-                    <div class="input increment factor-controls" id="incFactor" onmousedown="userInput(0, 1)" onmouseup="endUserInput(0, 1)">
-                        
-                    </div>
+                <div id="shuffle-button" onclick="setup()">
+                    <img src="assets/random_icon.svg" alt="random">
                 </div>
             </div>
-            <div class="links_container">
+
+            <div id="signature-container">
+                <img src="assets/signature.svg" alt="Zac">
+            </div>
+            <div id="links-container">
                 <div>
                     <a href="/">Alien Faces</a>
                     <a href="/">MNIST NN</a>
