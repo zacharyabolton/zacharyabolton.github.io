@@ -11,8 +11,8 @@ var current_product;
 var theme_color;
 var breath = 0;
 var inhale = true;
-var maxFN = 2000;
-var minN = 9;
+var maxFN = 2048;
+var minN = 10;
 var minF = 2;
 var colorScheme;
 
@@ -57,8 +57,8 @@ function setup() {
     t = 0;
     current_product = 0;
     background(10);
-    nodes = ceil(random(minN, maxFN));
-    factor = ceil(random(minF, maxFN));
+    nodes = ceil(random(minN - 1, maxFN + 1));
+    factor = ceil(random(minF - 1, maxFN + 1));
 };
 
 function draw() {
