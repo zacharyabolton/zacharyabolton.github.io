@@ -199,6 +199,10 @@ body {
     -ms-user-select: none;
 }
 
+/*#links-container * {
+    display: none;
+}
+*/
 #links-container {
     position: absolute;
     width: 100%;
