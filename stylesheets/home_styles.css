@@ -276,7 +276,9 @@ body #notice p a {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 0.5rem;
     text-shadow: 0rem 0rem 1rem black;
+}
 
+#links-container div a.in-dev {
     /* setting links inactive for dev */
     pointer-events: none;
     cursor: pointer;
