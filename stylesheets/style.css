@@ -2,6 +2,12 @@
 body {
     font-size: 100%;
     background-color: #1A1A1A;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
 }
 
 body.nojs #animation-container {
@@ -180,13 +186,6 @@ body.yesjs #notice {
 #output-container * {
     line-height: 1rem;
     baseline-shift: 90%;
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    -ms-user-select: none;
-
     cursor: default;
 }
 
@@ -261,6 +260,8 @@ body.yesjs #notice {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    
 }
 
 #links-container::-webkit-scrollbar {
@@ -285,4 +286,9 @@ body.yesjs #notice {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 0.5rem;
     text-shadow: 0rem 0rem 1rem black;
+
+    /* setting links inactive for dev */
+    pointer-events: none;
+    cursor: pointer;
+    text-decoration: line-through;
 }
