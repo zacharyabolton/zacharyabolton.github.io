@@ -3,6 +3,13 @@ body {
     background-color: #1A1A1A;
     font-family: helvetica;
     color: white;
+
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
 }
 
 @font-face {
@@ -20,6 +27,15 @@ body {
     top: 1rem;
     height: 2rem;
     width: 2rem;
+}
+
+#home-button a img {
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
 }
 
 #splash-container {
