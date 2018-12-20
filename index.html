@@ -28,9 +28,6 @@
         <meta name="twitter:image" content="https://www.zacbolton.io/public/sm_card.png" />
         <meta name="twitter:image:alt" content="An orange and purple cardioid made from the website animation." />
 
-        <!-- my styles -->
-        <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-
         <!-- assets -->
         <script src="assets/jquery-3.3.1.min.js"></script>
         <script src='assets/p5.min.js'></script>
@@ -38,25 +35,35 @@
 
         <!-- my scripts -->
         <script src='scripts/background_animation.js'></script>
+
+        <!-- my styles -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
     </head>
-    <body>
+    <body class="nojs" id="nojsHandle">
+        <div id="notice">
+            <p>
+                The animation on this page runs on Javascript. Please <a href="https://www.enable-javascript.com">enable Javascript</a> for the complete experience.
+            </p>
+        </div>
         <!-- Modal -->
         <div id="animation-explanation-modal" class="modal">
-          <!-- Modal content -->
-          <div class="modal-content">
-            <div class="modal-header">
-                <span class="close">&times;</span>
-                <h2>What is this?</h2>
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>What is this?</h2>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        The animation on this page is a representation of a multiplication table for a given factor (lower number, top-right) in terms of a given base (upper number, top-right) - &nbsp;<span>F</span>&nbsp; and &nbsp;<span>B</span>&nbsp; respectively. The animation iterates over the natural numbers in order starting from one. These numbers up to and including the base value &nbsp;<span>B</span>&nbsp; are placed at equidistant points around the perimeter of the circle. Each multiple of &nbsp;<span>F</span>&nbsp; is represented by a line connecting the point for the multiplier to the point for the product. So the first line drawn is &nbsp;<span>1 x F</span>&nbsp; and connects the 1st point on the circle to the &nbsp;<span>F<sup>th</sup></span>&nbsp; point. The second line drawn is &nbsp;<span>2 x F</span>&nbsp; and connects the 2nd point to the &nbsp;<span>2F<sup>th</sup></span>&nbsp; point, and so on. If the product is greater than the value of the base, then the 'number-line' represented by the circle will continue by wrapping around and the number &nbsp;<span>B + n</span>&nbsp; will be represented by the &nbsp;<span>n<sup>th</sup></span>&nbsp; point.
+                    </p>
+                    <p><a href="https://youtu.be/qhbuKbxJsk8">Check out this great Mathologer video to see where I got the idea.</a></p>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>
-                    The animation on this page is a representation of a multiplication table for a given factor (lower number, top-right) in terms of a given base (upper number, top-right) - &nbsp;<span>F</span>&nbsp; and &nbsp;<span>B</span>&nbsp; respectively. The animation iterates over the natural numbers in order starting from one. These numbers up to and including the base value &nbsp;<span>B</span>&nbsp; are placed at equidistant points around the perimeter of the circle. Each multiple of &nbsp;<span>F</span>&nbsp; is represented by a line connecting the point for the multiplier to the point for the product. So the first line drawn is &nbsp;<span>1 x F</span>&nbsp; and connects the 1st point on the circle to the &nbsp;<span>F<sup>th</sup></span>&nbsp; point. The second line drawn is &nbsp;<span>2 x F</span>&nbsp; and connects the 2nd point to the &nbsp;<span>2F<sup>th</sup></span>&nbsp; point, and so on. If the product is greater than the value of the base, then the 'number-line' represented by the circle will continue by wrapping around and the number &nbsp;<span>B + n</span>&nbsp; will be represented by the &nbsp;<span>n<sup>th</sup></span>&nbsp; point.
-                </p>
-                <p><a href="https://youtu.be/qhbuKbxJsk8">Check out this great Mathologer video to see where I got the idea.</a></p>
-            </div>
-          </div>
         </div>
-        <div class="container">
+        <div id="animation-container">
+            
+        
             <div id="info-button">
                 <img src="assets/info_icon.svg" alt="question mark">
             </div>
@@ -74,6 +81,9 @@
             <div id="signature-container">
                 <img src="assets/signature.svg" alt="Zac">
             </div>
+
+        </div> <!-- end #animation-container -->
+
             <div id="links-container">
                 <div>
                     <a href="/">Alien Faces</a>
@@ -84,6 +94,6 @@
                     <a href="/">About Me</a>
                 </div>
             </div>
-        </div>
+        
     </body>
 </html>

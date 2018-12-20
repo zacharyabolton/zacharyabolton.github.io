@@ -17,6 +17,8 @@ var minF = 2;
 var colorScheme;
 
 window.onload = function () {
+    var body = document.getElementById("nojsHandle");
+    body.className = body.className = "yesjs";
 
     var modal = document.getElementById('animation-explanation-modal');
     var btn = document.getElementById('info-button');
