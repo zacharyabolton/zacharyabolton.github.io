@@ -14,8 +14,7 @@ body.nojs #animation-container {
     display: none;
 }
 
-body.nojs #notice {
-    display: block;
+body #notice {
     color: white;
     text-align: center;
     width: 100%;
@@ -32,27 +31,18 @@ body.nojs #notice {
     background-position: center;
 }
 
-body.nojs #notice p {
+body #notice p {
     font-family: helvetica;
     font-size: 1.5rem;
     font-weight: bolder;
     text-shadow: -1px -1px 6px black;
 }
 
-body.nojs #notice p a {
+body #notice p a {
     text-decoration: none;
     color: lightblue;
     text-decoration: underline;
 }
-
-body.yesjs #animation-container {
-    display: block;
-}
-
-body.yesjs #notice {
-    display: none;
-}
-
 
 @font-face {
   font-family: impactFont;
