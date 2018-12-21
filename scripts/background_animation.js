@@ -75,10 +75,18 @@ function draw() {
     stroke(theme_color[0], theme_color[1], breath);
     strokeWeight(1);
     line(x1,y1,x2,y2);
-
     t = (t + 1) % nodes;
-    current_product = (factor * t) % (nodes);
-
+    current_product = (factor * t) % nodes;
+    if (t == current_product) {
+        point(x1, y1, 2, 2);
+    }
+    // console.log({
+    //     'nodes': nodes,
+    //     'factor': factor, 
+    //     't': t, 
+    //     'current_product': current_product 
+    //     })
+    // alert('pause');
     if (inhale)
     {
         breath ++;
