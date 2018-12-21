@@ -71,5 +71,13 @@ body {
 
 #splash-container #splash {
     border-radius: 50%;
-    box-shadow: 0px 0px 2px 4px black;
+    box-shadow: 0px 0px 2px 2px black;
+    background-color: black;
+
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
 }
