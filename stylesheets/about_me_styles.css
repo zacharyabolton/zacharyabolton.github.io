@@ -27,6 +27,10 @@ body {
     background: linear-gradient(to bottom, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 0.7) 50%, rgba(26, 26, 26, 1) 100%), url('../public/about_me_background_1.png') no-repeat;
     background-size: 100% auto;
     background-position: center;
+    -moz-background-attachment: fixed;
+    -webkit-background-attachment: fixed;
+    -o-background-attachment: fixed;
+    -ms-background-attachment: fixed;
     background-attachment: fixed;
 }
 
