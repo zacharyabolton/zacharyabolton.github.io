@@ -4,6 +4,7 @@ body {
     background-color: rgba(26, 26, 26, 1);
     font-family: helvetica;
     color: white;
+    text-align: center;
 
     -moz-user-select: none;
     -webkit-user-drag: none;
@@ -65,6 +66,7 @@ body {
 
 #container {
     padding: 2% 10%;
+    text-align: left;
 }
 
 #home-button {
@@ -101,4 +103,8 @@ body {
     -webkit-user-select: none;
     -o-user-select: none;
     -ms-user-select: none;
+}
+
+canvas {
+    margin-bottom: 5rem;
 }
