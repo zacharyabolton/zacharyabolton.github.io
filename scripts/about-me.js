@@ -50,13 +50,13 @@ function mousePressed(e) {
     sy = floor(pmouseY/squareSide);
     movingPiece = game.pieceAt(sx, sy);
     if (movingPiece && movingPiece.white === whitesMove) {
+        e.preventDefault();
         movingPiece.movingThisPiece = true;
     } else {
         movingPiece = null;
         sx = null;
         sy = null;
     }
-    e.preventDefault();
 }
 
 function mouseReleased() {
