@@ -4,7 +4,7 @@ var board;
 var game;
 
 var rSprite, nSprite, bSprite, qSprite, kSprite, pSprite, RSprite, NSprite, BSprite, QSprite, KSprite, PSprite;
-
+var impactFont;
 var movingPiece;
 var sx, sy;
 var tx, ty;
@@ -24,6 +24,7 @@ function preload() {
     KSprite = loadImage('../assets/chess_pieces/white_king.svg');
     pSprite = loadImage('../assets/chess_pieces/black_pawn.svg');
     PSprite = loadImage('../assets/chess_pieces/white_pawn.svg');
+    impactFont = loadFont('../assets/Impact.ttf')
 }
 
 function setup() {
@@ -46,9 +47,10 @@ function draw() {
 }
 
 function mousePressed(e) {
-    sx = floor(pmouseX/squareSide);
-    sy = floor(pmouseY/squareSide);
+    sx = floor(mouseX/squareSide);
+    sy = floor(mouseY/squareSide);
     movingPiece = game.pieceAt(sx, sy);
+    console.log({sx: sx, sy: sy});
     if (movingPiece && movingPiece.white === whitesMove) {
         e.preventDefault();
         movingPiece.movingThisPiece = true;
@@ -70,4 +72,5 @@ function mouseReleased() {
     sy = null;
     tx = null;
     ty = null;
+    console.log(movingPiece);
 }
