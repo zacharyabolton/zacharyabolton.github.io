@@ -11,14 +11,6 @@ class Game {
         this.winner = undefined;
         this.t = 0;
     }
-    promote(tx, ty, isWhite) {
-        this.pieceAt(tx, ty).taken = true;
-        if (isWhite) {
-            this.pieces.push(new Queen(tx, ty, isWhite));
-        } else {
-            this.pieces.push(new Queen(tx, ty, isWhite));
-        }
-    }
     show() {
         for (var rank = 0; rank < 8; rank ++) {
             for (var file = 0; file < 8; file ++) {
@@ -52,10 +44,48 @@ class Game {
             }
         }
     }
-    resize() {
-        for (var i = 0; i < this.pieces.length; i ++) {
-            this.pieces[i].reposition();
+    legalMove(tx, ty, sx, sy) {
+        var valid = movingPiece.validPieceMove(tx, ty, sx, sy);
+        var kingToCheck = whitesMove ? this.K : this.k;
+        if (valid) {
+            movingPiece.x = tx;
+            movingPiece.y = ty;
+            if (kingToCheck.inCheck()) {
+                movingPiece.x = sx;
+                movingPiece.y = sy;
+                return false;
+            } else {
+                movingPiece.x = sx;
+                movingPiece.y = sy;
+                return true;
+            }
+        } else {
+            return false;
         }
+    }
+    move(tx, ty, sx, sy) {
+        var legal = this.legalMove(tx, ty, sx, sy);
+        var occupant = this.pieceAt(tx, ty);
+        var kingToCheck = whitesMove ? this.K : this.k;
+        if (legal) {
+            if (occupant) { occupant.taken = true; }
+            movingPiece.x = tx;
+            movingPiece.y = ty;
+            if (kingToCheck.inCheck()) {
+                movingPiece.x = sx;
+                movingPiece.y = sy;
+                if (occupant){ occupant.taken = false; }
+            } else {
+                movingPiece.specialRules(tx, ty, sx, sy);
+                whitesMove = !whitesMove;
+                this.removeEPCaptures(whitesMove);
+                this.checkOrMate();
+            }
+        } else {
+            movingPiece.x = sx;
+            movingPiece.y = sy;
+        }
+        movingPiece.movingThisPiece = false;
     }
     pieceAt(x, y) {
         for (var i = 0; i < this.pieces.length; i ++) {
@@ -111,62 +141,9 @@ class Game {
         }
         return found;
     }
-    removeEPCaptures(whitesMove) {
-        for (var i = 0; i < this.pieces.length; i ++) {
-            if (this.pieces[i] instanceof Pawn && (whitesMove ? this.pieces[i].white : !this.pieces[i].white) && this.pieces[i].captureableEP) {
-                this.pieces[i].captureableEP = false;
-            }
-        }
-    }
-    legalMove(tx, ty, sx, sy) {
-        var valid = movingPiece.validPieceMove(tx, ty, sx, sy);
-        var kingToCheck = whitesMove ? this.K : this.k;
-        if (valid) {
-            movingPiece.x = tx;
-            movingPiece.y = ty;
-            if (kingToCheck.inCheck()) {
-                movingPiece.x = sx;
-                movingPiece.y = sy;
-                return false;
-            } else {
-                movingPiece.x = sx;
-                movingPiece.y = sy;
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-    move(tx, ty, sx, sy) {
-        var legal = this.legalMove(tx, ty, sx, sy);
-        var occupant = this.pieceAt(tx, ty);
-        var kingToCheck = whitesMove ? this.K : this.k;
-        if (legal) {
-            if (occupant) { occupant.taken = true; }
-            movingPiece.x = tx;
-            movingPiece.y = ty;
-            if (kingToCheck.inCheck()) {
-                movingPiece.x = sx;
-                movingPiece.y = sy;
-                if (occupant){ occupant.taken = false; }
-            } else {
-                movingPiece.specialRules(tx, ty, sx, sy);
-                console.log(whitesMove);
-                whitesMove = !whitesMove;
-                console.log(whitesMove);
-                this.removeEPCaptures(whitesMove);
-                this.check();
-            }
-        } else {
-            movingPiece.x = sx;
-            movingPiece.y = sy;
-        }
-        movingPiece.movingThisPiece = false;
-    }
-    check() {
+    checkOrMate() {
         var kingToCheck = whitesMove ? this.K : this.k;
         if (kingToCheck.inCheck()) {
-            console.log(kingToCheck.inCheckmate());
             if (kingToCheck.inCheckmate()) {
                 this.isCheckmate = true;
                 this.winner = whitesMove ? 'black' : 'white';
@@ -176,6 +153,26 @@ class Game {
         } else {
             this.isCheck = false;
             this.checkingPiece = null;
+        }
+    }
+    removeEPCaptures(whitesMove) {
+        for (var i = 0; i < this.pieces.length; i ++) {
+            if (this.pieces[i] instanceof Pawn && (whitesMove ? this.pieces[i].white : !this.pieces[i].white) && this.pieces[i].captureableEP) {
+                this.pieces[i].captureableEP = false;
+            }
+        }
+    }
+    promote(tx, ty, isWhite) {
+        this.pieceAt(tx, ty).taken = true;
+        if (isWhite) {
+            this.pieces.push(new Queen(tx, ty, isWhite));
+        } else {
+            this.pieces.push(new Queen(tx, ty, isWhite));
+        }
+    }
+    resize() {
+        for (var i = 0; i < this.pieces.length; i ++) {
+            this.pieces[i].reposition();
         }
     }
 }

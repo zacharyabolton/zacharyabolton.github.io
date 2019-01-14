@@ -58,29 +58,33 @@ class King extends Piece {
         this.castleable = true;
         this.sprite = isWhite ? KSprite : kSprite;
         this.inCheck = function(casltedOverSquareX, casltedOverSquareY) {
+            var realMovingPiece = movingPiece;
             for (var i = 0; i < game.pieces.length; i ++) {
                 if (!game.pieces[i].taken) {
                     if (game.pieces[i].white != this.white) {
+                        movingPiece = game.pieces[i];
                         if (
-                                game.pieces[i].validPieceMove(
+                                game.legalMove(
                                     casltedOverSquareX || this.x, casltedOverSquareY || this.y, 
                                     game.pieces[i].x, game.pieces[i].y
                                 )
                             ) {
                             game.checkingPiece = game.pieces[i];
+                            movingPiece = realMovingPiece;
                             return true;
                         };
                     }
                 }
             }
+            movingPiece = realMovingPiece;
             return false;
         }
         this.inCheckmate = function() {
+            var realMovingPiece = movingPiece;
             for (var ud = 0; ud < 3; ud ++) {
                 for (var lr = 0; lr < 3; lr ++) {
                     if (!(ud == 1 && lr == 1)) {
                         if (game.legalMove((this.x - 1) + lr, (this.y - 1) + ud, this.x, this.y)) {
-                            console.log(' ');
                             return false;
                         }
                     }
@@ -89,13 +93,14 @@ class King extends Piece {
             for (var i = 0; i < game.pieces.length; i ++) {
                 if (!game.pieces[i].taken) {
                     if (game.pieces[i].white == this.white) {
+                        movingPiece = game.pieces[i];
                         if (
                                 game.legalMove(
                                     game.checkingPiece.x, game.checkingPiece.y,
                                     game.pieces[i].x, game.pieces[i].y
                                 )
                         ) {
-                            console.log(' ');
+                            movingPiece = null;
                             return false;
                         } else if (
                                 !(game.checkingPiece instanceof Knight)
@@ -109,7 +114,6 @@ class King extends Piece {
                                     // directly above
                                     for (var testY = this.y + 1; testY < game.pieces[i].y; testY ++) {
                                         if (game.legalMove(this.x, testY, game.pieces[i].x, game.pieces[i].y)) {
-                                            console.log(' ');
                                             return false
                                         }
                                     }
@@ -117,7 +121,6 @@ class King extends Piece {
                                     // directly below
                                     for (var testY = this.y - 1; testY > game.pieces[i].y; testY --) {
                                         if (game.legalMove(this.x, testY, game.pieces[i].x, game.pieces[i].y)) {
-                                            console.log(' ');
                                             return false
                                         }
                                     }
@@ -127,7 +130,6 @@ class King extends Piece {
                                     // directly from the right
                                     for (var testX = this.x + 1; testX < game.pieces[i].x; testX ++) {
                                         if (game.legalMove(testX, this.y, game.pieces[i].x, game.pieces[i].y)) {
-                                            console.log(' ');
                                             return false
                                         }
                                     }
@@ -135,7 +137,6 @@ class King extends Piece {
                                     // directly from the left
                                     for (var testX = this.x - 1; testX > game.pieces[i].x; testX --) {
                                         if (game.legalMove(testX, this.y, game.pieces[i].x, game.pieces[i].y)) {
-                                            console.log(' ');
                                             return false
                                         }
                                     }
@@ -144,7 +145,6 @@ class King extends Piece {
                                 // from the bottom right
                                 for (var testXY = 0; testXY < yd; testXY ++) {
                                     if (game.legalMove(this.x + testXY, this.y + testXY, game.pieces[i].x, game.pieces[i].y)) {
-                                        console.log(' ');
                                         return false;
                                     }
                                 }
@@ -152,7 +152,6 @@ class King extends Piece {
                                 // from the bottom left
                                 for (var testXY = 0; testXY < yd; testXY ++) {
                                     if (game.legalMove(this.x - testXY, this.y + testXY, game.pieces[i].x, game.pieces[i].y)) {
-                                        console.log(' ');
                                         return false;
                                     }
                                 }
@@ -160,7 +159,6 @@ class King extends Piece {
                                 // from the top right
                                 for (var testXY = 0; testXY > yd; testXY --) {
                                     if (game.legalMove(this.x + testXY, this.y + testXY, game.pieces[i].x, game.pieces[i].y)) {
-                                        console.log(' ');
                                         return false;
                                     }
                                 }
@@ -168,7 +166,6 @@ class King extends Piece {
                                 // from the top left
                                 for (var testXY = 0; testXY > yd; testXY --) {
                                     if (game.legalMove(this.x + testXY, this.y - testXY, game.pieces[i].x, game.pieces[i].y)) {
-                                        console.log(' ');
                                         return false;
                                     }
                                 }
@@ -177,7 +174,8 @@ class King extends Piece {
                     }
                 }
             }
-            console.log(' ');
+            movingPiece = realMovingPiece;
+            console.log(movingPiece);
             return true;
         }
         this.specialRules = function(tx, ty, sx, sy) {

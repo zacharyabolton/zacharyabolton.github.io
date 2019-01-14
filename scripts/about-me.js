@@ -50,7 +50,6 @@ function mousePressed(e) {
     sx = floor(mouseX/squareSide);
     sy = floor(mouseY/squareSide);
     movingPiece = game.pieceAt(sx, sy);
-    console.log({sx: sx, sy: sy});
     if (movingPiece && movingPiece.white === whitesMove) {
         e.preventDefault();
         movingPiece.movingThisPiece = true;
@@ -72,5 +71,4 @@ function mouseReleased() {
     sy = null;
     tx = null;
     ty = null;
-    console.log(movingPiece);
 }
