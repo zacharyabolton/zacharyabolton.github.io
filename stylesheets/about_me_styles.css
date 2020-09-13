@@ -14,27 +14,6 @@ body {
     -ms-user-select: none;
 }
 
-/* width */
-/*::-webkit-scrollbar {*/
-  /*width: 10px;*/
-/*}*/
-
-/* Track */
-/*::-webkit-scrollbar-track {*/
-  /*background: transparent; */
-/*}*/
- 
-/* Handle */
-/*::-webkit-scrollbar-thumb {*/
-  /*background: black; */
-  /*border-radius: 5px;*/
-/*}*/
-
-/* Handle on hover */
-/*::-webkit-scrollbar-thumb:hover {*/
-  /*background: grey; */
-/*}*/
-
 @font-face {
   font-family: impactFont;
   src: url(/assets/Impact.ttf);
@@ -107,4 +86,64 @@ body {
 
 canvas {
     margin-bottom: 5rem;
+}
+
+.skills, .leadershipExperience, .education, .myLinks, .intro {
+  margin-bottom: 6rem;
+}
+
+.skills div h3 {
+  text-align: center;
+}
+
+.leadershipExperience ul {
+  padding-left: 0px;
+  list-style: none;
+}
+
+.leadershipExperience ul li ul {
+  padding-left: 2rem;
+  list-style-type: disc;
+}
+
+@media only screen and (min-width: 1037px) {
+  .skills {
+    margin-bottom: 0rem;
+  }
+  .skills div {
+    display: inline-block;
+    width: 49%;
+  }
+
+  .skills div ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 20px;
+    column-count: 2;
+    column-gap: 20px;
+  }
+}
+
+.myLinks {
+  width: 100%;
+}
+
+.myLinks a {
+  width: 33%;
+  text-decoration: none;
+}
+
+a {
+  color: chartreuse;
+}
+
+.myName {
+  font-size: 3rem;
+  font-weight: bolder;
+  color: rgb(159, 62, 250);
+}
+
+.intro p {
+  font-size: 1.5rem;
 }
