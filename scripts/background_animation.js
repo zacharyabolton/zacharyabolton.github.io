@@ -24,38 +24,37 @@ window.onload = function () {
     var btn = document.getElementById('info-button');
     var span = document.getElementsByClassName('close')[0];
 
-    btn.onclick = function() {
+    btn.onclick = function () {
         modal.style.display = 'block';
     }
 
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = 'none';
     }
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
     }
 };
 
-function windowResized()
-{
+function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
     canvas.style('z-index', -1);
-    radius = min(windowHeight, windowWidth)/2;
+    radius = min(windowHeight - 20 - 2, windowWidth - 2) / 2;
     background(10);
 };
 
 function setup() {
     pixelDensity(1);
     colorMode(HSB);
-    theme_color = [ceil(random(0,360)),70,50];
+    theme_color = [ceil(random(0, 360)), 70, 50];
     colorScheme = random([180, 120, 90]);
     canvas = createCanvas(windowWidth, windowHeight);
-    canvas.position(0,0);
+    canvas.position(0, 0);
     canvas.style('z-index', -1);
-    radius = min(windowHeight, windowWidth)/2;
+    radius = min(windowHeight - 20 - 2, windowWidth - 2) / 2;
     t = 0;
     current_product = 0;
     background(10);
@@ -64,17 +63,17 @@ function setup() {
 };
 
 function draw() {
-    translate(windowWidth/2, windowHeight/2);
+    translate(windowWidth / 2, windowHeight / 2);
 
-    x1 = sin(((2*PI)/nodes) * t) * radius;
-    y1 = cos(((2*PI)/nodes) * t) * radius;
+    x1 = sin(((2 * PI) / nodes) * t) * radius;
+    y1 = cos(((2 * PI) / nodes) * t) * radius;
 
-    x2 = sin(((2*PI)/nodes) * current_product) * radius;
-    y2 = cos(((2*PI)/nodes) * current_product) * radius;
+    x2 = sin(((2 * PI) / nodes) * current_product) * radius;
+    y2 = cos(((2 * PI) / nodes) * current_product) * radius;
 
     stroke(theme_color[0], theme_color[1], breath);
     strokeWeight(1);
-    line(x1,y1,x2,y2);
+    line(x1, y1, x2, y2);
     t = (t + 1) % nodes;
     current_product = (factor * t) % nodes;
     if (t == current_product) {
@@ -87,19 +86,15 @@ function draw() {
     //     'current_product': current_product 
     //     })
     // alert('pause');
-    if (inhale)
-    {
-        breath ++;
-        if (breath == 256)
-        {
+    if (inhale) {
+        breath++;
+        if (breath == 256) {
             inhale = false;
         }
     }
-    else
-    {
-        breath --;
-        if (breath == 0)
-        {
+    else {
+        breath--;
+        if (breath == 0) {
             inhale = true;
             theme_color[0] = (theme_color[0] + colorScheme) % 360;
         }

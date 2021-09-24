@@ -1,112 +1,134 @@
 <!DOCTYPE html>
 <html lang='en'>
-    <head>
-        <meta name='viewport' content='width=device-width initial-scale=1, maximum-scale=1, minimum-scale=1' charset='utf-8' />
 
-        <title>ZacBolton.io</title>
-        <meta name="description" content="A fancy math animation, and my portfolio." />
-        <meta name="robots" content="index, follow" />
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        charset='utf-8' />
+    <title>ZacBolton.io</title>
+    <meta name="description" content="A fancy math animation, and my portfolio." />
+    <meta name="robots" content="index, follow" />
 
-        <!-- social media meta info -->
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="ZacBolton.io" />
-        <meta property="og:description" content="A fancy math animation, and my portfolio." />
-        <meta property="og:url" content="https://www.zacbolton.io" />
-        <meta property="og:image" content="http://www.zacbolton.io/public/sm_card.png" />
-        <meta property="og:image:secure_url" content="https://www.zacbolton.io/public/sm_card.png" />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1800" />
-        <meta property="og:image:height" content="1800" />
+    <!-- social media meta info -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ZacBolton.io" />
+    <meta property="og:description" content="A fancy math animation, and my portfolio." />
+    <meta property="og:url" content="https://www.zacbolton.io" />
+    <meta property="og:image" content="http://www.zacbolton.io/public/sm_card.png" />
+    <meta property="og:image:secure_url" content="https://www.zacbolton.io/public/sm_card.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1800" />
+    <meta property="og:image:height" content="1800" />
 
-        <!-- FB specific -->
-        <meta property="fb:admins" content="100009728023074" />
+    <!-- FB specific -->
+    <meta property="fb:admins" content="100009728023074" />
 
-        <!-- twitter meta info -->
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="ZacBolton.io">
-        <meta name="twitter:description" content="A fancy math animation, and my portfolio." />
-        <meta name="twitter:image" content="https://www.zacbolton.io/public/sm_card.png" />
-        <meta name="twitter:image:alt" content="An orange and purple cardioid made from the website animation." />
+    <!-- twitter meta info -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="ZacBolton.io">
+    <meta name="twitter:description" content="A fancy math animation, and my portfolio." />
+    <meta name="twitter:image" content="https://www.zacbolton.io/public/sm_card.png" />
+    <meta name="twitter:image:alt" content="An orange and purple cardioid made from the website animation." />
 
-        <!-- assets -->
-        <script src='assets/p5.min.js'></script>
-        <script src='assets/p5.dom.js'></script>
+    <!-- assets -->
+    <script src='assets/p5.min.js'></script>
+    <script src='assets/p5.dom.js'></script>
 
-        <!-- my scripts -->
-        <script src='scripts/background_animation.js'></script>
+    <!-- my scripts -->
+    <script src='scripts/background_animation.js'></script>
 
-        <!-- my styles -->
-        <link rel="stylesheet" type="text/css" href="stylesheets/home_styles.css" />
+    <!-- my styles -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/home_styles.css" />
 
-        <!-- icons -->
-        <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon" />
-        <link rel="apple-touch-icon" href="assets/icons//apple-touch-icon.png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="assets/icons//apple-touch-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="assets/icons//apple-touch-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="assets/icons//apple-touch-icon-76x76.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="assets/icons//apple-touch-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="assets/icons//apple-touch-icon-120x120.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="assets/icons//apple-touch-icon-144x144.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="assets/icons//apple-touch-icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="assets/icons//apple-touch-icon-180x180.png" />
-    </head>
-    <body class="nojs" id="nojsHandle">
-        <noscript>
-            <div id="notice">
-                <p>
-                    The animation on this page runs on Javascript. Please <a href="https://www.enable-javascript.com" target="_blank">enable Javascript</a> for the full experience.
-                </p>
+    <!-- icons -->
+    <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="assets/icons//apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/icons//apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/icons//apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/icons//apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/icons//apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/icons//apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/icons//apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/icons//apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons//apple-touch-icon-180x180.png" />
+</head>
+
+<body class="nojs" id="nojsHandle">
+    <noscript>
+        <div id="notice">
+            <p>
+                The animation on this page runs on Javascript. Please <a href="https://www.enable-javascript.com"
+                    target="_blank">enable Javascript</a> for the full experience.
+            </p>
+        </div>
+    </noscript>
+    <!-- Modal -->
+    <div id="animation-explanation-modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>What's going on here?</h2>
             </div>
-        </noscript>
-        <!-- Modal -->
-        <div id="animation-explanation-modal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2>What's going on here?</h2>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        The animation on this page is a representation of a multiplication table for a random factor (lower number, top-right) in terms of a random base (upper number, top-right) - &nbsp;<span>F</span>&nbsp; and &nbsp;<span>B</span>&nbsp; respectively. The animation iterates over the natural numbers in order starting from one. These numbers up to and including the base value &nbsp;<span>B</span>&nbsp; are placed at equidistant points around the perimeter of the circle. Each multiple of &nbsp;<span>F</span>&nbsp; is represented by a line connecting the point for the multiplier to the point for the product. The first line drawn is &nbsp;<span>1 x F</span>&nbsp; and connects the 1st point on the circle to the &nbsp;<span>F<sup>th</sup></span>&nbsp; point. The second line drawn is &nbsp;<span>2 x F</span>&nbsp; and connects the 2nd point to the &nbsp;<span>2F<sup>th</sup></span>&nbsp; point, and so on. If the product is greater than the value of the base, then the 'number-line' represented by the circle will continue by wrapping around and the number &nbsp;<span>B + n</span>&nbsp; will be represented by the &nbsp;<span>n<sup>th</sup></span>&nbsp; point.
-                    </p>
-                    <p><a href="https://youtu.be/qhbuKbxJsk8" target="_blank">Check out this Mathologer video for an in-depth look at this mathematical phenomenon.</a></p>
-                </div>
+            <div class="modal-body">
+                <p>
+                    The animation on this page is a representation of a multiplication table for a random factor (lower
+                    number, top-right) in terms of a random base (upper number, top-right) - &nbsp;<span>F</span>&nbsp;
+                    and &nbsp;<span>B</span>&nbsp; respectively. The animation iterates over the natural numbers in
+                    order starting from one. These numbers up to and including the base value &nbsp;<span>B</span>&nbsp;
+                    are placed at equidistant points around the perimeter of the circle. Each multiple of
+                    &nbsp;<span>F</span>&nbsp; is represented by a line connecting the point for the multiplier to the
+                    point for the product. The first line drawn is &nbsp;<span>1 x F</span>&nbsp; and connects the 1st
+                    point on the circle to the &nbsp;<span>F<sup>th</sup></span>&nbsp; point. The second line drawn is
+                    &nbsp;<span>2 x F</span>&nbsp; and connects the 2nd point to the
+                    &nbsp;<span>2F<sup>th</sup></span>&nbsp; point, and so on. If the product is greater than the value
+                    of the base, then the 'number-line' represented by the circle will continue by wrapping around and
+                    the number &nbsp;<span>B + n</span>&nbsp; will be represented by the
+                    &nbsp;<span>n<sup>th</sup></span>&nbsp; point.
+                </p>
+                <p><a href="https://youtu.be/qhbuKbxJsk8" target="_blank">Check out this Mathologer video for an
+                        in-depth look at this mathematical phenomenon.</a></p>
             </div>
         </div>
-        <div id="animation-container">
-            <div id="info-button">
-                <img src="assets/info_icon.svg" alt="question mark - click for an explanation of the background animation">
+    </div>
+    <div id="animation-container">
+        <div id="info-button">
+            <img src="assets/info_icon.svg" alt="question mark - click for an explanation of the background animation">
+        </div>
+
+        <div id="output-and-shuffle-container">
+            <div id="output-container">
+                <div id="nodesOutput"></div>
+                <div id="factorOutput"></div>
             </div>
-            
-            <div id="output-and-shuffle-container">
-                <div id="output-container">
-                    <div id="nodesOutput"></div>
-                    <div id="factorOutput"></div>
+            <div id="shuffle-button" onclick="setup()">
+                <img src="assets/random_icon.svg"
+                    alt="random shuffle icon - click to restart the animation at a new random initial state">
+            </div>
+        </div>
+
+        <a href="about-me.html">
+            <div id="about-me-link">
+                <div id="signature-container">
+                    <!--<a href="/about-me.html">-->
+                    <img src="assets/signature.svg"
+                        alt="Zac - a scalable vector graphic of my signature, superimposed over the background animation">
+                    <!--</a>-->
                 </div>
-                <div id="shuffle-button" onclick="setup()">
-                    <img src="assets/random_icon.svg" alt="random shuffle icon - click to restart the animation at a new random initial state">
-                </div>
             </div>
+        </a>
+    </div> <!-- end #animation-container -->
 
-            <div id="signature-container">
-                <a href="/about-me.html">
-                    <img src="assets/signature.svg" alt="Zac - a scalable vector graphic of my signature, superimposed over the background animation">
-                </a>
-            </div>
-
-        </div> <!-- end #animation-container -->
-
-            <div id="links-container">
-                <div>
-                    <!-- <a href="/about-me.html">About Me</a> -->
-                    <!-- <a class="in-dev" href="/">Alien Faces</a>
+    <div id="links-container">
+        <div>
+            <!-- <a href="/about-me.html">About Me</a> -->
+            <!-- <a class="in-dev" href="/">Alien Faces</a>
                     <a class="in-dev" href="/">MNIST NN</a>
                     <a class="in-dev" href="/">LemonHarangue.com</a>
                     <a class="in-dev" href="/">Other Projects</a>
                     <a class="in-dev" href="/">My Certificates</a> -->
-                </div>
-            </div>
-        
-    </body>
+        </div>
+    </div>
+
+</body>
+
 </html>
