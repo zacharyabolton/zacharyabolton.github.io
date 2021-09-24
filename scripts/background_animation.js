@@ -42,7 +42,7 @@ window.onload = function () {
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
     canvas.style('z-index', -1);
-    radius = min(windowHeight - 20 - 2, windowWidth - 2) / 2;
+    radius = min(windowHeight, windowWidth) / 2;
     background(10);
 };
 
@@ -54,7 +54,7 @@ function setup() {
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0, 0);
     canvas.style('z-index', -1);
-    radius = min(windowHeight - 20 - 2, windowWidth - 2) / 2;
+    radius = min(windowHeight, windowWidth) / 2;
     t = 0;
     current_product = 0;
     background(10);
