@@ -223,15 +223,24 @@ body #notice p a {
     }
 }
 
-#signature-container img {
-    user-drag: none; 
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    -ms-user-select: none;
+#signature-container a {
+    cursor: default;
+}
+
+#signature-container a #signature {
+    cursor: pointer;
+    fill: #1a1a1a;
+    transition: fill 0.4s;
+}
+
+#signature-container a #signature:hover {
+    fill: #ffff00;
+    transition: fill 0.4s;
+}
+
+#signature-container a #signature:active {
+    fill: #bdbd00;
+    transition: fill 0s;
 }
 /*
 #links-container * {
