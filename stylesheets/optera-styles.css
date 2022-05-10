@@ -1,0 +1,423 @@
+@font-face {
+  font-family: impactFont;
+  src: url(/assets/Impact.ttf);
+}
+
+body {
+    font-size: 100%;
+    background-color: #1A1A1A;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    font-family: impactFont;
+}
+
+:root {
+    --butterfly-width: 25vw;
+    --zac-butterfly-width: calc(var(--butterfly-width) * 0.6);
+
+    --gap: calc(var(--butterfly-width) / 29.75);
+    --forewing-width: calc((var(--butterfly-width) - var(--gap)) / 2);
+    --forewing-height: calc(var(--butterfly-width) * 0.4496);
+    --hindwing-height: calc(var(--butterfly-width) * 0.4412);
+    --hindwing-margin: calc(var(--butterfly-width) * 0.09234);
+
+    --butterfly-height: calc(var(--forewing-height) + var(--hindwing-height));
+
+    --zac-gap: calc(var(--zac-butterfly-width) / 29.75);
+    --zac-forewing-width: calc((var(--zac-butterfly-width) - var(--zac-gap)) / 2);
+    --zac-forewing-height: calc(var(--zac-butterfly-width) * 0.4496);
+    --zac-hindwing-height: calc(var(--zac-butterfly-width) * 0.4412);
+    --zac-hindwing-margin: calc(var(--zac-butterfly-width) * 0.09234);
+
+    --zac-butterfly-height: calc(var(--zac-forewing-height) + var(--zac-hindwing-height));
+
+    --animation-duration: 4s;
+}
+
+#scene {
+    z-index: -1;
+    background-color: transparent;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+}
+
+@keyframes follow {
+    from {
+        transform: rotateZ(45deg);
+    }
+    to {
+        transform: rotateZ(0deg);
+    }
+}
+
+#optera {
+    position: absolute;
+    transform: rotateZ(45deg);
+    animation-duration: 1s;
+    animation-delay: calc(var(--animation-duration) * 0.9);
+    animation-name: follow;
+    animation-fill-mode: forwards;
+    bottom: 40px;
+    left: 40px;
+    width: calc(var(--butterfly-width) + (var(--butterfly-width) * 0.05));
+    height: calc(var(--butterfly-height) + (var(--butterfly-height) * 0.05));
+}
+#optera .butterfly {
+    margin: auto;
+    width: 96%;
+
+}
+
+@keyframes float {
+    0% {
+        left: calc(100vw - var(--zac-butterfly-width));
+        bottom: calc(100vh - var(--zac-butterfly-height));
+        transform: rotateZ(225deg);
+    }
+    90% {
+        left: 40px;
+        bottom: calc(((var(--butterfly-height) + (var(--butterfly-height) * 0.05)) + 40px) + ((var(--butterfly-height) + (var(--butterfly-height) * 0.05))/3));
+        transform: rotateZ(225deg);
+    }
+    100% {
+        left: 40px;
+        bottom: calc(((var(--butterfly-height) + (var(--butterfly-height) * 0.05)) + 40px) + ((var(--butterfly-height) + (var(--butterfly-height) * 0.05))/3));
+        transform: rotateZ(180deg);
+    }
+}
+
+#zac {
+    position: absolute;
+    width: calc(var(--butterfly-width) + (var(--butterfly-width) * 0.05));
+    height: calc(var(--zac-butterfly-height) + (var(--zac-butterfly-height) * 0.11));
+    left: 40px;
+    bottom: calc(((var(--butterfly-height) + (var(--butterfly-height) * 0.05)) + 40px) + ((var(--butterfly-height) + (var(--butterfly-height) * 0.05))/3));
+    animation-name: float;
+    animation-duration: var(--animation-duration);
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+#zac .butterfly {
+    margin: auto;
+    width: calc(var(--zac-butterfly-width) + (var(--zac-butterfly-width) * 0.04));
+}
+
+@keyframes love {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 38%;
+    }
+}
+
+#heart {
+    position: absolute;
+    left: 40px;
+    bottom: calc((var(--butterfly-height) + (var(--butterfly-height) * 0.05)) + 40px);
+    width: calc(var(--butterfly-width) + (var(--butterfly-width) * 0.05)) !important;
+    height: calc((var(--butterfly-height) + (var(--butterfly-height) * 0.05))/3);
+}
+
+#heart .contents {
+    width: 0%;
+    animation-name: love;
+    animation-delay: 7.5s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    position: relative;
+    margin: auto;
+    height: 100%;
+}
+
+#heart .section {
+    position: absolute;
+    width: 47%;
+    height: calc((var(--butterfly-height) + (var(--butterfly-height) * 0.05))/3) !important;
+}
+
+#heart .section.two {
+    right: 0px;
+}
+
+#message {
+    padding-top: 1rem;
+    color: white;
+    text-align: center;
+}
+
+@keyframes fade-in { 
+  0% {
+    opacity: 0;
+    transform: scale(.1);
+  }
+
+  85% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#message a {
+    all: unset;
+    cursor: pointer;
+    background-color: #1b9587;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+#message a:hover {
+    background-color: #29e1cc;
+}
+
+#message a {
+    all: unset;
+    cursor: pointer;
+    background-color: #1b9587;
+    border-radius: 0.3rem;
+    padding: 1rem;
+}
+
+#message p {
+    font-size: 2rem;
+}
+
+#message p, #message a {
+  animation: fade-in 1s linear;
+  animation-fill-mode: both;
+}
+
+#message p:nth-child(1) {
+    animation-delay: 4s
+}
+
+#message p:nth-child(2) {
+    animation-delay: 4.5s
+}
+
+#message p:nth-child(3) {
+    animation-delay: 5s
+}
+
+#message p:nth-child(4) {
+    animation-delay: 5.5s
+}
+
+#message p:nth-child(5) {
+    animation-delay: 6s
+}
+
+#message p:nth-child(6) {
+    animation-delay: 6.5s;
+    font-family: helvetica;
+    font-size: 1rem;
+    width: 300px;
+    margin: auto;
+}
+#message a:nth-child(9) {
+    animation-delay: 9.5s
+}
+
+/*----------------------------------------------------------------------------*/
+
+.wing {
+    display: inline-block;
+}
+
+.wing > * {
+    position: relative;
+    margin: calc(var(--gap) - (var(--butterfly-width) * 0.0126)) calc(var(--gap) - (var(--butterfly-width) * 0.0352));
+}
+
+#zac .wing > * {
+    margin: calc(var(--zac-gap) - (var(--zac-butterfly-width) * 0.0126)) calc(var(--zac-gap) - (var(--zac-butterfly-width) * 0.0352));
+}
+
+.forewing {
+    width: var(--forewing-width);
+    height: var(--forewing-height);
+}
+
+#zac .forewing {
+    width: var(--zac-forewing-width);
+    height: var(--zac-forewing-height);
+}
+
+.hindwing {
+    height: var(--hindwing-height);
+    margin-left: var(--hindwing-margin);
+}
+
+#zac .hindwing {
+    height: var(--zac-hindwing-height);
+    margin-left: var(--zac-hindwing-margin);
+}
+
+.section {
+    position: absolute;
+}
+
+.yellow {
+    fill: #fec211;
+}
+
+.blue {
+    fill: #23e5f5;
+}
+
+.orange {
+    fill: #f69021;
+}
+
+.green {
+    fill: #1b9587;
+}
+
+.blue-dark {
+    fill: #1CAAB5;
+}
+
+.blue-darker {
+    fill: #126E76;
+}
+
+.blue-darkest {
+    fill: #083236;
+}
+
+.red {
+    fill: #C33206;
+}
+
+.purple {
+    fill: #5E71F7;
+}
+
+.forewing .section.one {
+    width: 46.52%;
+    height: 54.26%;
+}
+
+
+.forewing .section.one svg {
+    position: absolute;
+    bottom: 0px;
+}
+
+.forewing .section.two {
+    width: 40.43%;
+    height: 22.11%;
+    top: 59.5%;
+}
+
+.forewing .section.two svg {
+    position: absolute;
+    top: 0px;
+}
+
+.forewing .section.three {
+    width: 85.65%;
+    top: 62%;
+    left: 10%;
+}
+
+.forewing .section.four {
+    width: 39.04%;
+    height: 33.96%;
+    top: 59.5%;
+    left: 60%;
+}
+
+.forewing .section.four svg {
+    position: absolute;
+    top: 0px;
+}
+
+.forewing .section.five {
+    width: 66%;
+    height: 53.45%;
+    left: 21%;
+}
+
+.forewing .section.five svg {
+    position: absolute;
+    bottom: 0px;
+}
+
+.right.wing {
+    transform: rotateY(180deg);
+}
+
+.right.wing .forewing .section {
+    transform: rotateY(180deg);
+}
+
+.hindwing .section.one {
+    width: 36.72%;
+    top: 24%;
+}
+
+.hindwing .section.two {
+    width: 77.79%;
+    left: 22%;
+}
+
+.hindwing .section.three {
+    width: 38.41%;
+    top: 53%;
+    left: 47%;
+}
+
+.hindwing .section.center {
+    width: 54.52%;
+    top: 28%;
+    left: 25%;
+}
+
+.right.wing .hindwing .section {
+    transform: rotateY(180deg);
+}
+
+@keyframes left-wing-flutter {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(80deg);}
+}
+
+@keyframes right-wing-flutter {
+    from {transform: rotateY(180deg);}
+    to {transform: rotateY(100deg);}
+}
+
+.wing {
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-style: preserve-3d;
+}
+
+.wing.left {
+    transform-origin: right;
+    animation-name: left-wing-flutter;
+}
+
+.wing.right {
+    position: relative;
+    left: -45%;
+    transform-origin: right;
+    animation-name: right-wing-flutter;
+}
+
+#zac .wing {
+    animation-duration: 0.4s;
+}
+
