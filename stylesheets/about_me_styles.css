@@ -131,6 +131,12 @@ body {
   top: 1rem;
   height: 2rem;
   width: 2rem;
+  transition: transform 0.4s;
+  transform-origin: top right;
+}
+
+#home-button:hover {
+  transform: scale(1.2);
 }
 
 #home-button a img {
@@ -289,6 +295,15 @@ a {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.links a img {
+  transition: transform 0.4s;
+  transform-origin: center;
+}
+
+.links a img:hover {
+  transform: scale(1.2);
 }
 
 .myName {

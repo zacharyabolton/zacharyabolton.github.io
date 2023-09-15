@@ -141,6 +141,22 @@ body #notice p a {
   margin: auto;
 }
 
+.topButtons {
+  transition: transform 0.4s;
+}
+
+#info-button {
+  transform-origin: top left;
+}
+
+#shuffle-button {
+  transform-origin: top right;
+}
+
+.topButtons:hover {
+  transform: scale(1.2);
+}
+
 #info-button {
   position: absolute;
   left: 1rem;
@@ -276,6 +292,7 @@ body #notice p a {
   padding: 1.2rem 1.2rem;
   background-color: transparent;
   flex: 1 0 auto;
+  padding-bottom: 0;
 }
 
 #links-container div a {
@@ -289,6 +306,15 @@ body #notice p a {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.5rem;
   text-shadow: 0rem 0rem 1rem black;
+  display: inline-block;
+  transition: background-color 0.4s;
+  transition: transform 0.4s;
+}
+
+#links-container div a:hover {
+  transform: scale(1.1);
+  transform-origin: bottom;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 #links-container div a.in-dev {
