@@ -1,17 +1,17 @@
 body {
-    margin: 0;
-    font-size: 100%;
-    background-color: rgba(26, 26, 26, 1);
-    font-family: helvetica;
-    color: white;
-    text-align: center;
+  margin: 0;
+  font-size: 100%;
+  background-color: rgba(26, 26, 26, 1);
+  font-family: helvetica;
+  color: white;
+  text-align: center;
 
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    -ms-user-select: none;
+  /*-moz-user-select: none;*/
+  /*-webkit-user-drag: none;*/
+  /*-khtml-user-select: none;*/
+  /*-webkit-user-select: none;*/
+  /*-o-user-select: none;*/
+  /*-ms-user-select: none;*/
 }
 
 @font-face {
@@ -20,79 +20,223 @@ body {
 }
 
 #fixed-bg {
-    top: 0;
-    background: -moz-linear-gradient(top, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 0.7) 50%, rgba(26, 26, 26, 1) 100%), url('../public/about_me_background_3.png') no-repeat;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(26, 26, 26, 1)), color-stop(50%, rgba(26, 26, 26, 0.7)), color-stop(100%, rgba(26, 26, 26, 1))), url('../public/about_me_background_3.png') no-repeat;
-    background: -webkit-linear-gradient(top, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 0.7) 50%, rgba(26, 26, 26, 1) 100%), url('../public/about_me_background_3.png') no-repeat;
-    background: -o-linear-gradient(top, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 0.7) 50%, rgba(26, 26, 26, 1) 100%), url('../public/about_me_background_3.png') no-repeat;
-    background: -ms-linear-gradient(top, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 0.7) 50%, rgba(26, 26, 26, 1) 100%), url('../public/about_me_background_3.png') no-repeat;
-    background: linear-gradient(to bottom, rgba(26, 26, 26, 1) 0%, rgba(26, 26, 26, 0.7) 50%, rgba(26, 26, 26, 1) 100%), url('../public/about_me_background_3.png') no-repeat;
-    
-    background-size: cover;
-    position: fixed;
+  top: 0;
+  background: -moz-linear-gradient(
+      top,
+      rgba(26, 26, 26, 1) 0%,
+      rgba(26, 26, 26, 0.7) 50%,
+      rgba(26, 26, 26, 1) 100%
+    ),
+    url("../public/about_me_background_3.png") no-repeat;
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0%, rgba(26, 26, 26, 1)),
+      color-stop(50%, rgba(26, 26, 26, 0.7)),
+      color-stop(100%, rgba(26, 26, 26, 1))
+    ),
+    url("../public/about_me_background_3.png") no-repeat;
+  background: -webkit-linear-gradient(
+      top,
+      rgba(26, 26, 26, 1) 0%,
+      rgba(26, 26, 26, 0.7) 50%,
+      rgba(26, 26, 26, 1) 100%
+    ),
+    url("../public/about_me_background_3.png") no-repeat;
+  background: -o-linear-gradient(
+      top,
+      rgba(26, 26, 26, 1) 0%,
+      rgba(26, 26, 26, 0.7) 50%,
+      rgba(26, 26, 26, 1) 100%
+    ),
+    url("../public/about_me_background_3.png") no-repeat;
+  background: -ms-linear-gradient(
+      top,
+      rgba(26, 26, 26, 1) 0%,
+      rgba(26, 26, 26, 0.7) 50%,
+      rgba(26, 26, 26, 1) 100%
+    ),
+    url("../public/about_me_background_3.png") no-repeat;
+  background: linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 1) 0%,
+      rgba(26, 26, 26, 0.7) 50%,
+      rgba(26, 26, 26, 1) 100%
+    ),
+    url("../public/about_me_background_3.png") no-repeat;
 
-    -moz-background-attachment: fixed;
-    -webkit-background-attachment: fixed;
-    -o-background-attachment: fixed;
-    -ms-background-attachment: fixed;
-    background-attachment: fixed;
+  background-size: cover;
+  position: fixed;
 
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+  -moz-background-attachment: fixed;
+  -webkit-background-attachment: fixed;
+  -o-background-attachment: fixed;
+  -ms-background-attachment: fixed;
+  background-attachment: fixed;
+
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 #container {
-    padding: 2% 10%;
-    text-align: left;
+  max-width: 50%; /* Max width on larger screens */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2% 2%; /* This gives a consistent padding around the content, but you can adjust as needed */
+  text-align: left;
+}
+
+/* When the viewport width is larger than 768px */
+@media (min-width: 768px) {
+  #container {
+    max-width: 50%; /* You can adjust this between 30% to 50% based on your preference for wider screens */
+    padding: 2% 2%;
+  }
+}
+
+/* When the viewport width is between 481px to 767px */
+@media (max-width: 767px) and (min-width: 481px) {
+  #container {
+    max-width: 80%;
+    padding: 2% 2%;
+  }
+}
+
+/* When the viewport width is less than 480px */
+@media (max-width: 480px) {
+  #container {
+    max-width: 95%; /* Making it almost full width, with just a bit of padding */
+    padding: 2% 2.5%; /* Adjusted padding to give a bit more space on the sides for aesthetics */
+  }
 }
 
 #home-button {
-    background-color: #1A1A1A;
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    height: 2rem;
-    width: 2rem;
+  background-color: #1a1a1a;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 #home-button a img {
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
 }
 
 #splash-container {
-    text-align: center;
-    font-family: impactFont;
+  text-align: center;
+  font-family: impactFont;
 }
 
 #splash-container #splash {
-    border-radius: 50%;
-    box-shadow: 0px 0px 2px 2px black;
-    background-color: black;
+  border-radius: 50%;
+  box-shadow: 0px 0px 2px 2px black;
+  background-color: black;
 
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
 }
 
 canvas {
-    margin-bottom: 5rem;
+  margin-bottom: 5rem;
 }
 
-.skills, .leadershipExperience, .education, .myLinks, .intro {
+.skills,
+.leadershipExperience,
+.education,
+.myLinks,
+.intro {
   margin-bottom: 6rem;
+  .blurb {
+    text-align: justify;
+    font-size: 1rem;
+  }
 }
 
-.skills div h3 {
+.sectionHeader {
+  /*display: flex;*/
+  /*justify-content: flex-end;*/
+  order: -2; /* This will ensure it's always below the two skill categories on smaller screens */
+  color: rgb(159, 62, 250);
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.skills hr {
+  order: -1; /* This will ensure it's always below the two skill categories on smaller screens */
+}
+
+.skills {
+  display: flex;
+  flex-direction: column; /* Stack on top of each other by default */
+}
+
+.skills .sectionHeader {
+  /* Write text vertically */
+  writing-mode: initial;
+}
+
+.skills div h4 {
   text-align: center;
+}
+
+.skills div {
+  flex: 1; /* Each div will take an equal amount of space */
+  margin: 1rem 0; /* Add some spacing between the lists */
+  padding: 0 1rem; /* Add some padding around the lists */
+}
+
+.skills div ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 1rem;
+  row-gap: 0.5rem;
+  padding-left: 0px;
+  font-size: 0.8rem;
+}
+
+@media only screen and (min-width: 1037px) {
+  .skills {
+    flex-direction: row; /* Display side by side on larger screens */
+    margin-bottom: 0rem;
+    column-gap: 1rem;
+  }
+
+  .skills .sectionHeader {
+    writing-mode: vertical-lr;
+  }
+
+  .sectionHeader {
+    order: 2; /* This will ensure it's always below the two skill categories on smaller screens */
+  }
+
+  .skills hr {
+    order: 1; /* This will ensure it's always below the two skill categories on smaller screens */
+  }
+}
+
+/*flex layout fix*/
+/*https://stackoverflow.com/questions/34365271/hr-inside-container-with-display-flex-become-corrupted*/
+hr {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.leadershipExperience {
+  padding: 1rem;
+  background-color: rgba(256, 256, 256, 0.03);
 }
 
 .leadershipExperience ul {
@@ -100,28 +244,19 @@ canvas {
   list-style: none;
 }
 
+.leadershipExperience > ul > li > ul {
+  margin-bottom: 2rem;
+}
+
 .leadershipExperience ul li ul {
   padding-left: 2rem;
   list-style-type: disc;
 }
 
-@media only screen and (min-width: 1037px) {
-  .skills {
-    margin-bottom: 0rem;
-  }
-  .skills div {
-    display: inline-block;
-    width: 49%;
-  }
-
-  .skills div ul {
-    -moz-column-count: 2;
-    -moz-column-gap: 20px;
-    -webkit-column-count: 2;
-    -webkit-column-gap: 20px;
-    column-count: 2;
-    column-gap: 20px;
-  }
+.dates {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem;
 }
 
 .myLinks {
@@ -137,6 +272,13 @@ a {
   color: chartreuse;
 }
 
+.headerAndLinks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .myName {
   font-size: 3rem;
   font-weight: bolder;
@@ -146,3 +288,4 @@ a {
 .intro p {
   font-size: 1.5rem;
 }
+
