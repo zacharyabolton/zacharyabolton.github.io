@@ -300,6 +300,14 @@ body #notice p a {
   transform-origin: bottom;
 }
 
+#links-container div:first-child {
+  margin-left: 1rem;
+}
+
+#links-container div:last-child {
+  margin-right: 1rem;
+}
+
 #links-container div:hover {
   transform: scale(1.1);
   background-color: rgba(0, 0, 0, 1);
