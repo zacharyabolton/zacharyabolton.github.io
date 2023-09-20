@@ -88,7 +88,7 @@ body {
 /* Additional style to fix potential scaling issues on mobile */
 @media screen and (max-width: 768px) {
   #fixed-bg {
-    background-size: auto 100vh;
+    background-size: cover;
   }
 }
 
@@ -166,53 +166,60 @@ body {
   -ms-user-select: none;
 }
 
-canvas {
-  margin-bottom: 5rem;
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
 }
 
-.skills,
-.leadershipExperience,
-.education,
-.myLinks,
-.intro {
-  margin-bottom: 6rem;
-  .blurb {
-    text-align: justify;
-    font-size: 1rem;
-  }
+.blurb {
+  /*display: flex;*/
+  text-align: justify;
+  font-size: 1rem;
+}
+
+.signatureContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.signature {
+  height: 64px;
 }
 
 .sectionHeader {
-  /*display: flex;*/
-  /*justify-content: flex-end;*/
-  order: -2; /* This will ensure it's always below the two skill categories on smaller screens */
   color: rgb(159, 62, 250);
   font-size: 1.5rem;
   margin-bottom: 0;
+}
+
+.skills {
+  display: flex;
+  flex-direction: column; /* Stack on top of each other by default */
+  padding: 1rem;
+  background-color: rgba(256, 256, 256, 0.03);
+}
+
+.skills .sectionHeader {
+  /* Write text vertically */
+  writing-mode: initial;
+  order: -2; /* This will ensure it's always below the two skill categories on smaller screens */
 }
 
 .skills hr {
   order: -1; /* This will ensure it's always below the two skill categories on smaller screens */
 }
 
-.skills {
-  display: flex;
-  flex-direction: column; /* Stack on top of each other by default */
-}
-
-.skills .sectionHeader {
-  /* Write text vertically */
-  writing-mode: initial;
-}
-
-.skills div h4 {
-  text-align: center;
-}
-
 .skills div {
   flex: 1; /* Each div will take an equal amount of space */
   margin: 1rem 0; /* Add some spacing between the lists */
   padding: 0 1rem; /* Add some padding around the lists */
+}
+
+.skills div h4 {
+  text-align: center;
 }
 
 .skills div ul {
@@ -223,25 +230,28 @@ canvas {
   row-gap: 0.5rem;
   padding-left: 0px;
   font-size: 0.8rem;
+  color: rgba(256, 256, 256, 0.7);
 }
 
 @media only screen and (min-width: 1037px) {
   .skills {
     flex-direction: row; /* Display side by side on larger screens */
     margin-bottom: 0rem;
-    column-gap: 1rem;
+    /*column-gap: 1rem;*/
   }
 
   .skills .sectionHeader {
     writing-mode: vertical-lr;
-  }
-
-  .sectionHeader {
     order: 2; /* This will ensure it's always below the two skill categories on smaller screens */
   }
 
   .skills hr {
-    order: 1; /* This will ensure it's always below the two skill categories on smaller screens */
+    order: 1;
+    margin: 0 8px;
+  }
+
+  .skills .sectionHeader {
+    margin-left: 0;
   }
 }
 
@@ -254,12 +264,14 @@ hr {
 
 .leadershipExperience {
   padding: 1rem;
-  background-color: rgba(256, 256, 256, 0.03);
 }
 
-.leadershipExperience ul {
+.leadershipExperience > ul {
   padding-left: 0px;
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
 }
 
 .leadershipExperience > ul > li > ul {
@@ -269,12 +281,23 @@ hr {
 .leadershipExperience ul li ul {
   padding-left: 2rem;
   list-style-type: disc;
+  color: rgba(256, 256, 256, 0.7);
 }
 
 .dates {
   display: flex;
   justify-content: space-between;
   margin: 0.5rem;
+}
+
+.education {
+  padding: 1rem;
+  background-color: rgba(256, 256, 256, 0.03);
+}
+
+.schoolDescription,
+.certificatesList {
+  color: rgba(256, 256, 256, 0.7);
 }
 
 .myLinks {
@@ -310,8 +333,4 @@ a {
   font-size: 3rem;
   font-weight: bolder;
   color: rgb(159, 62, 250);
-}
-
-.intro p {
-  font-size: 1.5rem;
 }
