@@ -1,0 +1,48 @@
+/* Loading overlay styles */
+/* .loading-overlay { */
+/*   position: fixed; */
+/*   top: 0; */
+/*   left: 0; */
+/*   width: 100%; */
+/*   height: 100%; */
+/*   background-color: #000; */
+/*   z-index: 9999; */
+/*   opacity: 1; */
+/*   transition: opacity 0.5s ease-in-out; */
+/* } */
+/**/
+/* .loading-overlay.fade-out { */
+/*   opacity: 0; */
+/* } */
+
+/* Hide content initially */
+/* body { */
+/*   opacity: 0; */
+/*   transition: opacity 0.5s ease-in-out; */
+/* } */
+/**/
+/* body.content-loaded { */
+/*   opacity: 1; */
+/* } */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.loading-overlay.fade-out {
+  opacity: 0;
+}
+
+/* Ensure content is visible underneath */
+#animation-container {
+  opacity: 1;
+  visibility: visible;
+}

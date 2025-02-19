@@ -57,11 +57,14 @@
     <script src="assets/p5.min.js"></script>
     <script src="assets/p5.dom.js"></script>
 
-    <!-- my scripts -->
-    <script src="scripts/background_animation.js"></script>
-
     <!-- my styles -->
     <link rel="stylesheet" type="text/css" href="stylesheets/home_styles.css" />
+    <!-- loading overlay styles -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="stylesheets/loading-overlay.css"
+    />
 
     <!-- icons -->
     <link
@@ -139,6 +142,8 @@
         </p>
       </div>
     </noscript>
+    <!-- Loading overlay -->
+    <div class="loading-overlay"></div>
     <!-- Modal -->
     <div id="animation-explanation-modal" class="modal">
       <!-- Modal content -->
@@ -193,7 +198,7 @@
           <div id="nodesOutput"></div>
           <div id="factorOutput"></div>
         </div>
-        <div id="shuffle-button" class="topButtons" onclick="setup()">
+        <div id="shuffle-button" class="topButtons" onclick="reinitialize()">
           <img
             src="assets/random_icon.svg"
             alt="random shuffle icon - click to restart the animation at a new random initial state"
@@ -216,42 +221,48 @@
         </a>
       </div>
     </div>
-    <!-- end #animation-container -->
 
-    <div id="links-container">
-      <div>
-        <a class="rainbow rainbow_text_animated" href="/about-me.html"
-          >Resumé</a
-        >
-      </div>
-      <div>
-        <a class="rainbow rainbow_text_animated" href="https://app.kidchess.com"
+    <nav class="nav-container">
+      <div class="nav-toggle"></div>
+      <div class="nav-menu">
+        <a href="/about-me.html" class="nav-item">Resumé</a>
+        <a href="https://app.kidchess.com" class="nav-item"
           >Chess Learning App</a
         >
-      </div>
-      <div>
-        <a
-          class="rainbow rainbow_text_animated"
-          href="/true-love-or-lost-cause.html"
+        <a href="/true-love-or-lost-cause.html" class="nav-item"
           >True Love or Lost Cause</a
         >
-      </div>
-      <div>
         <a
-          class="rainbow rainbow_text_animated"
           href="https://github.com/zacharyabolton/queens-gambit-sentiment-analysis-study/blob/main/PWD%20Midterm%20Project.ipynb"
+          class="nav-item"
           >Queen's Gambit Study</a
         >
+        <a href="https://github.com/zacharyabolton/" class="nav-item">GitHub</a>
       </div>
-      <div>
-        <a
-          class="rainbow rainbow_text_animated"
-          href="https://github.com/zacharyabolton/"
-          >GitHub</a
-        >
-      </div>
-    </div>
+    </nav>
 
+    <script>
+      document
+        .querySelector(".nav-toggle")
+        .addEventListener("click", function () {
+          this.classList.toggle("active");
+          document.querySelector(".nav-menu").classList.toggle("active");
+        });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", function (event) {
+        const nav = document.querySelector(".nav-container");
+        const toggle = document.querySelector(".nav-toggle");
+        if (!nav.contains(event.target)) {
+          toggle.classList.remove("active");
+          document.querySelector(".nav-menu").classList.remove("active");
+        }
+      });
+    </script>
+    <!-- Loading script -->
+    <script type="text/javascript" src="scripts/loading-overlay.js"></script>
+    <!-- my scripts -->
+    <script src="scripts/background_animation.js"></script>
     <script src="scripts/index.js"></script>
   </body>
 </html>
