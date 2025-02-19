@@ -1,45 +1,18 @@
-@font-face {
-  font-family: futura;
-  src: url(/assets/Impact.ttf);
-}
-
 body {
-  font-size: 100%;
   background-color: #1a1a1a;
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-  -ms-user-select: none;
-  font-family: futura;
   margin: 0;
   overflow: hidden;
   height: 100vh;
 }
 
-:root {
-  --butterfly1-width: 25vw;
-  --butterfly2-width: calc(var(--butterfly1-width) * 0.6);
-
-  --gap: calc(var(--butterfly1-width) / 29.75);
-  --forewing-width: calc((var(--butterfly1-width) - var(--gap)) / 2);
-  --forewing-height: calc(var(--butterfly1-width) * 0.4496);
-  --hindwing-height: calc(var(--butterfly1-width) * 0.4412);
-  --hindwing-margin: calc(var(--butterfly1-width) * 0.09234);
-}
-
 .scene {
-  z-index: -1;
-  background-color: transparent;
-  position: relative;
   width: 100%;
   height: 100vh;
   perspective: 1000px;
 }
 
 .butterfly {
-  width: var(--butterfly1-width);
+  position: absolute;
   transform-style: preserve-3d;
 }
 
@@ -52,60 +25,19 @@ body {
 
 .wing > * {
   position: relative;
-  margin: calc(var(--gap) - (var(--butterfly1-width) * 0.0126))
-    calc(var(--gap) - (var(--butterfly1-width) * 0.0352));
+  margin: 3% 3%;
 }
 
-.forewing {
-  width: var(--forewing-width);
-  height: var(--forewing-height);
-}
-
+.forewing,
 .hindwing {
-  height: var(--hindwing-height);
-  margin-left: var(--hindwing-margin);
+  position: relative;
 }
 
 .section {
   position: absolute;
 }
 
-.yellow {
-  fill: #fec211;
-}
-
-.blue {
-  fill: #23e5f5;
-}
-
-.orange {
-  fill: #f69021;
-}
-
-.green {
-  fill: #1b9587;
-}
-
-.blue-dark {
-  fill: #1caab5;
-}
-
-.blue-darker {
-  fill: #126e76;
-}
-
-.blue-darkest {
-  fill: #083236;
-}
-
-.red {
-  fill: #c33206;
-}
-
-.purple {
-  fill: #5e71f7;
-}
-
+/* Forewing section positioning */
 .forewing .section.one {
   width: 46.52%;
   height: 54.26%;
@@ -113,7 +45,7 @@ body {
 
 .forewing .section.one svg {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
 }
 
 .forewing .section.two {
@@ -124,7 +56,7 @@ body {
 
 .forewing .section.two svg {
   position: absolute;
-  top: 0px;
+  top: 0;
 }
 
 .forewing .section.three {
@@ -142,7 +74,7 @@ body {
 
 .forewing .section.four svg {
   position: absolute;
-  top: 0px;
+  top: 0;
 }
 
 .forewing .section.five {
@@ -153,18 +85,10 @@ body {
 
 .forewing .section.five svg {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
 }
 
-.right.wing {
-  transform: rotateY(180deg);
-  right: 45%;
-}
-
-.right.wing .forewing .section {
-  transform: rotateY(180deg);
-}
-
+/* Hindwing section positioning */
 .hindwing .section.one {
   width: 36.72%;
   top: 24%;
@@ -187,8 +111,13 @@ body {
   left: 25%;
 }
 
-.right.wing .hindwing .section {
+.right.wing {
   transform: rotateY(180deg);
+  right: 45%;
+}
+
+.butterfly {
+  z-index: 1; /* Will be set dynamically in JS */
 }
 
 @keyframes flutter-left {
@@ -211,58 +140,9 @@ body {
   }
 }
 
-@keyframes butterfly1-path {
-  0% {
-    transform: translate(120vw, -20vh) rotate(45deg);
-  }
-  25% {
-    transform: translate(80vw, 30vh) rotate(-15deg);
-  }
-  50% {
-    transform: translate(50vw, 10vh) rotate(30deg);
-  }
-  75% {
-    transform: translate(20vw, 40vh) rotate(-20deg);
-  }
-  100% {
-    transform: translate(-20vw, 20vh) rotate(15deg);
-  }
-}
-
-@keyframes butterfly2-path {
-  0% {
-    transform: translate(-20vw, 80vh) rotate(-45deg);
-  }
-  25% {
-    transform: translate(30vw, 60vh) rotate(20deg);
-  }
-  50% {
-    transform: translate(60vw, 40vh) rotate(-30deg);
-  }
-  75% {
-    transform: translate(80vw, 20vh) rotate(25deg);
-  }
-  100% {
-    transform: translate(120vw, 50vh) rotate(-15deg);
-  }
-}
-
-#butterfly1 {
-  animation: butterfly1-path 15s infinite cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#butterfly2 {
-  animation: butterfly2-path 18s infinite cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .wing.left {
   animation: flutter-left 0.5s infinite ease-in-out;
 }
-
 .wing.right {
   animation: flutter-right 0.5s infinite ease-in-out;
-}
-
-#butterfly2 .wing {
-  animation-duration: 0.4s;
 }
