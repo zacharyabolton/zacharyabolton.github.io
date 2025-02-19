@@ -44,7 +44,7 @@ body #notice p a {
 }
 
 @font-face {
-  font-family: impactFont;
+  font-family: futura;
   src: url(/assets/Impact.ttf);
 }
 
@@ -56,76 +56,126 @@ body #notice p a {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 10000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-.modal-header {
-  padding: 2px 16px;
-  background-color: black;
-  background-color: transparent;
-  color: white;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: white;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modal-body {
-  color: lightgrey;
-  padding: 2px 16px;
-}
-
-.modal-body p span {
-  color: white;
-  font-family: helvetica;
-  font-family: mathFont;
-}
-
-.modal-body p a {
-  color: lightblue;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .modal-content {
   position: relative;
-  font-size: 1rem;
-  font-family: helvetica;
-  color: white;
-  background-color: rgb(30, 30, 30);
-  background-color: rgba(0, 0, 0, 0.65);
-  margin: auto;
-  padding: 0px;
-  border: 1px solid #888;
-  width: 80%;
-  animation-name: animatetop;
-  animation-duration: 0.4s;
+  background-color: rgba(20, 20, 20, 0.95);
+  margin: 2rem auto;
+  width: min(90%, 600px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  animation: modalFade 0.3s ease-out;
 }
 
-/* Add Animation */
-@keyframes animatetop {
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-family: impactFont, helvetica, sans-serif;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.close:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+.modal-body p {
+  margin: 0 0 1.2rem;
+}
+
+.modal-body p:last-child {
+  margin-bottom: 0;
+}
+
+.modal-body span {
+  color: white;
+  font-family: mathFont;
+  font-weight: bold;
+}
+
+.modal-footer {
+  text-align: center;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mathologer-link {
+  display: inline-block;
+  color: #6666ff;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  background: rgba(102, 102, 255, 0.1);
+}
+
+.mathologer-link:hover {
+  color: white;
+  background: rgba(102, 102, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+@keyframes modalFade {
   from {
-    top: -300px;
     opacity: 0;
+    transform: translateY(-20px);
   }
   to {
-    top: 0;
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    margin: 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  .modal-header {
+    padding: 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -180,7 +230,7 @@ body #notice p a {
 #output-and-shuffle-container {
   color: white;
   font-family: helvetica;
-  font-family: impactFont;
+  font-family: futura;
   position: absolute;
   right: 1rem;
   top: 1rem;
@@ -229,6 +279,12 @@ body #notice p a {
   left: 0;
   right: 0;
   margin: auto;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+#signature-container.menu-active {
+  opacity: 0;
 }
 
 @media all and (min-width: 640px) and (min-height: 306px) {
@@ -265,32 +321,109 @@ body #notice p a {
   transition: fill 0s;
 }
 
-.nav-container {
+#custom-nav-container {
   position: fixed;
-  bottom: 2rem;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  font-family: futura, helvetica, sans-serif;
+  width: min(90vw, 90vh);
+  height: min(90vw, 90vh);
+  pointer-events: none;
 }
 
-.nav-toggle {
+#custom-nav-container .nav-toggle {
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 3rem;
   height: 3rem;
   background: rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
+  pointer-events: auto;
 }
 
-.nav-toggle:hover {
+#custom-nav-container .nav-menu {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+#custom-nav-container .nav-menu.menu-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#custom-nav-container .nav-items-container {
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+#custom-nav-container .nav-items-container::-webkit-scrollbar {
+  display: none;
+}
+
+#custom-nav-container .nav-item {
+  padding: 0.8rem 1.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  pointer-events: auto;
+  text-align: center;
+  min-width: 200px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#custom-nav-container .nav-item:hover {
   background: rgba(0, 0, 0, 0.9);
-  transform: scale(1.1);
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-.nav-toggle::before,
-.nav-toggle::after {
+#custom-nav-container .nav-toggle::before,
+#custom-nav-container .nav-toggle::after {
   content: "";
   position: absolute;
   width: 1.5rem;
@@ -301,68 +434,42 @@ body #notice p a {
   transition: all 0.3s ease;
 }
 
-.nav-toggle::before {
+#custom-nav-container .nav-toggle::before {
   transform: translate(-50%, -4px);
 }
 
-.nav-toggle::after {
+#custom-nav-container .nav-toggle::after {
   transform: translate(-50%, 4px);
 }
 
-.nav-toggle.active::before {
+#custom-nav-container .nav-toggle.menu-active::before {
   transform: translate(-50%, 0) rotate(45deg);
 }
 
-.nav-toggle.active::after {
+#custom-nav-container .nav-toggle.menu-active::after {
   transform: translate(-50%, 0) rotate(-45deg);
 }
 
-.nav-menu {
-  position: absolute;
-  bottom: 4rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 1rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.nav-menu.active {
-  opacity: 1;
-  visibility: visible;
-  bottom: 5rem;
-}
-
-.nav-item {
-  padding: 0.8rem 1.5rem;
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 2rem;
-  color: white;
-  text-decoration: none;
-  font-family: "Helvetica", sans-serif;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  backdrop-filter: blur(10px);
-}
-
-.nav-item:hover {
-  background: rgba(0, 0, 0, 0.9);
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-@media (max-width: 768px) {
-  .nav-menu {
-    flex-direction: column;
-    align-items: center;
-    bottom: 5rem;
+@media (max-height: 600px) {
+  #custom-nav-container {
+    width: 100vw;
+    height: 100vh;
   }
 
-  .nav-menu.active {
-    bottom: 6rem;
+  #custom-nav-container .nav-items-container {
+    max-height: 70vh;
+    padding-bottom: 4rem; /* Extra padding to prevent toggle button overlap */
+  }
+
+  #custom-nav-container .nav-toggle {
+    bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #custom-nav-container .nav-item {
+    min-width: 160px;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
   }
 }

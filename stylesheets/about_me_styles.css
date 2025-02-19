@@ -15,7 +15,7 @@ body {
 }
 
 @font-face {
-  font-family: impactFont;
+  font-family: futura;
   src: url(/assets/Impact.ttf);
 }
 
@@ -151,7 +151,7 @@ body {
 
 #splash-container {
   text-align: center;
-  font-family: impactFont;
+  font-family: futura;
 }
 
 #splash-container #splash {

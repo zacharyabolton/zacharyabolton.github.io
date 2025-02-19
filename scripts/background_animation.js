@@ -36,9 +36,12 @@ var maxF = 1024;
 
 // Parameters for the coordinated pulse effect:
 var pulseSpeed = 0.005; // Controls pulse speed
-var pulseThreshold = 200; // Width of pulse influence
+var pulseThresholdFactor = 0.5; // Fraction of radius used for pulse threshold
 var peakB = 255; // Max brightness for the pulse
 var huePulseShift = 20; // Max hue shift from the pulse
+
+// New parameter: Multiply the base brightness when pulse effect is low
+var contrastFactor = 0.1; // Lower than 1 makes the darks darker
 
 // A global hue offset that slowly cycles over time
 var globalHueCycle = 0;
@@ -93,9 +96,7 @@ function draw() {
   let globalPulseX = lerp(radius, -radius, easeT);
 
   // --- Update the slow global hue cycle ---
-  // This gradually shifts colors over time, reintroducing strong “contours.”
   globalHueCycle = (frameCount * 0.1) % 360;
-  // ^ Increase or decrease 0.1 to speed up or slow down the global hue change
 
   // --- Adjust Segments for Performance ---
   let segCount;
@@ -106,6 +107,10 @@ function draw() {
   } else {
     segCount = 1;
   }
+
+  // --- Compute Effective Pulse Threshold relative to radius ---
+  let effectivePulseThreshold = radius * pulseThresholdFactor;
+  let sigma = effectivePulseThreshold / 2;
 
   // --- Draw Multiplication Table Connections ---
   for (let i = 0; i < nodes; i++) {
@@ -131,17 +136,16 @@ function draw() {
       // Distance from the pulse center
       let midX = (segX1 + segX2) / 2;
       let d = abs(midX - globalPulseX);
-      let sigma = pulseThreshold / 2;
       let pulseFactor = exp(-(d * d) / (2 * sigma * sigma));
 
-      // Horizontal “contour” shift
+      // Horizontal “contour” shift based on segment's x-position
       let globalHueShift = map(midX, -radius, radius, -30, 30);
 
       // Combine:
-      //   1) The base color
-      //   2) The global hue cycle (time-based shift)
-      //   3) The local pulse-based hue shift
-      //   4) The contour shift (based on x-position)
+      //   1) Base color
+      //   2) Global hue cycle (time-based shift)
+      //   3) Local pulse-based hue shift
+      //   4) Contour shift (based on x-position)
       let finalHue =
         (baseColor.hue +
           globalHueCycle +
@@ -149,31 +153,14 @@ function draw() {
           globalHueShift) %
         360;
       let finalSat = baseColor.sat;
-      let finalBri = lerp(baseColor.bri, peakB, pulseFactor);
+      // Increase contrast: use baseColor.bri * contrastFactor for low pulseFactor values.
+      let finalBri = lerp(baseColor.bri * contrastFactor, peakB, pulseFactor);
 
       stroke(finalHue, finalSat, finalBri);
       strokeWeight(1);
       line(segX1, segY1, segX2, segY2);
     }
   }
-
-  // // --- Toned-Down, Breathing Nodes ---
-  // let nodePulse = (sin(frameCount * 0.003) + 1) / 2;
-  // let nodeBri = lerp(10, 20, nodePulse);
-  //
-  // let nodeSpacing = ceil(nodes / 512);
-  // if (nodes <= 360) nodeSpacing = 1;
-  //
-  // for (let i = 0; i < nodes; i += nodeSpacing) {
-  //   let angle = (TWO_PI / nodes) * i;
-  //   let x = sin(angle) * radius;
-  //   let y = cos(angle) * radius;
-  //
-  //   noFill();
-  //   stroke(0, 0, nodeBri, 100);
-  //   strokeWeight(1);
-  //   ellipse(x, y, 4, 4);
-  // }
 
   // --- Update On-Screen Displays ---
   document.getElementById("nodesOutput").innerHTML = nodes;

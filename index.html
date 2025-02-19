@@ -144,30 +144,29 @@
     </noscript>
     <!-- Loading overlay -->
     <div class="loading-overlay"></div>
-    <!-- Modal -->
+    <!-- Modal HTML structure -->
     <div id="animation-explanation-modal" class="modal">
-      <!-- Modal content -->
       <div class="modal-content">
         <div class="modal-header">
-          <span class="close">&times;</span>
           <h2>Understanding the Animation</h2>
+          <button class="close" aria-label="Close modal">&times;</button>
         </div>
         <div class="modal-body">
           <p>
             This animation visualizes a multiplication table based on two
             factors:
-            <span>F</span> (displayed on the top-right as the lower number) and
-            <span>B</span> (shown as the upper number on the top-right).
+            <span>B</span> (top-right, upper number) and,
+            <span>F</span> (top-right, lower number).
           </p>
           <p>
             The animation sequences through natural numbers, beginning with one.
-            Numbers up to the value of <span>B</span> are equally spaced around
-            the circle's circumference. Each multiplication involving
-            <span>F</span> gets its representation through a connecting line.
-            For instance, the product of <span>1 x F</span> creates a line
+            Numbers up to the value of <span>B</span> are represented as equally
+            spaced nodes around a circle's circumference. Each multiplication
+            involving <span>F</span> gets its representation through an edge.
+            For instance, the product of <span>1 × F</span> creates a line
             between the circle's first point and the
             <span>F<sup>th</sup></span> point. Similarly, the product
-            <span>2 x F</span> connects the second point to the
+            <span>2 × F</span> connects the second point to the
             <span>2F<sup>th</sup></span> point, and so forth.
           </p>
           <p>
@@ -176,11 +175,14 @@
             <span>B + n</span> maps to the <span>n<sup>th</sup></span> point on
             the circle.
           </p>
-          <p>
-            <a href="https://youtu.be/qhbuKbxJsk8" target="_blank"
-              >For a deeper dive into this concept, view this Mathologer
-              video.</a
+          <p class="modal-footer">
+            <a
+              href="https://youtu.be/qhbuKbxJsk8"
+              target="_blank"
+              class="mathologer-link"
             >
+              For a deeper dive into this concept, view this Mathologer video
+            </a>
           </p>
         </div>
       </div>
@@ -222,39 +224,76 @@
       </div>
     </div>
 
-    <nav class="nav-container">
-      <div class="nav-toggle"></div>
+    <nav id="custom-nav-container">
       <div class="nav-menu">
-        <a href="/about-me.html" class="nav-item">Resumé</a>
-        <a href="https://app.kidchess.com" class="nav-item"
-          >Chess Learning App</a
-        >
-        <a href="/true-love-or-lost-cause.html" class="nav-item"
-          >True Love or Lost Cause</a
-        >
-        <a href="/queens-gambit-study.html" class="nav-item"
-          >Queen's Gambit Study</a
-        >
-        <a href="https://github.com/zacharyabolton/" class="nav-item">GitHub</a>
+        <div class="nav-items-container">
+          <a
+            href="/about-me.html"
+            class="nav-item rainbow rainbow_text_animated"
+            >Resumé</a
+          >
+          <a
+            href="https://app.kidchess.com"
+            class="nav-item rainbow rainbow_text_animated"
+            >Chess Learning App</a
+          >
+          <a
+            href="/true-love-or-lost-cause.html"
+            class="nav-item rainbow rainbow_text_animated"
+            >True Love or Lost Cause</a
+          >
+          <a
+            href="/queens-gambit-study"
+            class="nav-item rainbow rainbow_text_animated"
+            >Queen's Gambit Study</a
+          >
+          <a
+            href="https://github.com/zacharyabolton/"
+            class="nav-item rainbow rainbow_text_animated"
+            >GitHub</a
+          >
+          <!-- You can add more links here without breaking the layout -->
+        </div>
       </div>
+      <div class="nav-toggle"></div>
     </nav>
 
     <script>
-      document
-        .querySelector(".nav-toggle")
-        .addEventListener("click", function () {
-          this.classList.toggle("active");
-          document.querySelector(".nav-menu").classList.toggle("active");
+      document.addEventListener("DOMContentLoaded", function () {
+        const navToggle = document.querySelector(
+          "#custom-nav-container .nav-toggle",
+        );
+        const navMenu = document.querySelector(
+          "#custom-nav-container .nav-menu",
+        );
+        const container = document.querySelector("#custom-nav-container");
+        const signatureContainer = document.querySelector(
+          "#signature-container",
+        );
+
+        navToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          this.classList.toggle("menu-active");
+          navMenu.classList.toggle("menu-active");
+          container.style.pointerEvents = this.classList.contains("menu-active")
+            ? "auto"
+            : "none";
+          // also toggle signature container
+          signatureContainer.classList.toggle("menu-active");
         });
 
-      // Close menu when clicking outside
-      document.addEventListener("click", function (event) {
-        const nav = document.querySelector(".nav-container");
-        const toggle = document.querySelector(".nav-toggle");
-        if (!nav.contains(event.target)) {
-          toggle.classList.remove("active");
-          document.querySelector(".nav-menu").classList.remove("active");
-        }
+        // Close menu when clicking outside
+        // hide the signature when nav menu is open
+        document.addEventListener("click", function (event) {
+          const nav = document.querySelector("#custom-nav-container");
+          if (!nav.contains(event.target)) {
+            navToggle.classList.remove("menu-active");
+            navMenu.classList.remove("menu-active");
+            container.style.pointerEvents = "none";
+            // reshow the signature
+            signatureContainer.classList.remove("menu-active");
+          }
+        });
       });
     </script>
     <!-- Loading script -->

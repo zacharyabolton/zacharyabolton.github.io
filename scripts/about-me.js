@@ -15,7 +15,7 @@ var rSprite,
   QSprite,
   KSprite,
   PSprite;
-var impactFont;
+// var impactFont;
 var movingPiece;
 var sx, sy;
 var tx, ty;
@@ -35,7 +35,7 @@ function preload() {
   KSprite = loadImage("../assets/chess_pieces/white_king.svg");
   pSprite = loadImage("../assets/chess_pieces/black_pawn.svg");
   PSprite = loadImage("../assets/chess_pieces/white_pawn.svg");
-  impactFont = loadFont("../assets/Impact.ttf");
+  // impactFont = loadFont("../assets/Impact.ttf");
 }
 
 function setup() {
