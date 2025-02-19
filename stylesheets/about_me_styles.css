@@ -64,7 +64,8 @@ body {
   /*rgba(26, 26, 26, 1) 100%*/
   /*),*/
   /*url("../public/about_me_background_3.png") no-repeat;*/
-  background: linear-gradient(
+  background:
+    linear-gradient(
       to bottom,
       rgba(26, 26, 26, 1) 0%,
       rgba(26, 26, 26, 0.7) 50%,
@@ -320,6 +321,10 @@ a {
   justify-content: space-between;
 }
 
+.links a {
+  /* remove link underlines */
+  text-decoration: none;
+}
 .links a img {
   transition: transform 0.4s;
   transform-origin: center;
@@ -333,4 +338,13 @@ a {
   font-size: 3rem;
   font-weight: bolder;
   color: rgb(159, 62, 250);
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #f0f0f0;
+  margin-bottom: 3rem;
+  display: block;
+  text-align: center;
 }
