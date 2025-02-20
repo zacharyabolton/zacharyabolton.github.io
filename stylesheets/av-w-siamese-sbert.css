@@ -166,10 +166,54 @@ pre {
   text-align: left;
 }
 
+/* Table container for horizontal scrolling */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0;
+  -webkit-overflow-scrolling: touch;
+  background:
+    linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(to right, rgba(255, 255, 255, 0), white 70%) 100% 0,
+    radial-gradient(
+      farthest-side at 0% 50%,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+        farthest-side at 100% 50%,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0)
+      )
+      100% 0;
+  background-repeat: no-repeat;
+  background-size:
+    40px 100%,
+    40px 100%,
+    14px 100%,
+    14px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.table-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
 table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
-  margin: 20px 0;
+  margin: 0;
 }
 
 th,
@@ -177,10 +221,22 @@ td {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+td:first-child,
+th:first-child {
+  white-space: normal;
 }
 
 th {
   background-color: #f8f9fa;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .code-block {
@@ -193,6 +249,7 @@ th {
   border-left: 4px solid #ffd700;
   margin: 20px 0;
 }
+
 /* For the example tables */
 .example-table td {
   vertical-align: top;
@@ -220,4 +277,59 @@ em {
 .context-box h3 {
   margin-top: 0;
   color: #4a5568;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  .main {
+    padding: 15px;
+  }
+
+  .table-container {
+    margin: 15px -15px;
+    padding: 0 15px;
+    width: auto;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+
+  .navbar-title {
+    font-size: 1.2em;
+  }
+
+  .hero {
+    margin-bottom: -150px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .main {
+    padding: 10px;
+  }
+
+  .abstract,
+  .disclaimer,
+  .implementation-note {
+    padding: 15px;
+    font-size: 0.9em;
+  }
+
+  .navbar-title {
+    font-size: 1em;
+  }
 }

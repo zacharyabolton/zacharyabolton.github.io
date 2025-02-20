@@ -268,47 +268,49 @@
         </div>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>View</th>
-            <th>AUC</th>
-            <th>C@1</th>
-            <th>F1</th>
-            <th>F0.5u</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Undistorted</td>
-            <td>1.000 ± 0.000</td>
-            <td>0.998 ± 0.003</td>
-            <td>0.998 ± 0.003</td>
-            <td>0.996 ± 0.005</td>
-          </tr>
-          <tr>
-            <td>k=20,000</td>
-            <td>1.000 ± 0.000</td>
-            <td>0.996 ± 0.007</td>
-            <td>0.996 ± 0.006</td>
-            <td>0.992 ± 0.012</td>
-          </tr>
-          <tr>
-            <td>k=3,000</td>
-            <td>1.000 ± 0.000</td>
-            <td>0.994 ± 0.003</td>
-            <td>0.994 ± 0.003</td>
-            <td>0.990 ± 0.006</td>
-          </tr>
-          <tr>
-            <td>k=300</td>
-            <td>0.991 ± 0.001</td>
-            <td>0.964 ± 0.008</td>
-            <td>0.966 ± 0.007</td>
-            <td>0.943 ± 0.010</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>View</th>
+              <th>AUC</th>
+              <th>C@1</th>
+              <th>F1</th>
+              <th>F0.5u</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Undistorted</td>
+              <td>1.000 ± 0.000</td>
+              <td>0.998 ± 0.003</td>
+              <td>0.998 ± 0.003</td>
+              <td>0.996 ± 0.005</td>
+            </tr>
+            <tr>
+              <td>k=20,000</td>
+              <td>1.000 ± 0.000</td>
+              <td>0.996 ± 0.007</td>
+              <td>0.996 ± 0.006</td>
+              <td>0.992 ± 0.012</td>
+            </tr>
+            <tr>
+              <td>k=3,000</td>
+              <td>1.000 ± 0.000</td>
+              <td>0.994 ± 0.003</td>
+              <td>0.994 ± 0.003</td>
+              <td>0.990 ± 0.006</td>
+            </tr>
+            <tr>
+              <td>k=300</td>
+              <td>0.991 ± 0.001</td>
+              <td>0.964 ± 0.008</td>
+              <td>0.966 ± 0.007</td>
+              <td>0.943 ± 0.010</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2>External Validation on VALLA Dataset</h2>
       <p>
@@ -320,32 +322,35 @@
         task participants:
       </p>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Model</th>
-            <th>Overall Score</th>
-            <th>Training Data</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>PAN20 Winner (Boenninghoff et al.)</td>
-            <td>0.897</td>
-            <td>PAN20-small</td>
-          </tr>
-          <tr>
-            <td>Our Implementation (30 epochs)</td>
-            <td>0.801</td>
-            <td>VALLA (more challenging)</td>
-          </tr>
-          <tr>
-            <td>PAN20 Baseline</td>
-            <td>0.747</td>
-            <td>PAN20-large</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- VALLA Benchmark Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Overall Score</th>
+              <th>Training Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PAN20 Winner (Boenninghoff et al.)</td>
+              <td>0.897</td>
+              <td>PAN20-small</td>
+            </tr>
+            <tr>
+              <td>Our Implementation (30 epochs)</td>
+              <td>0.801</td>
+              <td>VALLA (more challenging)</td>
+            </tr>
+            <tr>
+              <td>PAN20 Baseline</td>
+              <td>0.747</td>
+              <td>PAN20-large</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="implementation-note">
         <strong>Note:</strong> Despite using VALLA's more challenging
@@ -362,47 +367,50 @@
         views:
       </p>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Distorted View</th>
-            <th>Mean Similarity</th>
-            <th>Same-Author</th>
-            <th>Different-Author</th>
-            <th>Undecided</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Undistorted</td>
-            <td>0.709 ± 0.298</td>
-            <td>74.4%</td>
-            <td>24.8%</td>
-            <td>0.9%</td>
-          </tr>
-          <tr>
-            <td>k=20,000</td>
-            <td>0.661 ± 0.296</td>
-            <td>68.2%</td>
-            <td>27.6%</td>
-            <td>4.2%</td>
-          </tr>
-          <tr>
-            <td>k=3,000</td>
-            <td>0.598 ± 0.334</td>
-            <td>60.1%</td>
-            <td>34.7%</td>
-            <td>5.1%</td>
-          </tr>
-          <tr>
-            <td>k=300</td>
-            <td>0.564 ± 0.272</td>
-            <td>57.8%</td>
-            <td>37.5%</td>
-            <td>4.7%</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Love Letters Analysis Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Distorted View</th>
+              <th>Mean Similarity</th>
+              <th>Same-Author</th>
+              <th>Different-Author</th>
+              <th>Undecided</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Undistorted</td>
+              <td>0.709 ± 0.298</td>
+              <td>74.4%</td>
+              <td>24.8%</td>
+              <td>0.9%</td>
+            </tr>
+            <tr>
+              <td>k=20,000</td>
+              <td>0.661 ± 0.296</td>
+              <td>68.2%</td>
+              <td>27.6%</td>
+              <td>4.2%</td>
+            </tr>
+            <tr>
+              <td>k=3,000</td>
+              <td>0.598 ± 0.334</td>
+              <td>60.1%</td>
+              <td>34.7%</td>
+              <td>5.1%</td>
+            </tr>
+            <tr>
+              <td>k=300</td>
+              <td>0.564 ± 0.272</td>
+              <td>57.8%</td>
+              <td>37.5%</td>
+              <td>4.7%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="figure">
         <img
