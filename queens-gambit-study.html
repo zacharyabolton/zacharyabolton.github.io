@@ -7709,12 +7709,20 @@ all of MD as it is not optimized for dense, information rich UIs.
       }
     </style>
     <!-- End of mermaid configuration -->
+    <!-- loading overlay styles -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="stylesheets/loading-overlay.css"
+    />
   </head>
   <body
     class="jp-Notebook"
     data-jp-theme-light="true"
     data-jp-theme-name="JupyterLab Light"
   >
+    <!-- Loading overlay -->
+    <div class="loading-overlay"></div>
     <main>
       <!-- extremely minimal back to home navbar -->
       <!-- sticky and with project name -->
@@ -8000,7 +8008,7 @@ all of MD as it is not optimized for dense, information rich UIs.
               <p>
                 <img
                   alt="Google Trends for keyword &amp;quot;The Queen's Gambit&amp;quot;"
-                  src="img/g-trends.png"
+                  src="assets/figures/g-trends.png"
                 />
               </p>
             </div>
@@ -13584,5 +13592,7 @@ Our maximum positive score is now only 2.3 standard deviations from the mean!
         </div>
       </div>
     </main>
+    <!-- Loading script -->
+    <script type="text/javascript" src="scripts/loading-overlay.js"></script>
   </body>
 </html>

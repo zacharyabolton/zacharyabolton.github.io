@@ -348,3 +348,7 @@ a {
   display: block;
   text-align: center;
 }
+
+.calander {
+  border: none !important;
+}

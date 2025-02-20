@@ -393,6 +393,7 @@ body #notice p a {
     black 90%,
     transparent
   );
+  align-items: center;
 }
 
 #custom-nav-container .nav-items-container::-webkit-scrollbar {
@@ -411,9 +412,24 @@ body #notice p a {
   white-space: nowrap;
   pointer-events: auto;
   text-align: center;
-  min-width: 200px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.nav-item svg {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover svg {
+  transform: scale(1.1);
 }
 
 #custom-nav-container .nav-item:hover {

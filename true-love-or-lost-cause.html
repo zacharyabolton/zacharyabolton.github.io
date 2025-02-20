@@ -7709,12 +7709,20 @@ all of MD as it is not optimized for dense, information rich UIs.
       }
     </style>
     <!-- End of mermaid configuration -->
+    <!-- loading overlay styles -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="stylesheets/loading-overlay.css"
+    />
   </head>
   <body
     class="jp-Notebook"
     data-jp-theme-light="true"
     data-jp-theme-name="JupyterLab Light"
   >
+    <!-- Loading overlay -->
+    <div class="loading-overlay"></div>
     <main>
       <!-- extremely minimal back to home navbar -->
       <!-- sticky and with project name -->
@@ -12878,5 +12886,7 @@ cat<span class="w"> </span><span class="s2">"</span><span class="si">${</span><s
         </div>
       </div>
     </main>
+    <!-- Loading script -->
+    <script type="text/javascript" src="scripts/loading-overlay.js"></script>
   </body>
 </html>

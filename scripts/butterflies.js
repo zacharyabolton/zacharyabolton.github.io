@@ -135,23 +135,28 @@ function generateFlightPath(startFromClick = false) {
   for (let i = 0; i <= steps; i++) {
     const t = i / steps;
 
-    // Quadratic Bezier curve calculation
+    // Quadratic Bézier curve calculation
     const x =
       Math.pow(1 - t, 2) * startPos.x +
       2 * (1 - t) * t * controlPoint.x +
       Math.pow(t, 2) * endPos.x;
-
     const y =
       Math.pow(1 - t, 2) * startPos.y +
       2 * (1 - t) * t * controlPoint.y +
       Math.pow(t, 2) * endPos.y;
 
-    // Gentle rotation that follows the path
-    const rotation =
-      Math.atan2(y - startPos.y, x - startPos.x) * (180 / Math.PI);
+    // Compute tangent via the derivative of the quadratic Bézier curve:
+    const dx =
+      2 * (1 - t) * (controlPoint.x - startPos.x) +
+      2 * t * (endPos.x - controlPoint.x);
+    const dy =
+      2 * (1 - t) * (controlPoint.y - startPos.y) +
+      2 * t * (endPos.y - controlPoint.y);
+    const rotation = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
 
+    // Apply gentle flutter effect
     keyframes.push({
-      transform: `translate(${x}vw, ${y}vh) rotate(${rotation + Math.sin(t * Math.PI * 2) * 10}deg)`,
+      transform: `translate(${x}vw, ${y}vh) ${startFromClick ? "translate(-50%, -50%) " : ""}rotate(${rotation + Math.sin(t * Math.PI * 2) * 10}deg)`,
     });
   }
 

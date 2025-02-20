@@ -12,6 +12,7 @@ function removeLoadingOverlay() {
 
 // Determine which page we're on and use appropriate loading strategy
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOMContentLoaded");
   // Check if we're on the index page (has P5.js)
   const isIndexPage = document.getElementById("animation-container") !== null;
 
@@ -29,7 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // For about-me.html - wait for images and remove overlay
     Promise.all(
       Array.from(document.images).map((img) => {
-        if (img.complete) return Promise.resolve();
+        console.log(img);
+        if (img.complete) {
+          return Promise.resolve();
+        } else {
+          console.log("Image not loaded");
+        }
         return new Promise((resolve) => img.addEventListener("load", resolve));
       }),
     ).then(() => {

@@ -7,6 +7,12 @@
     href="stylesheets/butterfly-styles.css"
   />
 
+  <!-- loading overlay styles -->
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="stylesheets/loading-overlay.css"
+  />
   <meta
     name="viewport"
     content="width=device-width initial-scale=1, maximum-scale=1, minimum-scale=1"
@@ -35,6 +41,7 @@
 </head>
 
 <body>
+  <!-- Loading overlay -->
   <div class="loading-overlay"></div>
   <nav id="home-button">
     <a href="/"
@@ -43,7 +50,11 @@
         alt="home - click to go back to the main page with the mathy animation."
     /></a>
   </nav>
-  <div class="instructions">Click anywhere to create a butterfly!</div>
+  <div class="butterfly instructions">
+    Click anywhere to create a butterfly!
+  </div>
+  <!-- Loading script -->
+  <script type="text/javascript" src="scripts/loading-overlay.js"></script>
 </body>
 <style>
   .instructions {
@@ -72,7 +83,7 @@
     width: 2rem;
     transition: transform 0.4s;
     transform-origin: top right;
-    z-index: 99999999999999999999999999;
+    z-index: 99999;
   }
 
   #home-button:hover {
