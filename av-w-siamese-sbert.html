@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transformer-Based Authorship Verification Research</title>
+    <!-- Import Mermaid -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.0/mermaid.min.js"></script>
+    <!-- Import MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <!-- Prism CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <!-- Optional: Choose a different theme like prism-okaidia -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+      rel="stylesheet"
+    />
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: "default",
+          // Adjust these settings for your diagram
+          flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: "cardinal",
+          },
+        });
+      });
+    </script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="stylesheets/av-w-siamese-sbert.css"
+    />
+  </head>
+  <body>
+    <!-- extremely minimal back to home navbar -->
+    <!-- sticky and with project name -->
+    <!-- dark color -->
+    <nav class="navbar">
+      <a href="/" title="ZacBolton.io">
+        <img src="assets/home_icon.svg" alt="Home" width="100" />
+      </a>
+      <!-- project name -->
+      <h1 class="navbar-title">Siamese SBERT AV</h1>
+    </nav>
+    <div class="hero">
+      <img
+        class="hero-image"
+        src="assets/figures/full_run_all_train_losses.png"
+      />
+    </div>
+    <main class="main">
+      <h1>Transformer-Based Authorship Verification Research</h1>
+
+      <div class="disclaimer">
+        <strong>Research Status:</strong> This work represents my ongoing thesis
+        research, with full publication forthcoming in March 2025. While I'm
+        excited to share these technical achievements, some implementation
+        details are necessarily omitted pending academic submission. I'm happy
+        to discuss the architecture, methodology, and results in detail.
+      </div>
+
+      <div class="abstract">
+        <strong>Overview:</strong> In this research, I implemented
+        <a href="https://api.semanticscholar.org/CorpusID:264441704"
+          >Ibrahim et al.'s (2023)</a
+        >
+        state-of-the-art Siamese SBERT architecture for historical document
+        verification. I achieved near-perfect metrics across multiple distorted
+        views while handling genre/topic bias through novel dataset construction
+        and text distortion techniques from
+        <a href="https://aclanthology.org/E17-1107">Stamatatos (2017)</a>.
+      </div>
+
+      <div class="context-box">
+        <h3>Historical Context</h3>
+        <p>
+          This research tackles a
+          <a href="https://www.jstor.org/stable/27740463"
+            >longstanding historical question</a
+          >
+          concerning love letters attributed to Confederate General George E.
+          Pickett, published posthumously by his wife LaSalle Corbell Pickett.
+          As a prolific author with no other verified works by the General
+          available, the letters' authenticity has been debated by historians.
+          This presents an ideal case for authorship verification (AV) -
+          determining if two texts share the same author.
+        </p>
+      </div>
+
+      <h2>Architecture & Implementation</h2>
+
+      <div class="figure">
+        <pre class="mermaid">
+        flowchart TD
+            subgraph "<strong>(B)</strong> SBERT Training"
+                pab1["Pair (A, B),\nchunk len = 256"] --> chp1["Chunking Pair"]
+                chp1 --> np1["N pairs"]
+                np1 --> pnon1["Pair n out of N"]
+                pnon1 --> can1["Chunk A.n"]
+                pnon1 --> can2["Chunk B.n"]
+                can1 --> bert1[BERT]
+                can2 --> bert2[BERT]
+                bert1 --> pool1[Mean Pooling]
+                bert2 --> pool2[Mean Pooling]
+                pool1 --> u1[U]
+                pool2 --> v1[V]
+                u1 --> contrastive[Contrastive Loss]
+                v1 --> contrastive
+            end
+
+            subgraph "<strong>(A)</strong> SBERT at Inference"
+                pab2["Pair (A, B),\nchunk len = 256"] --> chp2["Chunking Pair"]
+                chp2 --> np2["N pairs"]
+                np2 --> pnon2["Pair n out of N"]
+                pnon2 --> can3["Chunk A.n"]
+                pnon2 --> can4["Chunk B.n"]
+                can3 --> bert3[BERT]
+                can4 --> bert4[BERT]
+                bert3 --> pool3[Mean Pooling]
+                bert4 --> pool4[Mean Pooling]
+                pool3 --> u2[U]
+                pool4 --> v2[V]
+                u2 --> cos["Cosine-Similarity(U,V)"]
+                v2 --> cos
+                cos --> sim["Similarity Score n"]
+            end
+            style contrastive fill:#9999ff
+            style contrastive color:#000000
+            style cos fill:#ff9999
+            style cos color:#000000
+            style sim fill:#ff9999
+            style sim color:#000000
+            style pab1 fill:#999999
+            style pab1 color:#000000
+            style pab2 fill:#999999
+            style pab2 color:#000000
+        </pre>
+        <div class="figure-caption">
+          <strong>Figure 1:</strong> Model architecture showing (A) inference
+          time configuration with cosine similarity output and (B) training time
+          configuration with contrastive loss. Both utilize identical BERT
+          encoders and mean pooling layers.
+        </div>
+      </div>
+
+      <div class="implementation-note">
+        <strong>Key Technical Innovation:</strong> Discovered and resolved a
+        contradiction in Ibrahim et al.'s architecture where the stated
+        contrastive loss function was incompatible with their output layer
+        configuration. Successfully implemented a modified architecture
+        maintaining SOTA performance while ensuring theoretical soundness.
+      </div>
+
+      <h2>Modified Contrastive Loss Implementation</h2>
+      <p>
+        Building on
+        <a href="https://doi.org/10.1109/CVPR.2006.100"
+          >Hadsell, Chopra, and LeCun's foundational work (2006)</a
+        >, implemented a modified contrastive loss function that allows for more
+        nuanced control over embedding space distances. The implementation uses
+        separate margin parameters for same-author and different-author pairs,
+        enabling finer control over the model's discriminative behavior.
+      </p>
+
+      <div style="margin: 20px 0; text-align: center">
+        For same-author pairs: \[y_{same} = y \cdot F_{relu}(\text{margin}_s -
+        x)^2\] For different-author pairs: \[y_{diff} = (1-y) \cdot F_{relu}(x -
+        \text{margin}_d)^2\] Final loss: \[L = 0.5(y_{same} + y_{diff})\] Where
+        \(x\) is the cosine similarity scaled to [0,1], \(y\) is the ground
+        truth (1 for same-author, 0 for different-author), \(F_{relu}\) is the
+        rectified linear unit function, and \(\text{margin}_s\) and
+        \(\text{margin}_d\) control the boundaries of the loss-accruing regions
+        in the embedding space for same-author and different-author pairs
+        respectively.
+      </div>
+
+      <div class="implementation-note">
+        <strong>Implementation Note:</strong> While traditional modified
+        contrastive loss implementations typically work with a similarity range
+        of [-2, 0], I maintained a [0, 1] range through cosine similarity
+        rescaling. This preserves the relative embedding distances crucial for
+        contrastive learning while allowing for seamless integration with the
+        broader architecture. This modification demonstrates the flexibility of
+        contrastive learning approaches, as relative distances, not absolute
+        scales, drive the learning dynamics.
+      </div>
+
+      <div class="code-block">
+        <pre><code class="language-python">class ModifiedContrastiveLoss(nn.Module):
+    def forward(self, anchor, other, labels):
+        # Calculate cosine similarity and rescale to [0,1]
+        similarities = (F.cosine_similarity(anchor, other) + 1) / 2
+
+        # Modified loss with separate margins for same/different pairs
+        same_author_loss = labels.float() * \
+            F.relu(self.margin_s - similarities).pow(2)
+        diff_author_loss = (1 - labels).float() * \
+            F.relu(similarities - self.margin_d).pow(2)
+
+        # Balance contribution of positive and negative pairs
+        losses = 0.5 * (same_author_loss + diff_author_loss)
+        return losses.mean()</code></pre>
+      </div>
+
+      <div class="implementation-note">
+        <strong>Enhancement:</strong> This modified implementation allows for
+        flexible tuning of both the "push" and "pull" forces in the embedding
+        space, leading to more stable training and better generalization.
+      </div>
+
+      <h2>Dataset Construction & Preprocessing</h2>
+      <p>
+        Developed LILA (Love letters, Imposters, LaSalle Augmented), a carefully
+        balanced dataset with:
+      </p>
+      <ul>
+        <li>278,917 words of known authorial work</li>
+        <li>627,937 words of stylistically matched "imposters"</li>
+        <li>Rigorous genre balancing within 10% target ratios</li>
+        <li>Four distorted views using Stamatatos' text distortion</li>
+      </ul>
+
+      <div class="code-block">
+        <h3>Text Distortion Implementation</h3>
+        <pre><code class="language-python">def dv_ma(text, W_k):
+    """
+    Replace words not in W_k (k most frequent words) with
+    asterisk strings of equal length.
+    """
+    words = text.split()
+    for i, word in enumerate(words):
+        if (word.lower() in W_k):
+            continue
+        else:
+            words[i] = re.sub(r'[^\d]', '*', word)
+            words[i] = re.sub(r'[\d]', '#', words[i])
+    return ' '.join(words)</code></pre>
+      </div>
+
+      <h2>Results & Analysis</h2>
+
+      <div class="figure">
+        <img src="assets/figures/full_run_all_train_losses.png" />
+        <div class="figure-caption">
+          <strong>Figure 2:</strong> Loss plots for all five folds across four
+          views, showing clear convergent behavior with stability increasing as
+          distortion level increases.
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>View</th>
+            <th>AUC</th>
+            <th>C@1</th>
+            <th>F1</th>
+            <th>F0.5u</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Undistorted</td>
+            <td>1.000 ± 0.000</td>
+            <td>0.998 ± 0.003</td>
+            <td>0.998 ± 0.003</td>
+            <td>0.996 ± 0.005</td>
+          </tr>
+          <tr>
+            <td>k=20,000</td>
+            <td>1.000 ± 0.000</td>
+            <td>0.996 ± 0.007</td>
+            <td>0.996 ± 0.006</td>
+            <td>0.992 ± 0.012</td>
+          </tr>
+          <tr>
+            <td>k=3,000</td>
+            <td>1.000 ± 0.000</td>
+            <td>0.994 ± 0.003</td>
+            <td>0.994 ± 0.003</td>
+            <td>0.990 ± 0.006</td>
+          </tr>
+          <tr>
+            <td>k=300</td>
+            <td>0.991 ± 0.001</td>
+            <td>0.964 ± 0.008</td>
+            <td>0.966 ± 0.007</td>
+            <td>0.943 ± 0.010</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>External Validation on VALLA Dataset</h2>
+      <p>
+        To validate the model's generalizability, I evaluated performance on the
+        <a href="https://arxiv.org/abs/2209.06869">VALLA benchmark</a>, a
+        comprehensive AV benchmark introduced by Tyo et al. (2022). My
+        implementation achieved competitive results against
+        <a href="https://ceur-ws.org/Vol-2936/paper-147.pdf">PAN 2020</a> shared
+        task participants:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Overall Score</th>
+            <th>Training Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PAN20 Winner (Boenninghoff et al.)</td>
+            <td>0.897</td>
+            <td>PAN20-small</td>
+          </tr>
+          <tr>
+            <td>Our Implementation (30 epochs)</td>
+            <td>0.801</td>
+            <td>VALLA (more challenging)</td>
+          </tr>
+          <tr>
+            <td>PAN20 Baseline</td>
+            <td>0.747</td>
+            <td>PAN20-large</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="implementation-note">
+        <strong>Note:</strong> Despite using VALLA's more challenging
+        formulation which removes genre/topic/class-balance bias, my
+        implementation achieved the equivalent of 5th place in PAN 2020,
+        demonstrating strong generalization capability.
+      </div>
+
+      <h2>Inference Results on the Love Letters</h2>
+
+      <p>
+        The model's analysis of the letters shows a consistent and strong
+        pattern of attribution to LaSalle's authorship across all distortion
+        views:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Distorted View</th>
+            <th>Mean Similarity</th>
+            <th>Same-Author</th>
+            <th>Different-Author</th>
+            <th>Undecided</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Undistorted</td>
+            <td>0.709 ± 0.298</td>
+            <td>74.4%</td>
+            <td>24.8%</td>
+            <td>0.9%</td>
+          </tr>
+          <tr>
+            <td>k=20,000</td>
+            <td>0.661 ± 0.296</td>
+            <td>68.2%</td>
+            <td>27.6%</td>
+            <td>4.2%</td>
+          </tr>
+          <tr>
+            <td>k=3,000</td>
+            <td>0.598 ± 0.334</td>
+            <td>60.1%</td>
+            <td>34.7%</td>
+            <td>5.1%</td>
+          </tr>
+          <tr>
+            <td>k=300</td>
+            <td>0.564 ± 0.272</td>
+            <td>57.8%</td>
+            <td>37.5%</td>
+            <td>4.7%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="figure">
+        <img
+          src="assets/figures/love_letters_inference_dist_of_similarity_scores_over_views.png"
+        />
+        <div class="figure-caption">
+          <strong>Figure 4:</strong> Distribution of similarity scores across
+          different distortion views for the love letters. Decision thresholds
+          p1 and p2 shown as dashed lines.
+        </div>
+      </div>
+
+      <div class="implementation-note">
+        <strong>Key Finding:</strong> The model demonstrates strong attribution
+        to LaSalle's authorship, with 74.4% same-author predictions in the
+        undistorted view. This signal persists even under heavy distortion
+        (k=300), where topic and content-specific features are largely masked,
+        indicating deep stylistic similarities between the letters and LaSalle's
+        known works. Notably, the highest-similarity passages contain
+        anachronistic references
+        <a href="https://www.jstor.org/stable/4248894"
+          >independently identified</a
+        >
+        by historians as problematic, providing computational support for
+        historical observations about the letters' authenticity.
+      </div>
+
+      <h2>Technical Infrastructure</h2>
+      <ul>
+        <li>
+          AWS EC2 g5.xlarge deployment (4 vCPUs, 16GB RAM, NVIDIA A10G GPU)
+        </li>
+        <li>PyTorch with HuggingFace Transformers</li>
+        <li>Custom dataset class handling 10M+ words</li>
+        <li>Gradient accumulation for memory efficiency</li>
+        <li>K-Folds cross-validation with balanced splits</li>
+      </ul>
+
+      <div class="figure">
+        <img src="assets/figures/full_run_fold_0_eval_cm_true.png" />
+        <div class="figure-caption">
+          <strong>Figure 3:</strong> Confusion matrices across distortion views
+          showing consistent discriminative ability even with heavy distortion
+          (k=300).
+        </div>
+      </div>
+    </main>
+    <!-- Prism JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <!-- Language support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+  </body>
+</html>
