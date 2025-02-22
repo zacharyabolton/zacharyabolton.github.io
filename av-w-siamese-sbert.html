@@ -111,49 +111,52 @@
 
       <div class="figure">
         <pre class="mermaid">
-        flowchart TD
-            subgraph "<strong>(B)</strong> SBERT Training"
-                pab1["Pair (A, B),\nchunk len = 256"] --> chp1["Chunking Pair"]
-                chp1 --> np1["N pairs"]
-                np1 --> pnon1["Pair n out of N"]
-                pnon1 --> can1["Chunk A.n"]
-                pnon1 --> can2["Chunk B.n"]
-                can1 --> bert1[BERT]
-                can2 --> bert2[BERT]
-                bert1 --> pool1[Mean Pooling]
-                bert2 --> pool2[Mean Pooling]
-                pool1 --> u1[U]
-                pool2 --> v1[V]
-                u1 --> contrastive[Contrastive Loss]
-                v1 --> contrastive
-            end
+ flowchart TD
+     subgraph "<strong>(B)</strong> SBERT Training"
+         lilat["LILA<sub>train</sub>"] --> batch1
+         batch1["
+$$B = \{(c_{\text{a}}, c_{\text{o}})_i\}_{i=1}^{\text{batch\_size}}$$
+"]  --> ca1["$$C_{\text{a},i}$$"]
+         batch1 --> ca2["$$C_{\text{o},i}$$"]
+         ca1 --> bert1[SBERT]
+         ca2 --> bert2[SBERT]
+         bert1 --> pool1[Mean Pooling]
+         bert2 --> pool2[Mean Pooling]
+         pool1 --> ea1["$$E_{\text{a},i}$$"]
+         pool2 --> eo1["$$E_{\text{o},i}$$"]
+         ea1 --> contrastive[Contrastive Loss]
+         eo1 --> contrastive
+     end
 
-            subgraph "<strong>(A)</strong> SBERT at Inference"
-                pab2["Pair (A, B),\nchunk len = 256"] --> chp2["Chunking Pair"]
-                chp2 --> np2["N pairs"]
-                np2 --> pnon2["Pair n out of N"]
-                pnon2 --> can3["Chunk A.n"]
-                pnon2 --> can4["Chunk B.n"]
-                can3 --> bert3[BERT]
-                can4 --> bert4[BERT]
-                bert3 --> pool3[Mean Pooling]
-                bert4 --> pool4[Mean Pooling]
-                pool3 --> u2[U]
-                pool4 --> v2[V]
-                u2 --> cos["Cosine-Similarity(U,V)"]
-                v2 --> cos
-                cos --> sim["Similarity Score n"]
-            end
-            style contrastive fill:#9999ff
-            style contrastive color:#000000
-            style cos fill:#ff9999
-            style cos color:#000000
-            style sim fill:#ff9999
-            style sim color:#000000
-            style pab1 fill:#999999
-            style pab1 color:#000000
-            style pab2 fill:#999999
-            style pab2 color:#000000
+     subgraph "<strong>(A)</strong> SBERT at Inference"
+         lilai["LILA<sub>infer</sub>"] --> batch2
+         batch2["
+$$B = \{(c_{\text{a}}, c_{\text{o}})_i\}_{i=1}^{\text{batch\_size}}$$
+"]  --> ca3["$$C_{\text{a},i}$$"]
+         batch2 --> ca4["$$C_{\text{o},i}$$"]
+         ca3 --> bert3[SBERT]
+         ca4 --> bert4[SBERT]
+         bert3 --> pool3[Mean Pooling]
+         bert4 --> pool4[Mean Pooling]
+         pool3 --> ea2["$$E_{\text{a},i}$$"]
+         pool4 --> eo2["$$E_{\text{o},i}$$"]
+         ea2 --> cos["Cosine Similarity"]
+         eo2 --> cos
+         cos --> rescale["Rescaling"]
+         rescale --> sim["Similarity Score [0, 1]"]
+     end
+     style contrastive fill:#9999ff
+     style contrastive color:#000000
+     style cos fill:#ff9999
+     style cos color:#000000
+     style rescale fill:#ff9999
+     style rescale color:#000000
+     style sim fill:#ff9999
+     style sim color:#000000
+     style lilat fill:#999999
+     style lilat color:#000000
+     style lilai fill:#999999
+     style lilai color:#000000
         </pre>
         <div class="figure-caption">
           <strong>Figure 1:</strong> Model architecture showing (A) inference
