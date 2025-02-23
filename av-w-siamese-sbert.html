@@ -243,6 +243,51 @@ $$B = \{(c_{\text{a}}, c_{\text{o}})_i\}_{i=1}^{\text{batch\_size}}$$
         <li>Four distorted views using Stamatatos' text distortion</li>
       </ul>
 
+      <div class="figure">
+        <pre class="mermaid">
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '24px'}}}%%
+flowchart LR
+    subgraph Disk["On-Disk Preprocessing"]
+        style Disk fill:#e6f3ff,stroke:#333
+
+        %% A -> B (subgraph) -> C
+        A[("Raw Text Files")] --> B
+
+        %% Turn B into a subgraph named "Text Normalization"
+        subgraph B["Text Normalization"]
+            D[Lowercase] --> E[Collapse Whitespace] --> F[Strip Special Characters]
+        end
+
+        B --> C{"Distorted View Generation"}
+
+        C --> |"$$k_{view} = len(W_{LILA})$$"|G1[("Undistorted View")]
+        C --> |"$$k_{view} = 20000$$"|G2[("Lightly Distorted")]
+        C --> |"$$k_{view} = 3000$$"|G3[("Moderately Distorted")]
+        C --> |"$$k_{view} = 300$$"|G4[("Heavily Distorted")]
+    end
+
+    subgraph LILA["LILADataset"]
+        style LILA fill:#ffe6e6,stroke:#333
+        G1 & G2 & G3 & G4 --> H[["Tokenization"]]
+        H --> I[["Fixed-Length Chunking"]]
+        I --> t["Generate K-Fold Train/Val Pairs"]
+        I --> i["Generate Inference Pairs"]
+    end
+
+    classDef storage fill:#ff9,stroke:#333
+    classDef process fill:#fff,stroke:#333
+    classDef decision fill:#9cf,stroke:#333
+
+    class A,G1,G2,G3,G4 storage
+    class B,D,E,F process
+    class C decision
+        </pre>
+        <div class="figure-caption">
+          <strong>Figure 2:</strong> LILA data processing pipeline showing
+          on-disk preprocessing and LILADataset construction.
+        </div>
+      </div>
+
       <div class="code-block">
         <h3>Text Distortion Implementation</h3>
         <pre><code class="language-python">def dv_ma(text, W_k):
@@ -265,7 +310,7 @@ $$B = \{(c_{\text{a}}, c_{\text{o}})_i\}_{i=1}^{\text{batch\_size}}$$
       <div class="figure">
         <img src="assets/figures/full_run_all_train_losses.png" />
         <div class="figure-caption">
-          <strong>Figure 2:</strong> Loss plots for all five folds across four
+          <strong>Figure 3:</strong> Loss plots for all five folds across four
           views, showing clear convergent behavior with stability increasing as
           distortion level increases.
         </div>
@@ -455,7 +500,7 @@ $$B = \{(c_{\text{a}}, c_{\text{o}})_i\}_{i=1}^{\text{batch\_size}}$$
       <div class="figure">
         <img src="assets/figures/full_run_fold_0_eval_cm_true.png" />
         <div class="figure-caption">
-          <strong>Figure 3:</strong> Confusion matrices across distortion views
+          <strong>Figure 5:</strong> Confusion matrices across distortion views
           showing consistent discriminative ability even with heavy distortion
           (k=300).
         </div>
