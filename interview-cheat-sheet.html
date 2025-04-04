@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Interview Cheat Sheet</title>
+    <style>
+      /* Password protection styles */
+      #password-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      #password-box {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+      }
+
+      #password-box h2 {
+        margin-top: 0;
+        color: #333;
+      }
+
+      #password-box input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      #password-box button {
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      #password-box button:hover {
+        background-color: #3367d6;
+      }
+
+      .error-message {
+        color: #d32f2f;
+        margin-top: 10px;
+        display: none;
+      }
+
+      /* Original content styles */
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.4;
+        margin: 0;
+        padding: 15px;
+        max-width: 600px;
+        color: rgba(0, 0, 0, 0.5);
+      }
+      .section {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 4px;
+        border-left: 4px solid;
+      }
+      .intro {
+        background-color: #e3f2fd;
+        border-left-color: #1565c0;
+      }
+      .why {
+        background-color: #e8f5e9;
+        border-left-color: #2e7d32;
+      }
+      .experience {
+        background-color: #fff3e0;
+        border-left-color: #e65100;
+      }
+      .technical {
+        background-color: #f3e5f5;
+        border-left-color: #6a1b9a;
+      }
+      .concerns {
+        background-color: #fce4ec;
+        border-left-color: #c2185b;
+      }
+      .questions {
+        background-color: #ede7f6;
+        border-left-color: #4527a0;
+      }
+      .compensation {
+        background-color: #e0f2f1;
+        border-left-color: #00695c;
+      }
+      .closing {
+        background-color: #f1f8e9;
+        border-left-color: #33691e;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .section-icon {
+        width: 64px;
+        height: 64px;
+        margin-right: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+      ul {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      .tag {
+        font-size: 9px;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+        margin-left: -20px;
+        display: block;
+        background-color: darkgrey;
+        padding: 5px 10px;
+      }
+      .bold {
+        font-weight: bold;
+        color: rgba(0, 0, 0, 1);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      }
+      .emphasis {
+        font-style: italic;
+        color: #555;
+      }
+      .nested {
+        margin-left: 20px;
+      }
+      .metrics {
+        font-size: 11px;
+        color: #333;
+        font-style: italic;
+      }
+      .floating-ref {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 270px;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 11px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+      }
+      .floating-ref h3 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-size: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 4px;
+      }
+      .floating-ref dl {
+        margin: 0;
+      }
+      .floating-ref dt {
+        font-weight: bold;
+        margin-bottom: 2px;
+      }
+      .floating-ref dd {
+        margin-left: 0;
+        margin-bottom: 6px;
+        color: #555;
+      }
+      .floating-notes {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 270px;
+        background-color: #fffde7;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+      }
+
+      .floating-notes h3 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-size: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 4px;
+      }
+
+      .notes-textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 400px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 5px;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        resize: vertical;
+      }
+
+      /* Save button styles */
+      .save-notes-button {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+      }
+
+      #content {
+        display: none;
+      }
+      /* Add these CSS rules to make your page mobile-friendly */
+
+      /* General responsive adjustments */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+          margin: 0 auto;
+        }
+
+        .section {
+          margin-bottom: 15px;
+          padding: 8px;
+        }
+
+        h2 {
+          font-size: 16px;
+        }
+      }
+
+      /* Floating reference box responsive behavior */
+      .floating-ref {
+        transition: all 0.3s ease;
+      }
+
+      @media (max-width: 900px) {
+        .floating-ref {
+          position: static;
+          width: auto;
+          margin-bottom: 20px;
+          max-width: 100%;
+        }
+      }
+
+      /* Toggle button for reference on mobile */
+      .ref-toggle {
+        display: none;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        line-height: 1;
+        z-index: 101;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 900px) {
+        .ref-toggle {
+          display: block;
+        }
+
+        .floating-ref.mobile-hidden {
+          display: none;
+        }
+
+        .floating-ref.mobile-visible {
+          position: fixed;
+          top: 60px;
+          right: 10px;
+          max-width: 270px;
+          max-height: 80vh;
+          overflow-y: auto;
+          z-index: 200;
+        }
+      }
+
+      /* Notes section responsive behavior */
+      .floating-notes {
+        transition: all 0.3s ease;
+      }
+
+      @media (max-width: 900px) {
+        .floating-notes {
+          position: static;
+          width: auto;
+          margin-top: 20px;
+          max-width: 100%;
+        }
+
+        .notes-textarea {
+          height: 200px;
+        }
+      }
+
+      /* Toggle button for notes on mobile */
+      .notes-toggle {
+        display: none;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        line-height: 1;
+        z-index: 101;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 900px) {
+        .notes-toggle {
+          display: block;
+        }
+
+        .floating-notes.mobile-hidden {
+          display: none;
+        }
+
+        .floating-notes.mobile-visible {
+          position: fixed;
+          bottom: 60px;
+          right: 10px;
+          left: 10px;
+          width: auto;
+          max-height: 60vh;
+          overflow-y: auto;
+          z-index: 200;
+        }
+      }
+
+      /* Additional responsive improvements */
+      @media (max-width: 600px) {
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .section-icon {
+          margin-bottom: 10px;
+          margin-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Password Protection -->
+    <div id="password-overlay">
+      <div id="password-box">
+        <h2>Google Interview Cheat Sheet</h2>
+        <p>This page is password protected.</p>
+        <input
+          type="password"
+          id="password-input"
+          placeholder="Enter password"
+        />
+        <p id="error-message" class="error-message">
+          Incorrect password. Please try again.
+        </p>
+        <button id="submit-password">Access Document</button>
+      </div>
+    </div>
+
+    <!-- Original Content -->
+    <div id="content">
+      <div class="floating-ref">
+        <h3>Google Technology Reference</h3>
+        <dl>
+          <dt>ShieldGemma</dt>
+          <dd>Content moderation LLM family (2024)</dd>
+
+          <dt>Perspective API</dt>
+          <dd>Text toxicity detection service</dd>
+
+          <dt>TensorFlow Extended</dt>
+          <dd>ML pipeline framework for production</dd>
+
+          <dt>Content Safety API</dt>
+          <dd>CSAM detection system</dd>
+
+          <dt>VVR (YouTube)</dt>
+          <dd>Violative View Rate - key safety metric</dd>
+        </dl>
+      </div>
+      <div class="section intro">
+        <div class="section-header">
+          <h2>INTRODUCTION (2-3 min)</h2>
+          <img
+            src="assets/interview-cheat-sheet/introduction.png"
+            alt="Introduction"
+            class="section-icon"
+          />
+        </div>
+        <ul>
+          <li>
+            <span class="bold">Location:</span> Juiz de Fora, excited about BH
+            (wife and I love the city)
+          </li>
+          <li>
+            <span class="bold">Education:</span> BSc Computer Science, ML/AI
+            specialization (completed with ~90% gpa, will receive diploma in
+            July)
+          </li>
+          <li>
+            <span class="bold">Experience:</span> 8 years software dev, 5 years
+            leading tech teams, 7 years ML/AI
+          </li>
+          <li>
+            <span class="bold">Current Role:</span> Director of Technology at
+            Kid Chess, led platform with AI integration
+          </li>
+          <li>
+            <span class="bold">Hook:</span> "My content moderation experience
+            directly connects to Google's Content Safety"
+          </li>
+        </ul>
+      </div>
+
+      <div class="section why">
+        <div class="section-header">
+          <h2>WHY THIS ROLE (2 min)</h2>
+          <img
+            src="assets/interview-cheat-sheet/why-this-role.png"
+            alt="Why This Role"
+            class="section-icon"
+          />
+        </div>
+        <ul>
+          <li>
+            Content safety combines my
+            <span class="bold">technical passion</span> with
+            <span class="bold">meaningful impact</span>
+          </li>
+          <li>
+            Kid Chess experience showed me importance of
+            <span class="bold">protecting users</span> while preserving
+            experience
+          </li>
+          <li>
+            Excited about applying ML to
+            <span class="bold">complex moderation challenges</span> at Google
+            scale
+          </li>
+          <li>
+            Familiar with Google's <span class="bold">Perspective API</span> and
+            <span class="bold">ShieldGemma</span> approaches
+          </li>
+          <li>
+            <span class="bold">BH-specific:</span> Google's first Latin American
+            engineering center with its global impact
+          </li>
+          <li>
+            <span class="bold">Local context:</span> Understand Brazilian
+            regulations (Marco Civil, PL2630 proposals) -- Similar to how I had
+            to adapt Kid Chess for
+            <span class="emphasis"
+              >"COPPA" (Children's Online Privacy Protection Rule)</span
+            >
+          </li>
+          <li>
+            <span class="bold">Growth:</span> Eager to progress from ML
+            implementation to systems architecture leadership
+          </li>
+        </ul>
+      </div>
+
+      <div class="section experience">
+        <div class="section-header">
+          <h2>EXPERIENCE</h2>
+          <img
+            src="assets/interview-cheat-sheet/experience.png"
+            alt="Experience"
+            class="section-icon"
+          />
+        </div>
+
+        <div><span class="tag">Story 1</span></div>
+        <h3>KCO Platform Safety</h3>
+        <ul>
+          <li>
+            Built <span class="bold">chat moderation system</span> during
+            pandemic for ~4000 students
+          </li>
+          <li>
+            Multi-layered approach:
+            <ul class="nested">
+              <li>
+                <span class="bold">Rule-based filtering</span> with SQL
+                "Reviles" table + regex matching
+              </li>
+              <li>
+                Period differential and
+                <span class="bold">full-chat context analysis</span> for nuanced
+                detection
+              </li>
+              <li>
+                <span class="bold">Human escalation</span> with clear protocols
+              </li>
+            </ul>
+          </li>
+          <li>
+            Key challenge: Balancing
+            <span class="bold">safety vs. experience</span> for young learners
+          </li>
+          <li>
+            Results: Reduced incidents requiring intervention from
+            <span class="bold">10/week to <1</span> while maintaining over 90%
+            student retention
+          </li>
+          <li>
+            Google parallel: Same <span class="bold">hybrid approach</span> at
+            scale, similar trade-offs
+          </li>
+        </ul>
+
+        <div><span class="tag">Story 2</span></div>
+        <h3>SiameseSBERT AV Research</h3>
+        <ul>
+          <li>
+            Implemented <span class="bold">Siamese Sentence-BERT</span> for
+            authorship verification
+          </li>
+          <li>
+            Near* SOTA Metrics: <span class="bold">AUC 0.900, F1 0.785</span> on
+            benchmark dataset (*despite harder VALLA formulation)
+          </li>
+          <li>
+            Developed <span class="bold">novel LILA dataset</span> with robust
+            genre/topic controls
+          </li>
+          <li>
+            Employed <span class="bold">adversarial techniques</span> such as
+            <span class="bold">text-distortion</span> to enhance model
+            robustness
+          </li>
+          <li>
+            Built <span class="bold">comprehensive evaluation</span> pipeline
+            across metrics (C@1, F1, F0.5u, AUC, Brier)
+          </li>
+          <li>Processed <span class="bold">10M+ words</span> on AWS-EC2</li>
+          <li>
+            Google relevance: Same
+            <span class="bold">transformer architectures</span> used in
+            classifiers
+          </li>
+        </ul>
+
+        <div><span class="tag">Leadership 1</span></div>
+        <h3>Pandemic Response Leadership</h3>
+        <ul>
+          <li>
+            Led <span class="bold">emergency digital transition</span> for ~4000
+            students
+          </li>
+          <li>
+            <span class="bold">Assembled talent</span> across disciplines:
+            <ul class="nested">
+              <li>(John S) Marketing colleague → API evaluation</li>
+              <li>
+                (Doug C) Ex-Microsoft now coach → platform architecting and
+                back-end
+              </li>
+              <li>Coaches → content streaming</li>
+              <li>(Alvin K) Alumni/university → development</li>
+            </ul>
+          </li>
+          <li>
+            Made <span class="bold">rapid technology decisions</span>:
+            <ul class="nested">
+              <li>Initial S3 solution → Angular/Azure platform</li>
+              <li>
+                <span class="bold">Prioritized team strengths</span> over
+                personal preference
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span class="bold">Scaled beyond basics:</span>
+            <ul class="nested">
+              <li>Custom chat system</li>
+              <li>Safety moderation</li>
+              <li>Engagement features</li>
+            </ul>
+          </li>
+          <li>
+            <span class="bold">Guided entire company</span> (150 employees)
+            through transition
+          </li>
+          <li>
+            Results:
+
+            <ul class="nested">
+              <li>
+                <span class="bold">90% student retention</span> when competitors
+                failed
+              </li>
+              <li>
+                Able to <span class="bold">maintain 50% staff</span> during
+                pandemic and make
+                <span class="bold">rehire offers to 100%</span>
+                on return to the field
+              </li>
+              <li>
+                Special recognition award, to be named after me, though I
+                requested the name be changed.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section technical">
+        <div class="section-header">
+          <h2>TECHNICAL ALIGNMENT (2 min)</h2>
+          <img
+            src="assets/interview-cheat-sheet/technical-aligment.png"
+            alt="Technical Alignment"
+            class="section-icon"
+          />
+        </div>
+        <ul>
+          <li>
+            <span class="bold">ML/AI:</span> PyTorch, HuggingFace, Transformer
+            architectures, NLP, model evaluation
+          </li>
+          <li>
+            <span class="bold">Languages:</span> Python, TypeScript/JavaScript
+            (ready to learn Go/C++ for Google)
+            <span class="emphasis"
+              >Go is the top of my language bucket list, and I do have some
+              academic experience with C++</span
+            >
+          </li>
+          <li>
+            <span class="bold">Systems Thinking:</span> Designed end-to-end
+            architectures with multiple integration points
+          </li>
+          <li>
+            <span class="bold">Strengths:</span>
+            <ul class="nested">
+              <li>Balancing precision/recall in real moderation systems</li>
+              <li>Deploying models to production environments</li>
+              <li>Building comprehensive evaluation pipelines</li>
+              <li>Technical direction setting across cross-functional teams</li>
+              <li>
+                Experience with both text and visual content safety approaches
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span class="bold">Metrics Knowledge:</span> Understand VVR
+            (Violative View Rate), precision/recall balancing across harm types
+          </li>
+        </ul>
+      </div>
+
+      <div class="section concerns">
+        <div class="section-header">
+          <h2>ADDRESSING POTENTIAL CONCERNS</h2>
+          <img
+            src="assets/interview-cheat-sheet/addressing-potential-concerns.png"
+            alt="Addressing Potential Concerns"
+            class="section-icon"
+          />
+        </div>
+        <ul>
+          <li>
+            <span class="bold">Scale:</span> "While I've worked with thousands
+            rather than billions of users, the fundamental challenges are
+            similar - balancing accuracy, latency, and coverage"
+          </li>
+          <li>
+            <span class="bold">Google Stack:</span> "Excited to transition to
+            TensorFlow/JAX, focusing on architectural differences and
+            optimization approaches"
+          </li>
+          <li>
+            <span class="bold">Leadership:</span> "Led cross-functional teams
+            through technical transitions - these skills translate well to
+            Google's collaborative environment"
+          </li>
+          <li>
+            <span class="bold">Scale Readiness:</span> "Would implement
+            multi-stage filtering with batch processing and caching to
+            efficiently handle Google-scale traffic"
+          </li>
+        </ul>
+      </div>
+
+      <div class="section questions">
+        <div class="section-header">
+          <h2>QUESTIONS TO ASK (3-4 min)</h2>
+          <img
+            src="assets/interview-cheat-sheet/questions-to-ask.png"
+            alt="Questions to Ask"
+            class="section-icon"
+          />
+        </div>
+        <ol>
+          <li>
+            "What are the biggest challenges the Content Safety team in BH is
+            currently facing?"
+          </li>
+          <li>
+            "How does the BH team collaborate with other Google offices on
+            content safety projects?"
+          </li>
+          <li>
+            "How does the team handle regional differences in content policy
+            enforcement?"
+          </li>
+          <li>
+            "What does success look like for someone in this role during their
+            first year?"
+          </li>
+          <li>
+            "Could you tell me more about the team composition and structure in
+            BH?"
+          </li>
+        </ol>
+      </div>
+
+      <div class="section compensation">
+        <div class="section-header">
+          <h2>COMPENSATION NOTES (if asked)</h2>
+          <img
+            src="assets/interview-cheat-sheet/compensation-notes.png"
+            alt="Compensation Notes"
+            class="section-icon"
+          />
+        </div>
+        <ul>
+          <li>
+            <span class="bold">L6 Range:</span> R$450,000-R$650,000 TC /
+            R$350,000-R$450,000 base
+          </li>
+          <li>
+            <span class="bold">Approach:</span> "Based on my research for Staff
+            SWE roles at Google Brasil, I understand the range is approximately
+            R$450-650k total compensation. I'm flexible within that range based
+            on the specific responsibilities."
+          </li>
+          <img
+            src="assets/interview-cheat-sheet/salary-expectations.png"
+            alt="Salary Expectations"
+            width="100%"
+          />
+        </ul>
+      </div>
+
+      <div class="section closing">
+        <div class="section-header">
+          <h2>CLOSING NOTES</h2>
+          <img
+            src="assets/interview-cheat-sheet/closing-notes.png"
+            alt="Closing Notes"
+            class="section-icon"
+          />
+        </div>
+        <ul>
+          <li>
+            <span class="bold">Enthusiasm:</span> "I'm eager to get the chance
+            to work in a field I love on a team with such a significant impact.
+            Working at Google scale is a dream."
+          </li>
+          <li>
+            <span class="bold">Next steps:</span> "What are the next steps in
+            the process?" (Be prepared for technical phone screen)
+          </li>
+        </ul>
+      </div>
+      <div class="floating-notes">
+        <h3>Interview Notes</h3>
+        <textarea
+          class="notes-textarea"
+          placeholder="Take notes here during the interview..."
+        ></textarea>
+      </div>
+    </div>
+
+    <script>
+      // Password protection script
+      document.addEventListener("DOMContentLoaded", function () {
+        // Simple password check
+        const correctPassword = "interview2025"; // Change this to your desired password
+        const passwordInput = document.getElementById("password-input");
+        const submitButton = document.getElementById("submit-password");
+        const passwordOverlay = document.getElementById("password-overlay");
+        const content = document.getElementById("content");
+        const errorMessage = document.getElementById("error-message");
+
+        // Check if password has been entered correctly before
+        const isAuthenticated = localStorage.getItem("isAuthenticated");
+        if (isAuthenticated === "true") {
+          passwordOverlay.style.display = "none";
+          content.style.display = "block";
+          initializeContent(); // Initialize the content when showing it
+        }
+
+        // Enable submitting with Enter key
+        passwordInput.addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            checkPassword();
+          }
+        });
+
+        // Submit button click
+        submitButton.addEventListener("click", checkPassword);
+
+        function checkPassword() {
+          if (passwordInput.value === correctPassword) {
+            // Store authentication in localStorage
+            localStorage.setItem("isAuthenticated", "true");
+
+            // Hide password overlay and show content
+            passwordOverlay.style.display = "none";
+            content.style.display = "block";
+
+            // Initialize the content
+            initializeContent();
+          } else {
+            // Show error message
+            errorMessage.style.display = "block";
+            passwordInput.value = "";
+          }
+        }
+
+        // Function to initialize content after password is validated
+        function initializeContent() {
+          // ------ Apply color styling to bold elements ------
+          const colors = [
+            "#d32f2f", // Red
+            "#1976d2", // Blue
+            "#388e3c", // Green
+            "#7b1fa2", // Purple
+            "#e64a19", // Orange
+            "#0097a7", // Teal
+            "#c2185b", // Pink
+            "#7cb342", // Light Green
+          ];
+
+          const boldElements = document.querySelectorAll(".bold");
+          console.log("Found " + boldElements.length + " bold elements");
+
+          boldElements.forEach((element, index) => {
+            const colorIndex = index % colors.length;
+            element.style.color = colors[colorIndex];
+            element.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.25)";
+          });
+
+          // Add hover effect for all bold elements
+          boldElements.forEach((element) => {
+            element.addEventListener("mouseover", function () {
+              this.style.filter = "brightness(1.2)";
+              this.style.textShadow = "1px 1px 5px rgba(0, 0, 0, 0.4)";
+              this.style.transition = "all 0.2s ease";
+            });
+
+            element.addEventListener("mouseout", function () {
+              this.style.filter = "";
+              this.style.textShadow = "1px 1px 2px rgba(0, 0, 0, 0.25)";
+              this.style.transition = "all 0.2s ease";
+            });
+          });
+
+          // ------ Setup navigation guard and save button ------
+          // Get a reference to the notes textarea
+          const notesTextarea = document.querySelector(".notes-textarea");
+          if (!notesTextarea) {
+            console.error("Notes textarea not found!");
+            return;
+          }
+
+          // Flag to track if there are unsaved changes
+          let hasUnsavedChanges = false;
+
+          // Listen for changes in the textarea
+          notesTextarea.addEventListener("input", function () {
+            // Set flag to true when user types in the textarea
+            hasUnsavedChanges = true;
+          });
+
+          // The beforeunload event is fired when the window, document and its resources are about to be unloaded
+          window.addEventListener("beforeunload", function (e) {
+            // Only show confirmation dialog if there are unsaved changes
+            if (hasUnsavedChanges) {
+              // Standard message that will be shown in most browsers
+              const confirmationMessage =
+                "You have unsaved notes. Are you sure you want to leave?";
+
+              // The standard way to show a confirmation dialog before leaving the page
+              e.returnValue = confirmationMessage;
+              return confirmationMessage;
+            }
+          });
+
+          // Save notes function
+          function saveNotes() {
+            const notes = notesTextarea.value;
+            localStorage.setItem("interviewNotes", notes);
+            hasUnsavedChanges = false;
+          }
+
+          // Add save button to the floating notes section
+          const floatingNotes = document.querySelector(".floating-notes");
+          if (!floatingNotes) {
+            console.error("Floating notes container not found!");
+            return;
+          }
+
+          // Check if a save button already exists
+          if (!document.querySelector(".save-notes-button")) {
+            // Create save button
+            const saveButton = document.createElement("button");
+            saveButton.textContent = "Save Notes";
+            saveButton.className = "save-notes-button";
+
+            // Add click event to save button
+            saveButton.addEventListener("click", function () {
+              saveNotes();
+              alert("Notes saved successfully!");
+            });
+
+            // Add the save button to the floating notes section
+            floatingNotes.appendChild(saveButton);
+            console.log("Save button added successfully");
+          }
+
+          // Load saved notes when page loads
+          const savedNotes = localStorage.getItem("interviewNotes");
+          if (savedNotes) {
+            notesTextarea.value = savedNotes;
+          }
+          // Add this to your initializeContent() function at the appropriate location
+
+          // Mobile toggle buttons for reference and notes
+          function setupMobileToggles() {
+            const content = document.getElementById("content");
+
+            // Create reference toggle button
+            const refToggle = document.createElement("button");
+            refToggle.className = "ref-toggle";
+            refToggle.innerHTML = "ℹ️";
+            refToggle.setAttribute("aria-label", "Toggle reference");
+
+            // Create notes toggle button
+            const notesToggle = document.createElement("button");
+            notesToggle.className = "notes-toggle";
+            notesToggle.innerHTML = "📝";
+            notesToggle.setAttribute("aria-label", "Toggle notes");
+
+            // Get reference and notes elements
+            const floatingRef = document.querySelector(".floating-ref");
+            const floatingNotes = document.querySelector(".floating-notes");
+
+            // Add toggle classes initially for mobile
+            if (window.innerWidth <= 900) {
+              floatingRef.classList.add("mobile-hidden");
+              floatingNotes.classList.add("mobile-hidden");
+            }
+
+            // Reference toggle click handler
+            refToggle.addEventListener("click", function () {
+              if (floatingRef.classList.contains("mobile-hidden")) {
+                floatingRef.classList.remove("mobile-hidden");
+                floatingRef.classList.add("mobile-visible");
+                // Hide notes if reference is shown
+                floatingNotes.classList.remove("mobile-visible");
+                floatingNotes.classList.add("mobile-hidden");
+              } else {
+                floatingRef.classList.remove("mobile-visible");
+                floatingRef.classList.add("mobile-hidden");
+              }
+            });
+
+            // Notes toggle click handler
+            notesToggle.addEventListener("click", function () {
+              if (floatingNotes.classList.contains("mobile-hidden")) {
+                floatingNotes.classList.remove("mobile-hidden");
+                floatingNotes.classList.add("mobile-visible");
+                // Hide reference if notes are shown
+                floatingRef.classList.remove("mobile-visible");
+                floatingRef.classList.add("mobile-hidden");
+              } else {
+                floatingNotes.classList.remove("mobile-visible");
+                floatingNotes.classList.add("mobile-hidden");
+              }
+            });
+
+            // Add toggle buttons to the content
+            content.appendChild(refToggle);
+            content.appendChild(notesToggle);
+
+            // Handle window resize event
+            window.addEventListener("resize", function () {
+              if (window.innerWidth > 900) {
+                // Desktop view - reset all mobile classes
+                floatingRef.classList.remove("mobile-hidden", "mobile-visible");
+                floatingNotes.classList.remove(
+                  "mobile-hidden",
+                  "mobile-visible",
+                );
+              } else {
+                // Mobile view - default to hidden
+                if (!floatingRef.classList.contains("mobile-visible")) {
+                  floatingRef.classList.add("mobile-hidden");
+                }
+                if (!floatingNotes.classList.contains("mobile-visible")) {
+                  floatingNotes.classList.add("mobile-hidden");
+                }
+              }
+            });
+          }
+
+          // Call this function after your existing code in initializeContent()
+          setupMobileToggles();
+        }
+      });
+    </script>
+  </body>
+</html>
