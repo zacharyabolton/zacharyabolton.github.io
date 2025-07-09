@@ -27,6 +27,7 @@ window.onload = function () {
 // --- p5.js Sketch Variables ---
 var canvas, nodes, factor, radius;
 var palette = [];
+var isFirefox = false;
 
 // Expanded range for more variety:
 var minNodes = 100;
@@ -48,9 +49,19 @@ var globalHueCycle = 0;
 
 // --- Setup & Initial Randomization ---
 function setup() {
+  // Detect Firefox
+  isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+  
   pixelDensity(displayDensity());
   colorMode(HSB);
-  canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+  
+  // Use 2D renderer for Firefox, WEBGL for others
+  if (isFirefox) {
+    canvas = createCanvas(windowWidth, windowHeight);
+  } else {
+    canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+  }
+  
   canvas.position(0, 0);
   canvas.style("z-index", "-1");
 
@@ -85,9 +96,16 @@ function easeInOut(t) {
 function draw() {
   background(10);
 
-  // Center coordinate system in WEBGL
-  translate(-windowWidth / 2, -windowHeight / 2);
-  translate(windowWidth / 2, windowHeight / 2);
+  // Handle coordinate system differences between WEBGL and 2D renderers
+  if (isFirefox) {
+    // 2D renderer - translate to center
+    push();
+    translate(windowWidth / 2, windowHeight / 2);
+  } else {
+    // WEBGL renderer - center coordinate system
+    translate(-windowWidth / 2, -windowHeight / 2);
+    translate(windowWidth / 2, windowHeight / 2);
+  }
 
   // --- Global Pulse (dynamic movement) ---
   let rawT = (frameCount * pulseSpeed) % 2;
@@ -138,7 +156,7 @@ function draw() {
       let d = abs(midX - globalPulseX);
       let pulseFactor = exp(-(d * d) / (2 * sigma * sigma));
 
-      // Horizontal “contour” shift based on segment's x-position
+      // Horizontal "contour" shift based on segment's x-position
       let globalHueShift = map(midX, -radius, radius, -30, 30);
 
       // Combine:
@@ -162,6 +180,11 @@ function draw() {
     }
   }
 
+  // Restore transformation matrix for Firefox
+  if (isFirefox) {
+    pop();
+  }
+
   // --- Update On-Screen Displays ---
   document.getElementById("nodesOutput").innerHTML = nodes;
   document.getElementById("factorOutput").innerHTML = factor;
@@ -179,4 +202,13 @@ function windowResized() {
   canvas.style("z-index", "-1");
   radius = min(windowHeight, windowWidth) / 2;
   background(10);
+  
+  // Ensure proper rendering mode is maintained on resize
+  if (isFirefox && canvas._renderer.drawingContext.constructor.name === "WebGLRenderingContext") {
+    // If somehow we ended up with WebGL in Firefox, recreate as 2D
+    canvas.remove();
+    canvas = createCanvas(windowWidth, windowHeight);
+    canvas.position(0, 0);
+    canvas.style("z-index", "-1");
+  }
 }
