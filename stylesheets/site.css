@@ -28,6 +28,14 @@ a {
   color: inherit;
   text-underline-offset: 5px;
 }
+/* Vector arrows cannot fall back to a platform emoji glyph. */
+.icon-arrow {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  flex-shrink: 0;
+}
 a:hover {
   color: var(--accent);
 }
