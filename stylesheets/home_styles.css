@@ -541,3 +541,27 @@ body #notice p a {
     padding: 0.6rem 1.2rem;
   }
 }
+
+/* Native buttons retain the original icon treatment. */
+button.topButtons {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+button.topButtons:focus-visible {
+  outline: 2px solid #d7f86b;
+  outline-offset: 6px;
+}
+
+button.topButtons img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

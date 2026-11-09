@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Making evaluation a shared engineering practice — Zac Bolton</title>
+    <meta
+      name="description"
+      content="How I drove eval-driven development at Boostlingo through shared tooling, teaching, and reliable release checks."
+    />
+    <link
+      rel="canonical"
+      href="https://zacbolton.io/evaluation-practice.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Making evaluation a shared engineering practice — Zac Bolton"
+    />
+    <meta
+      property="og:description"
+      content="How I drove eval-driven development at Boostlingo through shared tooling, teaching, and reliable release checks."
+    />
+    <meta
+      property="og:url"
+      content="https://zacbolton.io/evaluation-practice.html"
+    />
+    <meta
+      property="og:image"
+      content="https://zacbolton.io/public/social-card.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="og:image:alt"
+      content="Zac Bolton — Engineering for AI safety."
+    />
+    <link rel="icon" href="/assets/icons/favicon.ico" />
+    <script src="/scripts/sketch-background.js?v=20261109d"></script>
+    <link rel="stylesheet" href="/stylesheets/site.css?v=20261109c" />
+    <script src="/scripts/multiplication-drawing.js?v=20261109" defer></script>
+    <script src="/scripts/site.js?v=20261109" defer></script>
+    <link
+      rel="stylesheet"
+      href="/stylesheets/click-butterflies.css?v=20261109"
+    />
+    <script src="/scripts/click-butterflies.js?v=20261109" defer></script>
+  </head>
+  <body class="sketch-page">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Zac Bolton home"
+        ><img src="/assets/signature.svg" alt="" width="65" height="32" /><span
+          >ZAC BOLTON<span class="brand-dot">.</span></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="/#work" aria-current="page">Work</a
+        ><a href="/about-me.html">About</a><a href="/resume.html">Résumé</a
+        ><a class="contact-nav" href="/#contact"
+          >Let’s talk <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <article class="case">
+        <header class="case-hero section">
+          <a class="back" href="/#work">← Selected work</a>
+          <p class="eyebrow">01 / BOOSTLINGO / ENGINEERING LEADERSHIP</p>
+          <h1>Make evaluation<br /><em>part of the work.</em></h1>
+          <p class="lede">
+            A useful evaluation system has to change how people build and
+            release software. I drove that shift at Boostlingo.
+          </p>
+          <div class="case-facts">
+            <span>Shared evaluation tooling</span
+            ><span>Teaching &amp; adoption</span><span>Required CI checks</span>
+          </div>
+        </header>
+        <div class="prose section">
+          <h2>The problem</h2>
+          <p>
+            A real-time AI interpreter can produce fluent output while changing
+            meaning, using the wrong language, or stepping outside its role.
+            Individual feature tests were not enough to give teams a shared
+            basis for release decisions.
+          </p>
+          <h2>What I did</h2>
+          <p>
+            I built multilingual evaluation datasets, scoring pipelines,
+            provenance records, and shared evaluation suites. I worked with
+            language experts to connect automated scores to the behavior we
+            actually cared about.
+          </p>
+          <p>
+            The infrastructure was only part of the job. Through tech talks,
+            recurring knowledge shares, and hands-on support, I helped other
+            engineers write and use evaluations. I drove the move toward
+            eval-driven development across the engineering organization.
+          </p>
+          <p>
+            I introduced CI gates progressively. When evaluation runs were too
+            noisy, making them mandatory would have blocked work without
+            providing reliable evidence. Stable suites became required checks
+            for AI interpreter changes.
+          </p>
+          <h2>What changed</h2>
+          <p>
+            Evaluation became a shared release practice across the organization.
+            Interpreter suites became required CI checks, and other teams
+            adopted the framework for their own systems. Language assessments
+            and expert review helped determine what was ready for general
+            availability.
+          </p>
+          <p>
+            I led this work alongside an architect and contributing engineers;
+            language experts helped define and review quality. My contribution
+            combined building the machinery with making it a practice people
+            could sustain.
+          </p>
+          <blockquote>
+            Getting a team to trust the tests starts with making the tests worth
+            trusting.
+          </blockquote>
+          <h2>A concrete measurement lesson</h2>
+          <p>
+            Translation-quality scores missed outputs in the wrong language.
+            Investigating those failures led me to add independent language-ID
+            checks. A favorable aggregate score was not enough to establish that
+            the interpreter had done its job.
+          </p>
+          <h2>Why I’m bringing this into AI safety</h2>
+          <p>
+            Safety evaluations need both sound measurement and an engineering
+            process that acts on the result. This work gave me experience in
+            both: investigating misleading scores and building the
+            infrastructure and habits that make findings consequential.
+          </p>
+          <p>
+            This is experience in production reliability and behavioral
+            evaluation. The tests establish evidence about specific behaviors
+            under tested conditions; they do not establish general model safety.
+          </p>
+          <h2>Related public work</h2>
+          <ul>
+            <li>
+              <a href="https://boostlingo.com/news/ai-accuracy-study/"
+                >Medical AI interpreting accuracy study</a
+              >
+              — designed and authored at Boostlingo.
+            </li>
+            <li>
+              <a href="https://amtaweb.org/amta-2026/"
+                >AMTA 2026: MT Evaluation for Spoken AI Interpreting</a
+              >
+              — lead presenter; co-developed the tutorial.
+            </li>
+            <li>
+              <a href="/behavioral-evaluations.html"
+                >Behavioral and adversarial evaluation work</a
+              >.
+            </li>
+          </ul>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <a href="/" class="footer-name">Zac Bolton.</a
+      ><span>Intelligence. Power. Better questions.</span>
+      <div>
+        <a href="https://github.com/zacharyabolton">GitHub ↗</a
+        ><a href="https://linkedin.com/in/zacabolton">LinkedIn ↗</a
+        ><a href="/animation.html">Play with the math ↗</a>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Behavioral &amp; adversarial evaluations — Zac Bolton</title>
+    <meta
+      name="description"
+      content="Spoken role-redirection tests, controlled PDF prompt-injection experiments, and Petri behavioral audits."
+    />
+    <link
+      rel="canonical"
+      href="https://zacbolton.io/behavioral-evaluations.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Behavioral &amp; adversarial evaluations — Zac Bolton"
+    />
+    <meta
+      property="og:description"
+      content="Spoken role-redirection tests, controlled PDF prompt-injection experiments, and Petri behavioral audits."
+    />
+    <meta
+      property="og:url"
+      content="https://zacbolton.io/behavioral-evaluations.html"
+    />
+    <meta
+      property="og:image"
+      content="https://zacbolton.io/public/social-card.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="og:image:alt"
+      content="Zac Bolton — Engineering for AI safety."
+    />
+    <link rel="icon" href="/assets/icons/favicon.ico" />
+    <script src="/scripts/sketch-background.js?v=20261109d"></script>
+    <link rel="stylesheet" href="/stylesheets/site.css?v=20261109c" />
+    <script src="/scripts/multiplication-drawing.js?v=20261109" defer></script>
+    <script src="/scripts/site.js?v=20261109" defer></script>
+    <link
+      rel="stylesheet"
+      href="/stylesheets/click-butterflies.css?v=20261109"
+    />
+    <script src="/scripts/click-butterflies.js?v=20261109" defer></script>
+  </head>
+  <body class="sketch-page">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Zac Bolton home"
+        ><img src="/assets/signature.svg" alt="" width="65" height="32" /><span
+          >ZAC BOLTON<span class="brand-dot">.</span></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="/#work" aria-current="page">Work</a
+        ><a href="/about-me.html">About</a><a href="/resume.html">Résumé</a
+        ><a class="contact-nav" href="/#contact"
+          >Let’s talk <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <article class="case">
+        <header class="case-hero section">
+          <a class="back" href="/#work">← Selected work</a>
+          <p class="eyebrow">02 / BEHAVIORAL &amp; ADVERSARIAL EVALUATION</p>
+          <h1>Test the behavior.<br /><em>Then test the test.</em></h1>
+          <p class="lede">
+            An unexpected output is a starting point. The harder work is finding
+            out what caused it—and whether the evaluation supports the
+            conclusion.
+          </p>
+        </header>
+        <div class="prose section">
+          <p class="eyebrow">PRODUCTION WORK / BOOSTLINGO</p>
+          <h2>Does the interpreter stay in its role?</h2>
+          <p>
+            I developed a direct-address guard and spoken role-redirection
+            tests. A colleague later integrated the guard into the production
+            codebase behind a feature flag. The evaluation included
+            ordinary-speech controls and detector-on/off comparisons, so a guard
+            could be checked for both missed redirections and interference with
+            legitimate speech.
+          </p>
+          <p>
+            The important distinction was between correctly interpreting
+            someone’s words and treating those words as instructions to the
+            interpreter. This work tested a particular conversational role; the
+            evaluation does not establish general prompt-injection resistance.
+          </p>
+          <hr />
+          <p class="eyebrow">PERSONAL EXPERIMENT / INSPECT / AI-ASSISTED</p>
+          <h2 id="resume-injection">
+            Can a document invent its own authority?
+          </h2>
+          <p>
+            I built a
+            <a
+              href="https://github.com/zacharyabolton/messing-around-with-inspect/tree/main/resume_eval"
+              >controlled résumé-screening experiment</a
+            >: the same fictional applicant and job requirements, with
+            identical-looking PDFs. Conditions included a clean résumé, hidden
+            direct instructions, a claimed reward, and a forged hiring-manager
+            exception.
+          </p>
+          <p>
+            The decision was scored against the job requirements. Repeating an
+            injected flag or mentioning an instruction did not count as an
+            attack success; advancing the unqualified applicant did.
+          </p>
+          <p>
+            This was a small exploratory study of one fixed applicant/job pair
+            and a specific PDF extraction pipeline. It does not estimate
+            performance across real hiring decisions or test visual document
+            understanding.
+          </p>
+          <hr />
+          <p class="eyebrow">WORK SAMPLE / PETRI / AI-ASSISTED</p>
+          <h2 id="petri-audit">When the judge and the transcript disagree</h2>
+          <p>
+            In a
+            <a
+              href="https://github.com/zacharyabolton/messing-around-with-inspect/tree/main/petri-audit"
+              >Petri behavioral-auditing work sample</a
+            >, I designed scenario variants, reviewed transcripts, and iterated
+            on the simulation. The work surfaced judge inconsistencies and
+            simulator drift—changes in the simulated environment that
+            complicated comparisons between conditions.
+          </p>
+          <p>
+            The analysis separated awareness, attempted actions, completed
+            actions, and disclosure. I used the action and tool-result evidence
+            to distinguish observed behavior from the judge’s interpretation,
+            and retained limits on what the small experiment could show.
+          </p>
+          <h2>How I worked</h2>
+          <p>
+            These independent experiments used AI assistance for implementation
+            and analysis. My work included framing questions, reviewing
+            evidence, and making iteration decisions. The conclusions remain
+            scoped to the experiments performed.
+          </p>
+          <h2>Code &amp; report</h2>
+          <ul>
+            <li>
+              <a
+                href="https://github.com/zacharyabolton/messing-around-with-inspect/tree/main/resume_eval"
+                >Inspect résumé-injection experiment</a
+              >: code, PDF fixtures, scoring rules, and offline tests.
+            </li>
+            <li>
+              <a
+                href="https://github.com/zacharyabolton/messing-around-with-inspect/tree/main/petri-audit"
+                >Petri audit report</a
+              >: design, observations, and limitations from 18 samples. A
+              report-only work sample; the supplied hiring-test harness and raw
+              logs are not redistributed.
+            </li>
+          </ul>
+          <p>
+            For a public experiment with code, model comparisons, and recorded
+            limits, see
+            <a
+              href="https://github.com/zacharyabolton/harmful-request-classification"
+              >harmful-request classification</a
+            >.
+          </p>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <a href="/" class="footer-name">Zac Bolton.</a
+      ><span>Intelligence. Power. Better questions.</span>
+      <div>
+        <a href="https://github.com/zacharyabolton">GitHub ↗</a
+        ><a href="https://linkedin.com/in/zacabolton">LinkedIn ↗</a
+        ><a href="/animation.html">Play with the math ↗</a>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -61,21 +61,14 @@
 
       gtag("config", "G-BYFQ413ZGH");
     </script>
+    <link rel="stylesheet" href="/stylesheets/click-butterflies.css?v=20261109" />
+    <script src="/scripts/click-butterflies.js?v=20261109" defer></script>
   </head>
   <body>
+<nav aria-label="Portfolio" style="padding:14px 22px;background:#151614;color:#f0ede3;font:14px Arial,sans-serif;position:relative;z-index:20"><a style="color:inherit" href="/#work">← Zac Bolton / Selected work</a> <a style="color:inherit;margin-left:24px" href="/about-me.html">About</a> <a style="color:inherit;margin-left:24px" href="/resume.html">Résumé</a></nav>
     <!-- Loading overlay -->
     <div class="loading-overlay"></div>
-    <!-- extremely minimal back to home navbar -->
-    <!-- sticky and with project name -->
-    <!-- dark color -->
-    <nav class="navbar">
-      <a href="/" title="ZacBolton.io">
-        <img src="assets/home_icon.svg" alt="Home" width="100" />
-      </a>
-      <!-- project name -->
-      <h1 class="navbar-title">Siamese SBERT AV</h1>
-    </nav>
-    <div class="hero">
+<div class="hero">
       <img
         class="hero-image"
         src="assets/figures/full_run_all_train_losses.png"
@@ -89,13 +82,20 @@
         <a href="https://api.semanticscholar.org/CorpusID:264441704"
           >Ibrahim et al.'s (2023)</a
         >
-        state-of-the-art Siamese SBERT architecture for historical document
-        verification. I achieved near-perfect metrics across multiple distorted
-        views while handling genre/topic bias through novel dataset construction
-        and text distortion techniques from
+        Siamese SBERT architecture for historical authorship verification. I built
+        a genre-balanced dataset, evaluated on an external benchmark, and explored
+        sensitivity to text distortion using techniques from
         <a href="https://aclanthology.org/E17-1107">Stamatatos (2017)</a>.
       </div>
 
+      <aside class="implementation-note" aria-label="Research limitations">
+        <strong>Reading this study:</strong> This is an undergraduate research project.
+        Document-level separation across cross-validation folds still needs an audit.
+        A scoring artefact affected apparently perfect Brier scores during the work.
+        Neither near-perfect in-domain metrics nor the historical inference should
+        be treated as proof of generalization or authorship. The result tables below
+        retain the reported experimental values.
+      </aside>
       <div class="video-section">
         <h3>Executive Summary Video</h3>
         <div class="video-container">
@@ -194,7 +194,8 @@ $$B = \{(c_{\text{a}}, c_{\text{o}})_i\}_{i=1}^{\text{batch\_size}}$$
         contradiction in Ibrahim et al.'s architecture where the stated
         contrastive loss function was incompatible with their output layer
         configuration. Successfully implemented a modified architecture
-        maintaining SOTA performance while ensuring theoretical soundness.
+        with a loss formulation consistent with the similarity output. This is an
+        implementation decision, not a claim of a new state-of-the-art method.
       </div>
 
       <h2>Modified Contrastive Loss Implementation</h2>
@@ -251,7 +252,7 @@ $$B = \{(c_{\text{a}}, c_{\text{o}})_i\}_{i=1}^{\text{batch\_size}}$$
       <div class="implementation-note">
         <strong>Enhancement:</strong> This modified implementation allows for
         flexible tuning of both the "push" and "pull" forces in the embedding
-        space, leading to more stable training and better generalization.
+        space. These controls do not by themselves establish improved generalization.
       </div>
 
       <h2>Dataset Construction & Preprocessing</h2>
@@ -412,7 +413,7 @@ flowchart LR
             <tr>
               <td>Our Implementation (30 epochs)</td>
               <td>0.801</td>
-              <td>VALLA (more challenging)</td>
+              <td>VALLA / PAN20 sub-split</td>
             </tr>
             <tr>
               <td>PAN20 Baseline</td>
@@ -424,19 +425,18 @@ flowchart LR
       </div>
 
       <div class="implementation-note">
-        <strong>Note:</strong> Despite using VALLA's more challenging
-        formulation which removes genre/topic/class-balance bias, my
-        implementation achieved the equivalent of a 5th place team in PAN 2020
-        models using the same raw data, demonstrating strong generalization
-        capability.
+        <strong>Comparison limits:</strong> These scores come from different training
+        and evaluation configurations. They provide context, not an official PAN
+        ranking or a directly comparable fifth-place result. External evaluation is
+        more informative than near-perfect in-domain scores, but does not establish
+        broad generalization.
       </div>
 
       <h2>Inference Results on the Love Letters</h2>
 
       <p>
-        The model's analysis of the letters shows a consistent and strong
-        pattern of attribution to LaSalle's authorship across all distortion
-        views:
+        The model favored same-author predictions, with that proportion declining
+        as text distortion increased:
       </p>
 
       <!-- Love Letters Analysis Table -->
@@ -496,18 +496,11 @@ flowchart LR
       </div>
 
       <div class="implementation-note">
-        <strong>Key Finding:</strong> The model demonstrates strong attribution
-        to LaSalle's authorship, with 74.4% same-author predictions in the
-        undistorted view. This signal persists even under heavy distortion
-        (k=300), where topic and content-specific features are largely masked,
-        indicating deep stylistic similarities between the letters and LaSalle's
-        known works. Notably, the highest-similarity passages contain
-        anachronistic references
-        <a href="https://www.jstor.org/stable/4248894"
-          >independently identified</a
-        >
-        by historians as problematic, providing computational support for
-        historical observations about the letters' authenticity.
+        <strong>Interpretation:</strong> Same-author predictions fell from 74.4% on
+        undistorted text to 57.8% under the heaviest distortion. This sensitivity
+        matters: the experiment does not establish authorship. Some high-similarity
+        passages contain anachronistic references also discussed by historians,
+        but shared content can itself influence similarity.
       </div>
 
       <h2>Technical Infrastructure</h2>
@@ -516,7 +509,7 @@ flowchart LR
           AWS EC2 g5.xlarge deployment (4 vCPUs, 16GB RAM, NVIDIA A10G GPU)
         </li>
         <li>PyTorch with HuggingFace Transformers</li>
-        <li>Custom dataset class handling 10M+ words</li>
+        <li>Custom dataset pipeline with multiple text-distortion views</li>
         <li>Gradient accumulation for memory efficiency</li>
         <li>K-Folds cross-validation with balanced splits</li>
       </ul>

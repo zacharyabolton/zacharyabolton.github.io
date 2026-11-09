@@ -1,608 +1,204 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About — Zac Bolton</title>
     <meta
-      name="viewport"
-      content="width=device-width initial-scale=1, maximum-scale=1, minimum-scale=1"
-      charset="utf-8"
+      name="description"
+      content="From philosophy and political science to ML engineering and AI safety. The path behind Zac Bolton’s work."
     />
-
-    <title>About Me</title>
-    <meta name="description" content="Here's some stuff about me." />
-    <meta name="robots" content="index, follow" />
-
-    <!-- social media meta info -->
+    <link rel="canonical" href="https://zacbolton.io/about-me.html" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="About Me" />
-    <meta property="og:description" content="Here's some stuff about me." />
-    <meta property="og:url" content="https://www.zacbolton.io/about_me.html" />
+    <meta property="og:title" content="About — Zac Bolton" />
+    <meta
+      property="og:description"
+      content="From philosophy and political science to ML engineering and AI safety. The path behind Zac Bolton’s work."
+    />
+    <meta property="og:url" content="https://zacbolton.io/about-me.html" />
     <meta
       property="og:image"
-      content="http://www.zacbolton.io/public/about_me_splash.jpg"
+      content="https://zacbolton.io/public/social-card.png"
     />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta
-      property="og:image:secure_url"
-      content="https://www.zacbolton.io/public/about_me_splash.jpg"
+      property="og:image:alt"
+      content="Zac Bolton — Engineering for AI safety."
     />
-    <meta property="og:image:type" content="image/jpg" />
-    <meta property="og:image:width" content="1280" />
-    <meta property="og:image:height" content="720" />
-
-    <!-- FB specific -->
-    <meta property="fb:admins" content="100009728023074" />
-
-    <!-- twitter meta info -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="About Me" />
-    <meta name="twitter:description" content="Here's some stuff about me." />
-    <meta
-      name="twitter:image"
-      content="https://www.zacbolton.io/public/me.jpg"
-    />
-    <meta name="twitter:image:alt" content="A selfie of me, Zac Bolton." />
-
-    <!-- assets -->
-    <script src="assets/p5.min.js"></script>
-    <!-- may not need -->
-    <script src="assets/p5.dom.js"></script>
-    <!-- may not need -->
-
-    <!-- icons -->
-    <link
-      rel="shortcut icon"
-      href="assets/icons/favicon.ico"
-      type="image/x-icon"
-    />
-    <link rel="apple-touch-icon" href="assets/icons//apple-touch-icon.png" />
-    <link
-      rel="apple-touch-icon"
-      sizes="57x57"
-      href="assets/icons//apple-touch-icon-57x57.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="72x72"
-      href="assets/icons//apple-touch-icon-72x72.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="76x76"
-      href="assets/icons//apple-touch-icon-76x76.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="114x114"
-      href="assets/icons//apple-touch-icon-114x114.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="120x120"
-      href="assets/icons//apple-touch-icon-120x120.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="144x144"
-      href="assets/icons//apple-touch-icon-144x144.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="assets/icons//apple-touch-icon-152x152.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="assets/icons//apple-touch-icon-180x180.png"
-    />
-
-    <!-- my styles -->
+    <link rel="icon" href="/assets/icons/favicon.ico" />
+    <script src="/scripts/sketch-background.js?v=20261109d"></script>
+    <link rel="stylesheet" href="/stylesheets/site.css?v=20261109c" />
+    <script src="/scripts/multiplication-drawing.js?v=20261109" defer></script>
+    <script src="/scripts/site.js?v=20261109" defer></script>
     <link
       rel="stylesheet"
-      type="text/css"
-      href="stylesheets/about_me_styles.css"
+      href="/stylesheets/click-butterflies.css?v=20261109"
     />
-    <!-- loading overlay styles -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="stylesheets/loading-overlay.css"
-    />
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-BYFQ413ZGH"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-BYFQ413ZGH");
-    </script>
+    <script src="/scripts/click-butterflies.js?v=20261109" defer></script>
   </head>
-
-  <body>
-    <!-- Loading overlay -->
-    <div class="loading-overlay"></div>
-    <div id="fixed-bg"></div>
-    <main id="container">
-      <nav id="home-button">
-        <a href="/"
-          ><img
-            src="assets/home_icon.svg"
-            alt="home - click to go back to the main page with the mathy animation."
-        /></a>
+  <body class="sketch-page">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Zac Bolton home"
+        ><img src="/assets/signature.svg" alt="" width="65" height="32" /><span
+          >ZAC BOLTON<span class="brand-dot">.</span></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="/#work">Work</a
+        ><a href="/about-me.html" aria-current="page">About</a
+        ><a href="/resume.html">Résumé</a
+        ><a class="contact-nav" href="/#contact"
+          >Let’s talk <span aria-hidden="true">↗</span></a
+        >
       </nav>
-      <header id="splash-container">
-        <img
-          id="splash"
-          src="public/me.jpg"
-          height="100px"
-          alt="A selfie of me, Zac Bolton."
-        />
-      </header>
-      <article class="mainContent">
-        <section class="intro">
-          <div class="headerAndLinks">
-            <h2 class="myName">ZACHARY A. BOLTON</h2>
-            <div class="links">
-              <a href="https://github.com/zacharyabolton">
-                <img width="30px" src="assets/github.svg" alt="Github Icon" />
-              </a>
-              <a href="https://www.linkedin.com/in/zacabolton">
-                <img
-                  width="30px"
-                  src="assets/linkedin.svg"
-                  alt="LinkedIn Icon"
-                />
-              </a>
-              <a href="public/Zachary_A_Bolton_Resume.pdf">
-                <img width="30px" src="assets/curriculum.svg" alt="CV Icon" />
-              </a>
-            </div>
-          </div>
-          <em class="title"> Full-Stack &amp; Machine Learning Engineer </em>
-          <p class="blurb">
-            I'm Zac, a machine learning engineer and researcher who builds
-            products end to end. I currently lead engineering on Boostlingo's
-            real-time AI Interpreter, pairing product pragmatism with rigorous
-            ML methodology &mdash; evaluation harnesses, competitive
-            benchmarks, and a publicly released accuracy study. Before that, a
-            decade owning technology at an EdTech company taught me to ship
-            pragmatically, and my university research pushed transformer
-            architectures into historical document verification. I'm happiest
-            taking ambiguous zero-to-one problems from architecture to deploy.
-            Beyond the screen,
-            you'll often find me immersed in a game of chess or diving into the
-            latest tech innovations. As a techno-optimist, I'm deeply driven by
-            the potential of technology to catalyze positive change and
-            meaningful impact. If you'd like to speak with me about work or
-            collaboration feel free to reach out at
-            <span id="eml">
-              <mark> Email address protected by JavaScript. </mark>
-            </span>
-            Let's create something impactful together!
+    </header>
+    <main id="main">
+      <section class="section about-hero">
+        <div>
+          <p class="eyebrow">ABOUT / ZAC BOLTON</p>
+          <h1>Big questions.<br /><em>Useful work.</em></h1>
+          <p class="lede">
+            I’ve long been drawn to questions about intelligence, power, and how
+            we should live together.
           </p>
-          <div class="signatureContainer">
-            <img
-              class="signature"
-              src="assets/signature-white.svg"
-              alt="Zac - a scalable vector graphic of my signature"
-              height="64px"
-            />
-          </div>
-        </section>
-
-        <section class="education">
-          <h3 class="sectionHeader">EDUCATION</h3>
-          <hr />
-          <div>
-            <h4>School</h4>
-            <p class="schoolDescription">
-              BSc in Computer Science (Machine Learning & AI) at the University
-              of London, graduated April 2025 with
-              <em>First Class Honors</em> (90% grade average)
-            </p>
-            <h5
-              style="
-                margin-top: 0;
-                margin-bottom: 0;
-                font-size: 1.2em;
-                font-weight: 600;
-              "
+        </div>
+        <figure class="portrait">
+          <img src="/public/me.jpg" alt="Zac Bolton" width="600" height="600" />
+          <figcaption>
+            ML engineer. Chess person. Still asking questions.
+          </figcaption>
+        </figure>
+      </section>
+      <div class="prose section">
+        <p>
+          I first explored those questions in political science and philosophy
+          at Furman University. Discovering AI safety in 2016, through
+          <a href="https://www.youtube.com/@RobertMilesAI">Robert Miles</a>’
+          videos, gave those interests a direction. It led me to pursue a degree
+          in machine learning and AI.
+        </p>
+        <p>
+          I’m now a staff ML engineer at Boostlingo, leading work on a real-time
+          AI interpreter. I build evaluation systems and help teams use them:
+          setting up meaningful tests, investigating failures, and deciding what
+          evidence is strong enough to ship on.
+        </p>
+        <p>
+          Before that, I spent a decade building technology at Kid Chess. I
+          moved 4,000 students online during the pandemic, helping the company
+          retain over 90% of its staff and stay afloat. We returned fully to
+          in-person teaching afterward, with the online offering continuing as a
+          new revenue stream. Over my time there, I grew engineering and QA from
+          two to nine. That experience taught me that software only works as
+          well as the people and practices around it.
+        </p>
+        <p>
+          AI safety is where I’ve wanted this path to lead. I’m especially
+          interested in manipulation, role adherence, and how AI can reinforce
+          power imbalances.
+        </p>
+        <h2>What I’m working toward</h2>
+        <p>
+          For
+          <a href="https://bluedot.org/courses/agi-strategy"
+            >BlueDot’s AGI Strategy</a
+          >
+          course, I’m developing an evaluation proposal: when people disagree,
+          do AI notetakers favor the more powerful or fluent speaker? The first
+          step is a related-work review and a proposal, with authority and
+          language fluency tested separately.
+        </p>
+        <p>
+          I intend to take
+          <a href="https://bluedot.org/courses/technical-ai-safety"
+            >BlueDot’s Technical AI Safety</a
+          >
+          course next. I’m looking for hands-on engineering roles in behavioral
+          evaluations, adversarial testing, or evaluation infrastructure, with
+          scope and level shaped around the team’s needs.
+        </p>
+        <h2>A longer-running interest</h2>
+        <ul class="timeline">
+          <li>
+            <strong>2016</strong
+            ><span
+              >Started following AI safety through
+              <a href="https://www.youtube.com/@RobertMilesAI">Robert Miles</a>’
+              videos.</span
             >
-              Research: Transformer-Based Authorship Verification
-            </h5>
-            <ul>
-              <li>
-                Implemented
-                <a href="av-w-siamese-sbert.html"
-                  >Siamese Sentence-BERT architecture</a
-                >
-                achieving competitive performance (AUC: 0.900, F1: 0.785) on
-                VALLA benchmark dataset against PAN 2020 shared task
-                participants
-              </li>
-              <li>
-                Developed novel LILA dataset with robust genre/topic bias
-                controls, achieving near-perfect metrics (AUC/F1/C@1 > 0.99)
-                across multiple distorted views
-              </li>
-              <li>
-                Integrated text distortion techniques with transformer
-                architectures to enhance model robustness against topic/genre
-                overfitting
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="skills">
-          <h3 class="sectionHeader">SKILLS</h3>
-          <hr />
-          <div>
-            <h4>Hard</h4>
-            <ul>
-              <li><strong>Real-time Voice AI</strong></li>
-              <li><strong>LLM Evals & Benchmarking</strong></li>
-              <li><strong>LLM Observability</strong></li>
-              <li><strong>C#/.NET (Orleans)</strong></li>
-              <li><strong>PyTorch & HuggingFace</strong></li>
-              <li><strong>Transformer Architectures</strong></li>
-              <li><strong>Speech Processing</strong></li>
-              <li><strong>Python Scientific Stack</strong></li>
-              <li><strong>Typescript/Javascript</strong></li>
-              <li><strong>Erlang/OTP</strong></li>
-              <li><strong>SQL & Data Processing</strong></li>
-              <li><strong>Git/Version Control</strong></li>
-              <li><strong>NLP & Text Processing</strong></li>
-              <li><strong>AWS-EC2 & S3</strong></li>
-              <li><strong>Azure</strong></li>
-              <li><strong>Angular</strong></li>
-              <li><strong>REST APIs</strong></li>
-              <li><strong>Node/Express</strong></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Soft</h4>
-            <ul>
-              <li><strong>Research & Analysis</strong></li>
-              <li><strong>Technical Writing</strong></li>
-              <li><strong>Problem Solving</strong></li>
-              <li><strong>Project Management</strong></li>
-              <li><strong>Teamwork</strong></li>
-              <li><strong>Leadership</strong></li>
-              <li><strong>Effective Communication</strong></li>
-              <li><strong>Adaptability</strong></li>
-              <li><strong>Dependability</strong></li>
-              <li><strong>Focus</strong></li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="leadershipExperience">
-          <h3 class="sectionHeader">EXPERIENCE</h3>
-          <hr />
-          <ul>
-            <li>
-              <h5>Senior Machine Learning Engineer</h5>
-              <strong>Boostlingo</strong>
-              <br />
-              <div class="dates"><em>Remote</em><em>August 2025-present</em></div>
-              <p class="schoolDescription">
-                <em>
-                  Language-services technology company delivering human and AI
-                  interpreting to healthcare, legal, and business clients
-                  worldwide.
-                </em>
-              </p>
-              <ul>
-                <li>
-                  Lead engineer on Boostlingo's real-time AI Interpreter
-                  (.NET/Microsoft Orleans): built voice-activity detection,
-                  crosstalk handling, and composable conversation-management
-                  mechanics for live interpreted calls serving ~35,000
-                  minutes/month
-                </li>
-                <li>
-                  Designed and built the team's LLM evaluation infrastructure
-                  from scratch &mdash; translation-quality scoring harness with
-                  GEMBA, multilingual datasets and baselines, multi-session
-                  eval runs wired into CI &mdash; enabling confident, monitored
-                  expansion to 9 new language pairs
-                </li>
-                <li>
-                  Designed, conducted, and authored a
-                  <a href="https://boostlingo.com/news/ai-accuracy-study/"
-                    >publicly released AI interpreting accuracy study</a
-                  >
-                  benchmarking medically complex and legal scenarios against
-                  competing systems
-                </li>
-                <li>
-                  Drove hallucination-reduction and correct-language-output
-                  initiatives, cutting hallucination/character-break rates in
-                  the hardest edge cases from 56% to 5%; owned production
-                  deploys, feature-flagged rollouts, and IVR/telephony
-                  integrations
-                </li>
-                <li>
-                  Evaluated and prototyped PII-redaction vendors (Private.AI,
-                  CaseGuard, AssemblyAI) for sensitive healthcare call data
-                </li>
-                <li>
-                  <em
-                    >Stack: C#/.NET (Microsoft Orleans), Python, LLM &amp;
-                    speech APIs (Gemini et al.), Twilio, Datadog LLM
-                    Observability, Git/CI-CD</em
-                  >
-                </li>
-              </ul>
-            </li>
-
-            <li>
-              <h5>Independent ML Research</h5>
-              <strong>University of London</strong>
-              <br />
-              <div class="dates"><em>Remote</em><em>2023-April 2025</em></div>
-              <ul>
-                <li>
-                  Advanced
-                  <a href="av-w-siamese-sbert.html">authorship verification</a>
-                  through integration of transformer architectures with
-                  comprehensive evaluation pipeline (AUC, c@1, F1, F0.5u
-                  metrics)
-                </li>
-                <li>
-                  Implemented novel text distortion techniques for enhanced
-                  model generalization
-                </li>
-                <li>
-                  Previous iteration explored feature engineering approaches
-                  with feed-forward networks, Spatium-L1 algorithm variations,
-                  and FAR/FRR metrics
-                </li>
-                <li>
-                  Developed and deployed data processing/ML pipeline to AWS-EC2
-                  handling 10M+ words across multiple views
-                </li>
-              </ul>
-            </li>
-
-            <li>
-              <h5>Software Engineer and Director of Technology</h5>
-              <strong>Kid Chess, Inc.</strong>
-              <br />
-              <div class="dates">
-                <em>Marietta, Georgia</em><em>2015-August 2025</em>
-              </div>
-              <ul>
-                <li>
-                  Created and deployed AI-driven feedback system using OpenAI's
-                  GPT-4 API, enhancing personalized learning for ~4,000
-                  students
-                </li>
-                <li>
-                  Led development of the
-                  <a href="https://app.kidchess.com"
-                    >online learning platform</a
-                  >
-                  from its 2020 launch, serving ~4,000 students (Angular, Azure
-                  Cloud)
-                </li>
-                <li>
-                  Automated business processes using Python data processing
-                  pipelines
-                </li>
-                <li>
-                  Managed technical team response to pandemic, achieving 90%
-                  student retention through platform transition
-                </li>
-              </ul>
-            </li>
-
-            <!-- Preserving previous experience entries -->
-            <li>
-              <h5>Dining Manager</h5>
-              <strong>The Chef's Apron Neighborhood Trattoria</strong>
-              <br />
-              <div class="dates">
-                <em>Asheville, North Carolina</em>
-                <em>2014-2015</em>
-              </div>
-              <ul>
-                <li>
-                  Inventory, food safety, customer relations, mixology, sales.
-                  Started as a server and was quickly promoted to bar tender and
-                  then to dining manager.
-                </li>
-              </ul>
-            </li>
-
-            <li>
-              <h5>Branch Supervisor</h5>
-              <strong
-                >Aramark Dining Services - Which Wich Branch Supervisor</strong
+          </li>
+          <li>
+            <strong>2017–18</strong
+            ><span
+              >Experimented with a Keras character-level generator; completed
+              deep-learning and machine-learning coursework.</span
+            >
+          </li>
+          <li>
+            <strong>2025</strong
+            ><span
+              >Completed a First Class BSc in Computer Science, Machine Learning
+              &amp; AI, at the University of London.</span
+            >
+          </li>
+          <li>
+            <strong>2026</strong
+            ><span
+              >Promoted to Staff ML Engineer; co-presented at AMTA; pursuing
+              <a href="https://bluedot.org/courses/agi-strategy"
+                >BlueDot AGI Strategy</a
               >
-              <div class="dates">
-                <em>Western Carolina University, Cullowhee, North Carolina</em>
-                <em>2012-2014</em>
-              </div>
-              <ul>
-                <li>
-                  Managed the busiest Which Wich franchise branch nationwide,
-                  under Aramark's supervision, at Western Carolina University,
-                  achieving record service volumes.
-                </li>
-                <li>
-                  Led a high-performing team in a fast-paced environment,
-                  serving thousands of customers daily.
-                </li>
-                <li>
-                  Recognized for exceptional leadership and performance with
-                  three promotions, two Employee of the Month awards, and a
-                  Safety Champion acknowledgment.
-                </li>
-              </ul>
-            </li>
-
-            <li>
-              <h5>Cadet</h5>
-              <strong>United States Army and National Guard</strong>
-              <br />
-              <div class="dates">
-                <em>Greenville & Fort Jackson, Columbia, South Carolina</em
-                ><em>2009-2011</em>
-              </div>
-              <ul>
-                <li>
-                  ROTC Cadet, Furman University: Paladin Battalion, 2009-2011.
-                </li>
-                <li>SMP Cadet, South Carolina National Guard, 2010-2011.</li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-
-        <section class="education">
-          <h3 id="certificates">Certifications</h3>
-          <div>
-            <ul class="certificatesList">
-              <li>
-                <a href="https://mainsailpartners.com/leap/" target="_blank"
-                  >LEAP (Leadership Acceleration Program) Manager Training</a
-                >
-                by Mainsail Partners. Certification earned in June 2026
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/verify/professional-cert/LG5LBAJ8XDZQ"
-                  target="_blank"
-                  >Data Science</a
-                >
-                by IBM on Coursera. Certification earned on March 3, 2023
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/4710f66daa4546786e24a6175208a151"
-                  target="_blank"
-                  >AI Engineering</a
-                >
-                by IBM on Coursera. Certification earned on March 31, 2022
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/6c724b041931b8e29c602eaa14c1a0ff"
-                  target="_blank"
-                >
-                  Applied AI</a
-                >
-                by IBM on Coursera. Certification earned on September 17, 2021
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/65e6db9e16ff5c8bbed3169dcf734325"
-                  target="_blank"
-                >
-                  IT Support</a
-                >
-                by Google on Coursera. Certification earned on March 20, 2020
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/1777a9ecaa01578452c797f3e1f4bbff"
-                  target="_blank"
-                  >Deep Learning</a
-                >
-                by deeplearning.ai on Coursera. Certification earned on February
-                19, 2018
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/8ad5bf6a70028b81405de95dea77e897"
-                  target="_blank"
-                  >Machine Learning</a
-                >
-                by Stanford University on Coursera. Certification earned on
-                November 27, 2018
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/9f4a2ec04e4d428b93a4f88ea8afdc64"
-                  target="_blank"
-                  >Data Structures and Algorithms</a
-                >
-                by University of California San Diego & National Research
-                University Higher School of Economics on Coursera. Certification
-                earned on October 4, 2018
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/8a6afac3f7f844cab66eceecbc65b7d1"
-                  target="_blank"
-                  >Responsive Website Development and Design</a
-                >
-                by University of London & Goldsmiths, University of London on
-                Coursera. Certification earned on September 26, 2017
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/78d8dd0ba83d6260448a5ba786b287d1"
-                  target="_blank"
-                  >Mathematics for Machine Learning: Multivariate Calculus</a
-                >
-                by Imperial College London on Coursera. Certification earned on
-                April 3, 2019
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/5ee454b061ca43b61649ff75838b4968"
-                  target="_blank"
-                  >Mathematics for Machine Learning: Linear Algebra</a
-                >
-                by Imperial College London on Coursera. Certification earned on
-                January 29, 2019
-              </li>
-              <li>
-                <a
-                  href="https://coursera.org/share/621de352fdffbfd3473777dba233a079"
-                  target="_blank"
-                  >Mathematical Thinking in Computer Science</a
-                >
-                by University of California San Diego & National Research
-                University Higher School of Economics on Coursera. Certification
-                earned on August 8, 2018
-              </li>
-              <li>
-                <a
-                  href="https://global-launch.secure.force.com/certificates/SCOM_MoocCertificate?Id=a090c00001BBb4h"
-                  target="_blank"
-                  >Teaching English to Speakers of Other Languages</a
-                >
-                by Arizona State University on Coursera. Certification earned on
-                December 15, 2017
-              </li>
-            </ul>
-          </div>
-        </section>
-      </article>
+              and independent safety experiments.</span
+            >
+          </li>
+        </ul>
+        <h2>On the bookshelf</h2>
+        <p>
+          <a href="https://brianchristian.org/the-alignment-problem/"
+            ><em>The Alignment Problem</em></a
+          >,
+          <a
+            href="https://www.hbglibrary.com/titles/eliezer-yudkowsky/if-anyone-builds-it-everyone-dies/9780316595643/"
+            ><em>If Anyone Builds It, Everyone Dies</em></a
+          >,
+          <a href="https://naomiklein.org/end-times-fascism/"
+            ><em>End Times Fascism</em></a
+          >, and
+          <a
+            href="https://wwnorton.co.uk/books/9781324098423-the-rise-and-fall-of-the-artificial-state"
+            ><em>The Rise and Fall of the Artificial State</em></a
+          >. Alongside
+          <a href="https://www.youtube.com/@RobertMilesAI">Robert Miles</a>’
+          work, I’ve listened to all the AI-safety episodes of the
+          <a href="https://80000hours.org/podcast/">80,000 Hours podcast</a>.
+        </p>
+        <h2>Beyond the work</h2>
+        <p>
+          Chess has been a recurring part of my life. So has making things for
+          the pleasure of figuring them out—including the
+          <a href="/animation.html">multiplication-table animation</a> on this
+          site.
+        </p>
+        <p>
+          I’m a U.S. citizen based in Brazil. Remote work is my preference; I’m
+          open to relocation for the right role.
+        </p>
+        <div class="actions">
+          <a class="button" href="mailto:zacbolton2129@gmail.com"
+            >Get in touch ↗</a
+          ><a class="text-link" href="/resume.html">Résumé ↗</a>
+        </div>
+      </div>
     </main>
-    <script type="text/javascript">
-      emailE = "gmail.com";
-
-      emailE = "zacbolton2129" + "@" + emailE;
-
-      document.getElementById("eml").innerHTML =
-        '<a href="mailto:' +
-        emailE +
-        '?subject=Reaching out from zacbolton.io.">' +
-        emailE +
-        "</a>.";
-    </script>
-    <!-- Loading script -->
-    <script type="text/javascript" src="scripts/loading-overlay.js"></script>
+    <footer class="site-footer">
+      <a href="/" class="footer-name">Zac Bolton.</a
+      ><span>Intelligence. Power. Better questions.</span>
+      <div>
+        <a href="https://github.com/zacharyabolton">GitHub ↗</a
+        ><a href="https://linkedin.com/in/zacabolton">LinkedIn ↗</a
+        ><a href="/animation.html">Play with the math ↗</a>
+      </div>
+    </footer>
   </body>
 </html>

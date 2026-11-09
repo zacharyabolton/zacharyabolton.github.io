@@ -27,7 +27,21 @@ window.onload = function () {
 // --- p5.js Sketch Variables ---
 var canvas, nodes, factor, radius;
 var palette = [];
-var isFirefox = false;
+var drawing;
+var motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
+var motionPaused = motionPreference.matches;
+var pulseFrame = 0;
+
+function updateMotion() {
+  const button = document.getElementById("playground-motion");
+  if (button) {
+    button.textContent = motionPaused ? "Play motion" : "Pause motion";
+    button.setAttribute("aria-pressed", String(motionPaused));
+  }
+  if (document.hidden || (motionPaused && !drawing.active(performance.now())))
+    noLoop();
+  else loop();
+}
 
 // Expanded range for more variety:
 var minNodes = 100;
@@ -49,19 +63,11 @@ var globalHueCycle = 0;
 
 // --- Setup & Initial Randomization ---
 function setup() {
-  // Detect Firefox
-  isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-  
-  pixelDensity(displayDensity());
+  // This is flat geometry: Canvas 2D avoids thousands of WebGL draw calls.
+  pixelDensity(Math.min(displayDensity(), 2));
+  canvas = createCanvas(windowWidth, windowHeight);
   colorMode(HSB);
-  
-  // Use 2D renderer for Firefox, WEBGL for others
-  if (isFirefox) {
-    canvas = createCanvas(windowWidth, windowHeight);
-  } else {
-    canvas = createCanvas(windowWidth, windowHeight, WEBGL);
-  }
-  
+
   canvas.position(0, 0);
   canvas.style("z-index", "-1");
 
@@ -69,13 +75,31 @@ function setup() {
   smooth();
   background(10);
 
-  reinitialize(); // set nodes, factor, palette initially
+  reinitialize(false);
+  const motionButton = document.getElementById("playground-motion");
+  motionButton.addEventListener("click", () => {
+    motionPaused = !motionPaused;
+    updateMotion();
+  });
+  motionPreference.addEventListener("change", () => {
+    motionPaused = motionPreference.matches;
+    if (motionPreference.matches) drawing.start(performance.now(), false);
+    redraw();
+    updateMotion();
+  });
+  document.addEventListener("visibilitychange", () => {
+    redraw();
+    updateMotion();
+  });
+  updateMotion();
 }
 
 // --- Reinitialize Function ---
-function reinitialize() {
+function reinitialize(animate = true) {
   nodes = ceil(random(minNodes, maxNodes));
   factor = ceil(random(minF, maxF));
+  drawing = new window.MultiplicationDrawing(nodes, factor);
+  drawing.start(performance.now(), animate && !motionPreference.matches);
 
   // For a focused look, choose 1 or 2 colors.
   palette = [];
@@ -86,6 +110,10 @@ function reinitialize() {
     let briVal = random(50, 70);
     palette.push({ hue: hueVal, sat: satVal, bri: briVal });
   }
+  document.getElementById("nodesOutput").textContent = nodes;
+  document.getElementById("factorOutput").textContent = factor;
+  redraw();
+  updateMotion();
 }
 
 // Ease‑in‑out using cosine
@@ -96,25 +124,18 @@ function easeInOut(t) {
 function draw() {
   background(10);
 
-  // Handle coordinate system differences between WEBGL and 2D renderers
-  if (isFirefox) {
-    // 2D renderer - translate to center
-    push();
-    translate(windowWidth / 2, windowHeight / 2);
-  } else {
-    // WEBGL renderer - center coordinate system
-    translate(-windowWidth / 2, -windowHeight / 2);
-    translate(windowWidth / 2, windowHeight / 2);
-  }
+  push();
+  translate(windowWidth / 2, windowHeight / 2);
 
   // --- Global Pulse (dynamic movement) ---
-  let rawT = (frameCount * pulseSpeed) % 2;
+  if (!motionPaused) pulseFrame++;
+  let rawT = (pulseFrame * pulseSpeed) % 2;
   let tVal = rawT < 1 ? rawT : 2 - rawT;
   let easeT = easeInOut(tVal);
   let globalPulseX = lerp(radius, -radius, easeT);
 
   // --- Update the slow global hue cycle ---
-  globalHueCycle = (frameCount * 0.1) % 360;
+  globalHueCycle = (pulseFrame * 0.1) % 360;
 
   // --- Adjust Segments for Performance ---
   let segCount;
@@ -131,13 +152,16 @@ function draw() {
   let sigma = effectivePulseThreshold / 2;
 
   // --- Draw Multiplication Table Connections ---
-  for (let i = 0; i < nodes; i++) {
-    let angle1 = (TWO_PI / nodes) * i;
-    let angle2 = (TWO_PI / nodes) * ((i * factor) % nodes);
-    let x1 = sin(angle1) * radius;
-    let y1 = cos(angle1) * radius;
-    let x2 = sin(angle2) * radius;
-    let y2 = cos(angle2) * radius;
+  const stamp = performance.now();
+  const amount = drawing.amount(stamp);
+  for (let index = 0; index < Math.ceil(amount); index++) {
+    const connection = drawing.connections[index];
+    const i = connection.i;
+    const part = Math.min(1, amount - index);
+    const x1 = connection.x1 * radius,
+      y1 = connection.y1 * radius;
+    const x2 = connection.x2 * radius,
+      y2 = connection.y2 * radius;
 
     // Pick from our 1–2 color palette
     let baseColor = palette[i % palette.length];
@@ -145,7 +169,8 @@ function draw() {
     // Subdivide each connection
     for (let j = 0; j < segCount; j++) {
       let t1 = j / segCount;
-      let t2 = (j + 1) / segCount;
+      if (t1 >= part) break;
+      let t2 = Math.min((j + 1) / segCount, part);
       let segX1 = lerp(x1, x2, t1);
       let segY1 = lerp(y1, y2, t1);
       let segX2 = lerp(x1, x2, t2);
@@ -180,14 +205,9 @@ function draw() {
     }
   }
 
-  // Restore transformation matrix for Firefox
-  if (isFirefox) {
-    pop();
-  }
+  pop();
 
-  // --- Update On-Screen Displays ---
-  document.getElementById("nodesOutput").innerHTML = nodes;
-  document.getElementById("factorOutput").innerHTML = factor;
+  if (motionPaused && !drawing.active(stamp)) noLoop();
 }
 
 // Reinitialize on 'r' key
@@ -202,13 +222,4 @@ function windowResized() {
   canvas.style("z-index", "-1");
   radius = min(windowHeight, windowWidth) / 2;
   background(10);
-  
-  // Ensure proper rendering mode is maintained on resize
-  if (isFirefox && canvas._renderer.drawingContext.constructor.name === "WebGLRenderingContext") {
-    // If somehow we ended up with WebGL in Firefox, recreate as 2D
-    canvas.remove();
-    canvas = createCanvas(windowWidth, windowHeight);
-    canvas.position(0, 0);
-    canvas.style("z-index", "-1");
-  }
 }

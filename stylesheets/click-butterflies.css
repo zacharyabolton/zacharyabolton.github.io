@@ -1,0 +1,162 @@
+.click-butterfly-layer {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1000;
+}
+/* Segmented wings from the original butterfly playground, scoped for the portfolio. */
+.click-butterfly {
+  position: absolute;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  user-select: none;
+  perspective: 600px;
+}
+
+.click-butterfly-wing {
+  display: inline-block;
+  transform-origin: right center;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.click-butterfly-wing > * {
+  position: relative;
+  margin: 3% 3%;
+}
+
+.click-butterfly-forewing,
+.click-butterfly-hindwing {
+  position: relative;
+}
+
+.click-butterfly-piece {
+  position: absolute;
+}
+
+/* Forewing section positioning */
+.click-butterfly-forewing .click-butterfly-piece.one {
+  width: 46.52%;
+  height: 54.26%;
+}
+
+.click-butterfly-forewing .click-butterfly-piece.one svg {
+  position: absolute;
+  bottom: 0;
+}
+
+.click-butterfly-forewing .click-butterfly-piece.two {
+  width: 40.43%;
+  height: 22.11%;
+  top: 59.5%;
+}
+
+.click-butterfly-forewing .click-butterfly-piece.two svg {
+  position: absolute;
+  top: 0;
+}
+
+.click-butterfly-forewing .click-butterfly-piece.three {
+  width: 85.65%;
+  top: 62%;
+  left: 10%;
+}
+
+.click-butterfly-forewing .click-butterfly-piece.four {
+  width: 39.04%;
+  height: 33.96%;
+  top: 59.5%;
+  left: 60%;
+}
+
+.click-butterfly-forewing .click-butterfly-piece.four svg {
+  position: absolute;
+  top: 0;
+}
+
+.click-butterfly-forewing .click-butterfly-piece.five {
+  width: 66%;
+  height: 53.45%;
+  left: 21%;
+}
+
+.click-butterfly-forewing .click-butterfly-piece.five svg {
+  position: absolute;
+  bottom: 0;
+}
+
+/* Hindwing section positioning */
+.click-butterfly-hindwing .click-butterfly-piece.one {
+  width: 36.72%;
+  top: 24%;
+}
+
+.click-butterfly-hindwing .click-butterfly-piece.two {
+  width: 77.79%;
+  left: 22%;
+}
+
+.click-butterfly-hindwing .click-butterfly-piece.three {
+  width: 38.41%;
+  top: 53%;
+  left: 47%;
+}
+
+.click-butterfly-hindwing .click-butterfly-piece.center {
+  width: 54.52%;
+  top: 28%;
+  left: 25%;
+}
+
+.right.click-butterfly-wing {
+  transform: rotateY(180deg);
+  right: 45%;
+}
+
+.click-butterfly {
+  z-index: 1000;
+}
+
+@keyframes click-flutter-left {
+  0%,
+  100% {
+    transform: rotateY(0deg) rotateX(0deg);
+  }
+  50% {
+    transform: rotateY(60deg) rotateX(8deg);
+  }
+}
+
+@keyframes click-flutter-right {
+  0%,
+  100% {
+    transform: rotateY(180deg) rotateX(0deg);
+  }
+  50% {
+    transform: rotateY(120deg) rotateX(-8deg);
+  }
+}
+
+.click-butterfly-wing.left {
+  animation: click-flutter-left 0.5s infinite ease-in-out;
+}
+.click-butterfly-wing.right {
+  animation: click-flutter-right 0.5s infinite ease-in-out;
+}
+
+.click-butterfly,
+.click-butterfly * {
+  pointer-events: none;
+}
+.click-butterfly svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media print, (prefers-reduced-motion: reduce) {
+  .click-butterfly-layer,
+  .click-butterfly {
+    display: none !important;
+  }
+}
